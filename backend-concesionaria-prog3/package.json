@@ -1,0 +1,19 @@
+{
+  "name": "backend-concesionaria-prog3",
+  "version": "1.0.0",
+  "description": "API Rest para gestionar reclamos",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "node index.js",
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Den Durruty",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "mysql2": "^3.12.0"
+  }
+}
