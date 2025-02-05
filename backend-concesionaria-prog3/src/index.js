@@ -1,22 +1,28 @@
 import express from 'express';
 import { conn } from './database/conn.js';
 import dotenv from 'dotenv';
-import { router, router as v1ReclamosEstadoRouter } from './v1/routes/reclamosEstadosRoutes.js';
+import { router as v1ReclamosEstadoRouter } from './v1/routes/reclamosEstadosRoutes.js';
+import { router as v1ReclamosRouter } from './v1/routes/reclamosEstadosRoutes.js';
+import validateContentType from './middlewares/validateContentType.js';
 
 dotenv.config();
 
-// Iniciar el servidor
+// Iniciar la app
 const app = express();
+
+// Middlewares
+app.use(express.json());
+app.use(validateContentType);
 
 // Rutas
 app.get('/', (req, res) => {
     res.send('Gestión de reclamos')
+    res.json({'estado':true});
 });
 
-app.use(express.json());
-
-
 app.use('/api/v1/reclamosEstado', v1ReclamosEstadoRouter);
+app.use('/api/v1/reclamos', v1ReclamosRouter);
+
 
 // Probar conexión a base de datos
 conn.connect(err => {

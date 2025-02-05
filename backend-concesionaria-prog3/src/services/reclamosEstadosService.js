@@ -12,6 +12,10 @@ export default class ReclamosEstadosService{
     buscarTodos = () => {
         return this.reclamosEstados.buscarTodos();
     }
+
+    crear = (reclamoEstado) => {
+        return this.reclamosEstados.crear(reclamoEstado);
+    }
 }
 
 // Cuando utilicemos este servicio va a existir un método que me busca todos los reclamos de estado
