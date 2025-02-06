@@ -8,7 +8,10 @@ const reclamosEstadosController = new ReclamosEstadosController()
 ;
 
 router.get('/', reclamosEstadosController.buscarTodos);
-router.post('/', reclamosEstadosController.crear);
+router.post('/crear', reclamosEstadosController.crear);
+router.patch('/:idReclamoEstado', reclamosEstadosController.modificar);
+// reclamosEstadosController.consultarEstado);
+
 
 export { router };
 // Cuando me pidan todos los reclamos de estado, asigno este controlador a este método.

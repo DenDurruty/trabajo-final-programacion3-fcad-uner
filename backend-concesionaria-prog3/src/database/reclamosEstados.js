@@ -18,7 +18,7 @@ export default class ReclamosEstados {
         return (result.length > 0) ? result[0] : null;
     }
 
-    crear = async ({descripcion, activo}) => {
+    crear = async ({ descripcion, activo }) => {
 
         const sql = 'INSERT INTO reclamosEstado (descripcion, activo) VALUES (?,?) ';
         const [result] = await conn.query(sql, [descripcion, activo]);
@@ -31,7 +31,40 @@ export default class ReclamosEstados {
 
         return this.buscarPorId(result.insertId)
     }
+
+    modificar = async ({ idReclamoEstado, descripcion, activo }) => {
+
+        const sql = 'UPDATE reclamosEstado SET descripcion = ? , activo = ? WHERE idReclamoEstado = ?';
+        const [result] = await conn.query(sql, [descripcion, activo, idReclamoEstado]);
+
+        if (result.affectedRows === 0) {
+            return result.status(404).json({ 
+                mensaje: "No se puedo modificar el reclamo."
+            })
+        }
+
+        return this.buscarPorId(idReclamoEstado)
+
+    }
+        
+
+
 }
 
-// modificar = async () => {
-//    }
+
+
+
+
+
+
+
+
+
+/*
+    consultarEstado = async ({ idReclamoEstado, idUsuario }) => {
+
+        const sql = 'SELECT * FROM reclamosEstado WHERE activo = 1 AND idReclamoEstado =? AND idUsuario =?';
+        const [result] = await conn.query(sql, [idReclamoEstado, idUsuario]);
+        return (result.length > 0) ? result[0] : null;
+    }
+*/

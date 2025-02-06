@@ -55,8 +55,63 @@ export default class ReclamosEstadosController{
             res.status(500).send({
                 estado:"Falla", mensaje: "Error interno en servidor."
             });
-
         } 
+    }
+    modificar = async (req, res) => {
+        const { descripcion, activo } = req.body;
+        const idReclamoEstado = req.params.idReclamoEstado;
+    
+        if (!descripcion) {
+            return res.status(400).send({
+                estado: "Falla",
+                mensaje: "Se requiere el campo de descripción."
+            });
+        }
+    
+        if (activo === undefined || activo === null) {
+            return res.status(400).send({
+                estado: "Falla",
+                mensaje: "Se requiere el campo activo."
+            });
+        }
+    
+        try {
+            const reclamoEstado = {
+                idReclamoEstado,  // Asegurando que el idReclamoEstado se pase al servicio
+                descripcion,
+                activo
+            };
+    
+            const modifReclamoEstado = await this.service.modificar(reclamoEstado);
+            res.status(201).send({
+                estado: "OK",
+                data: modifReclamoEstado
+            });
+    
+        } catch (error) {
+            console.log(error);
+            res.status(500).send({
+                estado: "Falla",
+                mensaje: "Error interno en servidor."
+            });
+        }
     }
 }
 
+
+    /*
+    consultarEstado = async (req, res) => {
+        const { idReclamoEstado } = req.params;
+        const { idUsuario } = req.query;
+        
+        try {
+            const consultarEstadoReclamo = await this.service.consultarEstado();
+            res.status(200).send(consultarEstadoReclamo)
+        } catch (error) {
+            console.log(error);
+            res.status(500).send ({
+                estado:"Falla", mensaje:"Error interno en el servidor."
+            });
+        }
+    }
+    */

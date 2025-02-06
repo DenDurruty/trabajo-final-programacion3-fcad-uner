@@ -16,6 +16,20 @@ export default class ReclamosEstadosService{
     crear = (reclamoEstado) => {
         return this.reclamosEstados.crear(reclamoEstado);
     }
+
+    modificar = (reclamoEstado) => {
+        return this.reclamosEstados.modificar(reclamoEstado)
+    }
+
+    
+
+
+    
 }
 
 // Cuando utilicemos este servicio va a existir un método que me busca todos los reclamos de estado
+/*
+    consultarEstado = (consultarEstadoReclamo) => {
+        return this.reclamosEstados.consultarEstado(consultarEstadoReclamo);
+    } 
+*/
