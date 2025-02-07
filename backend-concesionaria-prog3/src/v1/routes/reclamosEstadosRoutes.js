@@ -4,13 +4,14 @@ import ReclamosEstadosController from '../../controllers/reclamosEstadosControll
 // Definir las rutas que van a esperar
 const router = express.Router();
 
-const reclamosEstadosController = new ReclamosEstadosController()
-;
+const reclamosEstadosController = new ReclamosEstadosController();
 
+//router.get('/:idReclamoEstado', reclamosEstadosController.buscarPorId);
 router.get('/', reclamosEstadosController.buscarTodos);
 router.post('/crear', reclamosEstadosController.crear);
-router.patch('/:idReclamoEstado', reclamosEstadosController.modificar);
-// reclamosEstadosController.consultarEstado);
+router.patch('/modificar/:idReclamoEstado', reclamosEstadosController.modificar);
+// router.get('/consultarEstado', reclamosEstadosController.consultarEstado);
+router.patch('/cancelar/:idReclamoEstado', reclamosEstadosController.cancelar); // Nueva ruta para cancelar
 
 
 export { router };

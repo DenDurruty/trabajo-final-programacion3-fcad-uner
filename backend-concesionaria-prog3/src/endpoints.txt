@@ -1,9 +1,22 @@
+
+**************************
+ENDPOINTS RECLAMOS ESTADOS
+**************************
 GET http://localhost:3000/api/v1/reclamosEstado
 POST http://localhost:3000/api/v1/reclamosEstado/crear
 GET http://localhost:3000/api/v1/reclamosEstado/7 (id del reclamo)
 PATCH http://localhost:3000/api/v1/reclamosEstado/7 (id del reclamo)
 
-LOS CLIENTES USAN RECLAMOS.JS:
-- CREAR RECLAMOS
-- LISTAR RECLAMOS
-- CANCELAR UN RECLAMO EN ESTADO: CREADO
+
+******************
+ENDPOINTS RECLAMOS
+******************
+Los CLIENTES usan RECLAMOS.JS:
+- CREAR reclamos
+- CONSULTAR reclamos
+- CANCELAR un reclamo en estado: creado
+
+GET http://localhost:3000/api/v1/reclamos
+POST http://localhost:3000/api/v1/reclamos/crear
+GET http://localhost:3000/api/v1/reclamos/7 (id del reclamo)
+PATCH http://localhost:3000/api/v1/reclamos/7 (id del reclamo)

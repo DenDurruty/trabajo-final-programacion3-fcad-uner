@@ -2,7 +2,7 @@ import express from 'express';
 import { conn } from './database/conn.js';
 import dotenv from 'dotenv';
 import { router as v1ReclamosEstadoRouter } from './v1/routes/reclamosEstadosRoutes.js';
-import { router as v1ReclamosRouter } from './v1/routes/reclamosEstadosRoutes.js';
+import { router as v1ReclamosRouter } from './v1/routes/reclamosRoutes.js';
 import validateContentType from './middlewares/validateContentType.js';
 
 dotenv.config();
@@ -20,7 +20,7 @@ app.get('/', (req, res) => {
     res.json({'estado':true});
 });
 
-app.use('/api/v1/reclamosEstado', v1ReclamosEstadoRouter);
+app.use('/api/v1/reclamos-estados', v1ReclamosEstadoRouter);
 app.use('/api/v1/reclamos', v1ReclamosRouter);
 
 
