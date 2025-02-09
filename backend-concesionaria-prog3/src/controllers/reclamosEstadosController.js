@@ -22,7 +22,7 @@ export default class ReclamosEstadosController{
         }
     }
 
-    buscarPorId = async (req, res) => {
+    /*buscarPorId = async (req, res) => {
         const idReclamoEstado = req.params.idReclamoEstado;
     
         if (!idReclamoEstado) {
@@ -52,7 +52,28 @@ export default class ReclamosEstadosController{
                 mensaje: "Error interno en el servidor."
             });
         }
-    }    
+    }    */
+    buscarPorId = async (req, res) => {
+        const idReclamoEstado = req.params.idReclamoEstado;
+
+        if (idReclamoEstado === undefined) {
+            return res.status(400).send({
+                estado:"Falla",
+                mensaje: "Faltan datos obligatorios."    
+            })
+        }
+
+        try{
+            const reclamoEstado = await this.service.buscarPorId(idReclamo);
+            res.status(200).send({estado: 'OK' , data: reclamo})
+
+        }catch (error){
+            console.log(error);
+            res.status(500).send({
+                estado:"Falla", mensaje: "Error interno en servidor."
+            });
+        }
+    }
 
     crear = async (req, res) => {
         const { descripcion, activo } = req.body;
