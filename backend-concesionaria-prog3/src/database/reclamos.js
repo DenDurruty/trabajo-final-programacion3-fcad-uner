@@ -29,12 +29,21 @@ export default class Reclamos{
         const [result] = await conn.query(sql, [asunto, idReclamoTipo, idUsuarioCreador]);
 
         if (result.affectedRows === 0) {
-            return res.status(404).json({
-                mensaje: "No se pudo crear el reclamo." 
-            })
+            return false;
         }
         
         return this.buscarPorId(result.insertId);
+    }
+
+    modificar = async (idReclamo, datos) => {
+        const sql = 'UPDATE reclamos SET ? WHERE idReclamo = ?';
+        const [result] =await conn.query(sql, [datos, idReclamo]);
+
+        if (result.affectedRows === 0) {
+            return false;
+        }
+
+        return true;
     }
 
     

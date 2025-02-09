@@ -8,10 +8,11 @@ const reclamosEstadosController = new ReclamosEstadosController();
 
 //router.get('/:idReclamoEstado', reclamosEstadosController.buscarPorId);
 router.get('/', reclamosEstadosController.buscarTodos);
+router.get('/', reclamosEstadosController.buscarPorId);
 router.post('/crear', reclamosEstadosController.crear);
-router.patch('/modificar/:idReclamoEstado', reclamosEstadosController.modificar);
-// router.get('/consultarEstado', reclamosEstadosController.consultarEstado);
-router.patch('/cancelar/:idReclamoEstado', reclamosEstadosController.cancelar); // Nueva ruta para cancelar
+//router.patch('/modificar/:idReclamoEstado', reclamosEstadosController.modificar);
+//router.get('/consultarEstado', reclamosEstadosController.consultarEstado);
+//router.patch('/cancelar/:idReclamoEstado', reclamosEstadosController.cancelar); // Nueva ruta para cancelar
 
 
 export { router };

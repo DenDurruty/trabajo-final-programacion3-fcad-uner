@@ -13,8 +13,8 @@ export default class ReclamosEstadosService{
         return this.reclamosEstados.buscarTodos();
     }
 
-    buscarPorId = () => {
-        return this.reclamosEstados.buscarPorId();
+    buscarPorId = (idReclamoEstado) => {
+        return this.reclamosEstados.buscarPorId(idReclamoEstado);
     }
 
     crear = (reclamoEstado) => {

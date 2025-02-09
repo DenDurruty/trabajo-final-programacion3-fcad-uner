@@ -22,37 +22,6 @@ export default class ReclamosEstadosController{
         }
     }
 
-    /*buscarPorId = async (req, res) => {
-        const idReclamoEstado = req.params.idReclamoEstado;
-    
-        if (!idReclamoEstado) {
-            return res.status(400).send({
-                estado: "Falla",
-                mensaje: "Se requiere el id del reclamo."
-            });
-        }
-    
-        try {
-            const reclamoEstado = await this.service.buscarPorId(idReclamoEstado);
-            if (!reclamoEstado) {
-                return res.status(404).send({
-                    estado: "Falla",
-                    mensaje: "No se encontró el reclamo con el id proporcionado."
-                });
-            }
-    
-            res.status(200).send({
-                estado: "OK",
-                data: reclamoEstado
-            });
-        } catch (error) {
-            console.log("Error interno en el servidor:", error);
-            res.status(500).send({
-                estado: "Falla",
-                mensaje: "Error interno en el servidor."
-            });
-        }
-    }    */
     buscarPorId = async (req, res) => {
         const idReclamoEstado = req.params.idReclamoEstado;
 
@@ -64,8 +33,8 @@ export default class ReclamosEstadosController{
         }
 
         try{
-            const reclamoEstado = await this.service.buscarPorId(idReclamo);
-            res.status(200).send({estado: 'OK' , data: reclamo})
+            const reclamoEstado = await this.reclamosEstadosservice.buscarPorId(idReclamoEstado);
+            res.status(200).send({estado: 'OK' , data: reclamoEstado})
 
         }catch (error){
             console.log(error);
@@ -111,7 +80,7 @@ export default class ReclamosEstadosController{
         } 
     }
 
-    modificar = async (req, res) => {
+/*    modificar = async (req, res) => {
         const { descripcion, activo } = req.body;
         const idReclamoEstado = req.params.idReclamoEstado;
     
@@ -182,7 +151,7 @@ export default class ReclamosEstadosController{
             });
         }
     }
-
+*/
 
 }
 
