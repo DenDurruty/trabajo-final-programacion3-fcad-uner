@@ -46,5 +46,17 @@ export default class Reclamos{
         return true;
     }
 
+    buscarInformacionClientePorReclamo = async (idReclamo) => {
+        console.log('Ejecutando buscarInformacionClientePorReclamo');
+        const sql = `SELECT CONCAT(u.apellido, ', ', u.nombre) AS cliente, u.correoElectronico, rt.descripcion AS estado 
+                        FROM reclamos AS r 
+                        INNER JOIN usuarios AS u ON u.idUsuario = r.idUsuarioCreador 
+                        INNER JOIN reclamos_estado AS rt ON rt.idReclamoEstado = r.idReclamoEstado
+                        WHERE r.idReclamo = ?;`;
+        const [result] = await conn.query(sql, [idReclamo]);
+
+        return result;
+    }
+
     
 }

@@ -1,9 +1,12 @@
 import Reclamos from "../database/reclamos.js";
+import NotificacionesService from "./notificacionesService.js";
+
 
 export default class ReclamosService {
 
     constructor(){
         this.reclamos = new Reclamos();
+        this.notificaciones = new NotificacionesService();
     }
 
     buscarTodos = () => {
@@ -30,6 +33,50 @@ export default class ReclamosService {
 
         await this.reclamos.modificar(idReclamo, datos);
         return {estado: true, mensaje:"Reclamo modificado"};
+    }
+
+    atencionReclamo = async (idReclamo, datosReclamo) => {
+        // verificar si existe el reclamo
+        const existe = await this.reclamos.buscarPorId(idReclamo);
+        if (existe === null) {
+            return {estado: false, mensaje: 'idReclamo no existe'};
+        }    
+
+        // modificar el reclamo
+        const modificado = await this.reclamos.modificar(idReclamo, datosReclamo);
+        if (!modificado){
+            return {estado: false, mensaje: 'Reclamo no modificado'};
+        }
+
+        // buscar los datos del cliente
+        const cliente = await this.reclamos.buscarInformacionClientePorReclamo(idReclamo);
+        if (!cliente || cliente.length === 0) {
+            console.log("faltan datos");
+            return {estado: false, mensaje: 'Faltan datos de cliente'};
+        }
+        /*
+        if (resultado.length > 0) {
+            const datosCorreo = {
+                cliente: resultado[0].cliente,
+                correoElectronico: resultado[0].correoElectronico,
+                reclamo: idReclamo // Asigna manualmente el ID del reclamo
+            };
+        }
+        */
+       /* if (!cliente){
+            return {estado: false, mensaje: 'Faltan datos de cliente'};
+        }*/
+
+         
+        const datosCorreo = {
+            nombre: cliente[0].nombre,
+            correoElectronico: cliente[0].correoElectronico,
+            reclamo: idReclamo
+        }
+        
+        // enviar la notificacion
+        return await this.notificaciones.enviarCorreo(datosCorreo);
+        
     }
 
 }
