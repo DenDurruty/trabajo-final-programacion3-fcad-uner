@@ -27,9 +27,9 @@ export default class NotificacionesService {
                 user: process.env.CORREO,
                 pass: process.env.CLAVE
             },
-            tls: {
+            /*tls: {
                 rejectUnauthorized: false // Esto ignora los certificados autofirmados si es necesario
-              }
+              }*/
         });
         
         const mailOptions = {

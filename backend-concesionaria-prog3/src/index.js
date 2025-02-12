@@ -3,6 +3,7 @@ import { conn } from './database/conn.js';
 import dotenv from 'dotenv';
 import { router as v1ReclamosEstadoRouter } from './v1/routes/reclamosEstadosRoutes.js';
 import { router as v1ReclamosRouter } from './v1/routes/reclamosRoutes.js';
+import { router as v1OficinasRouter } from './v1/routes/oficinasRoutes.js';
 import validateContentType from './middlewares/validateContentType.js';
 
 dotenv.config();
@@ -22,6 +23,7 @@ app.get('/', (req, res) => {
 
 app.use('/api/v1/reclamos-estados', v1ReclamosEstadoRouter);
 app.use('/api/v1/reclamos', v1ReclamosRouter);
+app.use('/api/v1/oficinas', v1OficinasRouter);
 
 
 // Probar conexión a base de datos
