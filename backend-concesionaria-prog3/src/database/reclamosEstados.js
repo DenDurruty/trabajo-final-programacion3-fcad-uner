@@ -47,7 +47,10 @@ export default class ReclamosEstados {
         return this.buscarPorId(idReclamoEstado);
 
     }
+}
 
+
+/*
     cancelar = async (idReclamoEstado) => {
         const sql = 'UPDATE reclamos_estado SET estado = "cancelado" WHERE idReclamoEstado = ? AND estado = "creado"';
         const [result] = await conn.query(sql, [idReclamoEstado]);
@@ -59,11 +62,7 @@ export default class ReclamosEstados {
         }
         return this.buscarPorId(idReclamoEstado);
     }
-        
-}
 
-
-/*
     consultarEstado = async ({ idReclamoEstado, idUsuario }) => {
 
         const sql = 'SELECT * FROM reclamosEstado WHERE activo = 1 AND idReclamoEstado =? AND idUsuario =?';
@@ -71,3 +70,4 @@ export default class ReclamosEstados {
         return (result.length > 0) ? result[0] : null;
     }
 */
+

@@ -24,20 +24,17 @@ export default class ReclamosEstadosService{
     modificar = (reclamoEstado) => {
         return this.reclamosEstados.modificar(reclamoEstado)
     }
-
+/*
     cancelar = (idReclamoEstado) => {
         return this.reclamosEstados.cancelar(idReclamoEstado);
     }
-
-    
-
-
-    
-}
-
-// Cuando utilicemos este servicio va a existir un método que me busca todos los reclamos de estado
+*/
+ // Cuando utilicemos este servicio va a existir un método que me busca todos los reclamos de estado
 /*
     consultarEstado = (consultarEstadoReclamo) => {
         return this.reclamosEstados.consultarEstado(consultarEstadoReclamo);
     } 
-*/
+*/   
+    
+}
+

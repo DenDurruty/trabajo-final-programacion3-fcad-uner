@@ -5,6 +5,7 @@ export default class Oficinas{
 
     agregarEmpleados = async ({idOficina, empleados}) => {
         let agregados = 0;
+        
         try{
             // iniciar transacción
             await conn.beginTransaction();
@@ -12,7 +13,7 @@ export default class Oficinas{
             // por cada empleado hacer insert, aumentar agregados
             for (const empleado of empleados){
                 const sql = `INSERT INTO usuarios_oficinas (idUsuario, idOficina, activo) VALUES (?,?, 1);`;
-                const [result] = conn.query(sql, [empleado.idUsuario, idOficina]);
+                const [result] = await conn.query(sql, [empleado.idUsuario, idOficina]);
                 agregados += 1;
             }
 

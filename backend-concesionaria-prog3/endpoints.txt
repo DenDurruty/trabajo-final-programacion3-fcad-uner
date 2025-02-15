@@ -1,0 +1,95 @@
+
+                                                     **************************
+                                                     ENDPOINTS RECLAMOS ESTADOS
+                                                     **************************
+GET http://localhost:3000/api/v1/reclamos-estados    =>    Recupera todos los estados de reclamo
+GET http://localhost:3000/api/v1/reclamos-estados/:idReclamoEstado    =>    Recupera un estado de reclamo por su id
+POST http://localhost:3000/api/v1/reclamos-estados/crear    =>    Crea un estado de reclamo
+Prompt:
+{
+        "descripcion": "",
+        "activo": 1
+}
+PATCH http://localhost:3000/api/v1/reclamos-estados/modificar/:idReclamoEstado    =>    Modifica el estado de un reclamo    ****Corregir: no modifica
+Prompt:
+{
+}
+
+
+
+
+
+                                                      ******************
+                                                      ENDPOINTS RECLAMOS
+                                                      ******************
+GET http://localhost:3000/api/v1/reclamos    =>    Recupera todos los reclamos    ****Corregir: no muestra idReclamo
+GET http://localhost:3000/api/v1/reclamos/:idReclamo    =>    Recupera un reclamo por su id
+POST http://localhost:3000/api/v1/reclamos/crear    =>    Crea un reclamo
+Prompt:
+    {
+        "asunto": "",
+        "idReclamoTipo": ,
+        "idUsuarioCreador": 
+    }
+PATCH http://localhost:3000/api/v1/reclamos/modificar/:idReclamo    =>    Modifica un reclamo
+    {
+        "asunto": "",
+        "descripcion":""
+    }
+
+POST http://localhost:3000/api/v1/reclamos/atender/:idReclamo    =>    Atiende un reclamo    ****Corregir: si string en lugar de number me devulve "error en el servidor"
+    {
+       "idReclamoEstado":2
+    }
+
+
+
+                                                      ******************
+                                                      ENDPOINTS OFICINAS
+                                                      ******************
+POST http://localhost:3000/api/v1/oficinas/agregar-empleados    =>    Agrega un empleado
+{
+  "idOficina": ,
+  "idUsuario": 
+}
+POST http://localhost:3000/api/v1/oficinas/quitar-empleados    =>    Quita un empleado 
+
+
+
+                                                      ******************
+                                                      ENDPOINTS USUARIOS
+                                                      ******************
+GET http://localhost:3000/api/v1/usuarios    =>    Recupera todos los usuarios
+GET http://localhost:3000/api/v1/usuarios/:idUsuario    =>    Recupera un usuario por su id  
+GET http://localhost:3000/api/v1/usuarios/correoElectronico   =>    Recupera un usuario por su email    ****COMPLETAR: en el controller
+POST http://localhost:3000/api/v1/usuarios/crear    =>    Crea un usuario 
+Prompt:
+{
+        "nombre": "",
+        "apellido": "",
+        "correoElectronico": "",
+        "contrasenia": "",
+        "idUsuarioTipo": ""
+}
+PATCH http://localhost:3000/api/v1/usuarios/modificar/idUsuario   =>    Modifica un usuario    ****COMPLETAR: en el controller
+
+
+
+                                                      **************
+                                                      ENDPOINTS AUTH
+                                                      **************
+POST http://localhost:3000/api/v1/auth/registrar    =>    Registra usuarios    ****CORREGIR: quitar el idUsuarioTipo porque todos se registran como clientes
+Prompt:
+{
+        "nombre": "",
+        "apellido": "",
+        "correoElectronico": "",
+        "contrasenia": "",
+        "idUsuarioTipo": ""
+}
+POST http://localhost:3000/api/v1/auth/login   =>    Inicia sesión 
+Prompt:
+{
+    "correoElectronico": "",
+    "contrasenia": "",
+}

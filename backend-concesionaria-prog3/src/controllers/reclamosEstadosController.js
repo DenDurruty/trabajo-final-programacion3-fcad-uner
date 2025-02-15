@@ -33,7 +33,7 @@ export default class ReclamosEstadosController{
         }
 
         try{
-            const reclamoEstado = await this.reclamosEstadosservice.buscarPorId(idReclamoEstado);
+            const reclamoEstado = await this.service.buscarPorId(idReclamoEstado);
             res.status(200).send({estado: 'OK' , data: reclamoEstado})
 
         }catch (error){
@@ -80,7 +80,7 @@ export default class ReclamosEstadosController{
         } 
     }
 
-/*    modificar = async (req, res) => {
+    modificar = async (req, res) => {
         const { descripcion, activo } = req.body;
         const idReclamoEstado = req.params.idReclamoEstado;
     
@@ -119,7 +119,7 @@ export default class ReclamosEstadosController{
             });
         }
     }
-
+/*
     cancelar = async (req, res) => {
         const idReclamoEstado = req.params.idReclamoEstado;
     
@@ -155,20 +155,3 @@ export default class ReclamosEstadosController{
 
 }
 
-
-    /*
-    consultarEstado = async (req, res) => {
-        const { idReclamoEstado } = req.params;
-        const { idUsuario } = req.query;
-        
-        try {
-            const consultarEstadoReclamo = await this.service.consultarEstado();
-            res.status(200).send(consultarEstadoReclamo)
-        } catch (error) {
-            console.log(error);
-            res.status(500).send ({
-                estado:"Falla", mensaje:"Error interno en el servidor."
-            });
-        }
-    }
-    */
