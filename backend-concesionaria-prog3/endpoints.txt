@@ -41,7 +41,8 @@ POST http://localhost:3000/api/v1/reclamos/atender/:idReclamo    =>    Atiende u
     {
        "idReclamoEstado":2
     }
-
+GET http://localhost:3000/api/v1/reclamos/informe    =>    Muestra informe
+http://localhost:3000/api/v1/reclamos/informe?formato=csv 
 
 
                                                       ******************
@@ -93,3 +94,4 @@ Prompt:
     "correoElectronico": "",
     "contrasenia": "",
 }
+

@@ -58,7 +58,6 @@ export default class Reclamos{
     }
 
     buscarInformacionClientePorReclamo = async (idReclamo) => {
-        console.log('Ejecutando buscarInformacionClientePorReclamo');
         const sql = `SELECT CONCAT(u.apellido, ', ', u.nombre) AS cliente, u.correoElectronico, rt.descripcion AS estado 
                         FROM reclamos AS r 
                         INNER JOIN usuarios AS u ON u.idUsuario = r.idUsuarioCreador 
@@ -66,6 +65,35 @@ export default class Reclamos{
                         WHERE r.idReclamo = ?;`;
         const [result] = await conn.query(sql, [idReclamo]);
 
+        return result;
+    }
+
+    buscarDatosReportePdf = async () => {        
+        const sql = 'CALL `datosPDF`()';
+
+        const [result] = await conn.query(sql);
+
+        const datosReporte = {
+            reclamosTotales : result[0][0].reclamosTotales,
+            reclamosNoFinalizados : result[0][0].reclamosNoFinalizados,
+            reclamosFinalizados : result[0][0].reclamosFinalizados,
+            descripcionTipoRreclamoFrecuente : result[0][0].descripcionTipoRreclamoFrecuente,
+            cantidadTipoRreclamoFrecuente : result[0][0].cantidadTipoRreclamoFrecuente
+        }
+
+        return datosReporte;
+    }
+
+    buscarDatosReporteCsv = async () => {
+        const sql = `SELECT r.idReclamo as 'reclamo', rt.descripcion as 'tipo', re.descripcion AS 'estado',
+                     DATE_FORMAT(r.fechaCreado, '%Y-%m-%d %H:%i:%s') AS 'fechaCreado', CONCAT(u.nombre, ' ', u.apellido) AS 'cliente'
+                    FROM reclamos AS r 
+                    INNER JOIN reclamos_tipo AS rt ON rt.idReclamoTipo = r.idReclamoTipo 
+                    INNER JOIN reclamos_estado AS re ON re.idReclamoEstado = r.idReclamoEstado 
+                    INNER JOIN usuarios AS u ON u.idUsuario = r.idUsuarioCreador 
+                        WHERE r.idReclamoEstado <> 4;`;
+
+        const [result] = await conn.query(sql);
         return result;
     }
 
