@@ -1,6 +1,7 @@
 import express from 'express';
 import { conn } from './database/conn.js';
 import dotenv from 'dotenv';
+
 import { router as v1ReclamosEstadoRouter } from './v1/routes/reclamosEstadosRoutes.js';
 import { router as v1ReclamosRouter } from './v1/routes/reclamosRoutes.js';
 import { router as v1OficinasRouter } from './v1/routes/oficinasRoutes.js';
@@ -8,6 +9,7 @@ import { router as v1UsuariosRouter } from './v1/routes/usuariosRoutes.js';
 import { router as v1AuthRouter } from './v1/routes/authRoutes.js';
 
 import validateContentType from './middlewares/validateContentType.js';
+import autenticarUsuario from './middlewares/autenticarUsuarios.js';
 
 
 dotenv.config();
@@ -28,7 +30,7 @@ app.get('/', (req, res) => {
 app.use('/api/v1/reclamos-estados', v1ReclamosEstadoRouter);
 app.use('/api/v1/reclamos', v1ReclamosRouter);
 app.use('/api/v1/oficinas', v1OficinasRouter);
-app.use('/api/v1/usuarios', v1UsuariosRouter);
+app.use('/api/v1/usuarios', autenticarUsuario, v1UsuariosRouter);
 app.use('/api/v1/auth', v1AuthRouter);
 
 
