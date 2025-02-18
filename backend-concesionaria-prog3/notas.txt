@@ -64,3 +64,14 @@ mos y cambiar el estado? Entonces, ¿al cambiar el estado se genera un id nuevo?
 / archivo: reclamosEstadosRoutes.js carpeta: routers
 / archivo: index.js
 
+.................................................................................................................................................................................
+
+--- REGISTRO ---
+
+Aclaraciones: 
+
+- En esta API rest cualquiera puede crearse una cuenta, pero la cuenta te asignará por defecto el idUsuarioTipo=3 
+perteneciente a los clientes.
+
+- Los usuarios de tipo empleado y administrador, sólo pueden ser creados por un administrador.
+                 
