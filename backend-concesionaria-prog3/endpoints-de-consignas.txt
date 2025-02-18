@@ -9,7 +9,8 @@ administrador es potestad única de un usuario administrador.
 
 Para CLIENTES:
 
-POST http://localhost:3000/api/v1/auth/registrar    =>    Iniciar sesión
+POST http://localhost:3000/api/v1/auth/registrar    =>    Registrar un usuario
+POST http://localhost:3000/api/v1/auth/login        =>    Iniciar sesión
 POST /reclamos: Crear un reclamo
 GET /reclamos: Consultar sus reclamos
 PATCH /reclamos/:id: Cancelar un reclamo
