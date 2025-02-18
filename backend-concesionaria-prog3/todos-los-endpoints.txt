@@ -1,43 +1,42 @@
+Estos son todos los ENDPOINTS de la aplicación:
+                                                     
 
-                                                     **************************
-                                                     ENDPOINTS RECLAMOS ESTADOS
-                                                     **************************
+Para RECLAMOS ESTADOS:
+
 GET http://localhost:3000/api/v1/reclamos-estados    =>    Recupera todos los estados de reclamo
 GET http://localhost:3000/api/v1/reclamos-estados/:idReclamoEstado    =>    Recupera un estado de reclamo por su id
 POST http://localhost:3000/api/v1/reclamos-estados/crear    =>    Crea un estado de reclamo
-Prompt:
+Datos:
 {
         "descripcion": "",
         "activo": 1
 }
 PATCH http://localhost:3000/api/v1/reclamos-estados/modificar/:idReclamoEstado    =>    Modifica el estado de un reclamo    ****Corregir: no modifica
-Prompt:
+Datos:
 {
 }
 
 
+Para RECLAMOS:
 
-
-
-                                                      ******************
-                                                      ENDPOINTS RECLAMOS
-                                                      ******************
 GET http://localhost:3000/api/v1/reclamos    =>    Recupera todos los reclamos    ****Corregir: no muestra idReclamo
 GET http://localhost:3000/api/v1/reclamos/:idReclamo    =>    Recupera un reclamo por su id
 POST http://localhost:3000/api/v1/reclamos/crear    =>    Crea un reclamo
-Prompt:
+Datos:
     {
         "asunto": "",
         "idReclamoTipo": ,
         "idUsuarioCreador": 
     }
 PATCH http://localhost:3000/api/v1/reclamos/modificar/:idReclamo    =>    Modifica un reclamo
+Datos:
     {
         "asunto": "",
         "descripcion":""
     }
 
 POST http://localhost:3000/api/v1/reclamos/atender/:idReclamo    =>    Atiende un reclamo    ****Corregir: si string en lugar de number me devulve "error en el servidor"
+Datos:
     {
        "idReclamoEstado":2
     }
@@ -45,26 +44,26 @@ GET http://localhost:3000/api/v1/reclamos/informe    =>    Muestra informe
 http://localhost:3000/api/v1/reclamos/informe?formato=csv 
 
 
-                                                      ******************
-                                                      ENDPOINTS OFICINAS
-                                                      ******************
+
+
+Para OFICINAS:
+
 POST http://localhost:3000/api/v1/oficinas/agregar-empleados    =>    Agrega un empleado
+Datos:
 {
   "idOficina": ,
   "idUsuario": 
 }
 POST http://localhost:3000/api/v1/oficinas/quitar-empleados    =>    Quita un empleado 
 
+            
+Para USUARIOS:
 
-
-                                                      ******************
-                                                      ENDPOINTS USUARIOS
-                                                      ******************
 GET http://localhost:3000/api/v1/usuarios    =>    Recupera todos los usuarios
 GET http://localhost:3000/api/v1/usuarios/:idUsuario    =>    Recupera un usuario por su id  
 GET http://localhost:3000/api/v1/usuarios/correoElectronico   =>    Recupera un usuario por su email    ****COMPLETAR: en el controller
 POST http://localhost:3000/api/v1/usuarios/crear    =>    Crea un usuario 
-Prompt:
+Datos:
 {
         "nombre": "",
         "apellido": "",
@@ -75,12 +74,10 @@ Prompt:
 PATCH http://localhost:3000/api/v1/usuarios/modificar/idUsuario   =>    Modifica un usuario    ****COMPLETAR: en el controller
 
 
+Para AUTH:
 
-                                                      **************
-                                                      ENDPOINTS AUTH
-                                                      **************
-POST http://localhost:3000/api/v1/auth/registrar    =>    Registra usuarios    ****CORREGIR: quitar el idUsuarioTipo porque todos se registran como clientes
-Prompt:
+POST http://localhost:3000/api/v1/auth/registrar    =>    Registra usuarios                                                                                 
+Datos:
 {
         "nombre": "",
         "apellido": "",
@@ -89,7 +86,7 @@ Prompt:
         "idUsuarioTipo": ""
 }
 POST http://localhost:3000/api/v1/auth/login   =>    Inicia sesión 
-Prompt:
+Datos:
 {
     "correoElectronico": "",
     "contrasenia": "",
