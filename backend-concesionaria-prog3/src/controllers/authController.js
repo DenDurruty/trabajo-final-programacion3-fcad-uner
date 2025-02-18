@@ -70,28 +70,40 @@ export default class AuthController {
 
     login = async (req, res) => {
         try {
+
             const { correoElectronico, contrasenia } = req.body;
+
+            // Limitar datos obligatorios
             if (!correoElectronico || !contrasenia) {
                 return res.status(400).json({ estado: "Falla", mensaje: "Faltan datos obligatorios." });
             }
 
-            const usuariosService = new UsuariosService();
-            const usuario = await usuariosService.buscar(correoElectronico, contrasenia);
+            // Verificar existencia de usuario
+            const usuarioPorEmail = new UsuariosService();
+            const usuarioExiste = await usuarioPorEmail.buscarPorEmail(correoElectronico);
 
-            const verificarContraseña = await bcrypt.compare(contrasenia, usuario.contrasenia);
+            if (!usuarioExiste) {
+                return res.status(400).json({ estado: 'falla', mensaje: 'Solicitud incorrecta.' });
+            }
+            
+            // Comparar contraseña
+            const verificarContraseña = await bcrypt.compare(contrasenia, usuarioExiste.contrasenia);
             if (!verificarContraseña) {
-                return res.status(400).json({ estado: "Falla", mensaje: "Contraseña incorrecta." });
+                return res.status(400).json({ estado: "Falla", mensaje: "Solicitud incorrecta." });
             }
 
-            const token = jwt.sign(usuario, process.env.JWT_SECRET, { expiresIn: '1h' });
+            // Generar token 
+            const payload = {idUsuario: usuarioExiste.id, idUsuarioTipo: usuarioExiste.idUsuarioTipo}
+            const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' });
             return res.status(201).json({ mensaje: 'Bienvenido', token: token });
 
          } catch (error) {
             console.error('Intente mas tarde', error);
-            return res.status(500).json({ mensaje: 'Error interno del servidor.Intente mas tarde' });
+            return res.status(500).json({ mensaje: 'Error interno del servidor. Intente mas tarde.' });
 
         }
 
     };
+
 
 }
