@@ -43,21 +43,38 @@ export default class UsuariosController{
     }
 
     crearUsuario = async (req, res) => {
-        const { correoElectronico, contrasenia } = req.body;
 
-        const usuarioExiste = await this.usuariosService.buscarPorEmail(correoElectronico);
-        if (usuarioExiste) {
-            return res.status(409).json({ message: 'Este usuario ya existe' });
-        };
+        try { 
+            const { nombre, apellido, idUsuarioTipo, correoElectronico, contrasenia } = req.body;
 
-        const salt = await bcrypt.genSalt(10);
-        const hashedPassword = await bcrypt.hash(contrasenia, salt);
+            // Limitar datos obligatorios
+            if (!idUsuarioTipo || !nombre || !apellido || !correoElectronico || !contrasenia) {
+                return res.status(400).json({ mensaje: 'Faltan datos obligatorios para el registro.' });
+            };
 
-        const usuarioNuevo = await this.usuariosService.crearUsuario({
-            ...req.body,
-            contrasenia: hashedPassword
-        });
-        res.status(201).json(usuarioNuevo);
+            // Verificar existencia de usuario
+            const usuarioExiste = await this.usuariosService.buscarPorEmail(correoElectronico);
+            if (usuarioExiste) {
+                return res.status(409).json({ message: 'Este usuario ya existe.' });
+            };
+            
+            // Hashear contraseña
+            const contraseniaHasheada = await bcrypt.hash(contrasenia, 10);
+            
+            // Crear usuario
+            const usuarioNuevo = await this.usuariosService.crearUsuario({
+                ...req.body,
+                contrasenia: contraseniaHasheada
+            });
+            
+            res.status(201).json(usuarioNuevo);
+        
+        } catch (error){
+            console.log(error)
+            res.status(500).send({
+                estado:"Falla", mensaje: "Error interno en servidor."
+            });
+        }
     }
 
     modificar = async (req, res) => {

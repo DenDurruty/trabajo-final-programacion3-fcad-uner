@@ -1,5 +1,4 @@
 import { conn } from "./conn.js";
-import { Usuario } from "../models/usuario.js";
 
 export default class Usuarios{
 
@@ -46,8 +45,8 @@ export default class Usuarios{
         if (result.affectedRows === 0) {
             return null;
         }
-    
-        return new Usuario(result.insertId, nombre, apellido, correoElectronico, contrasenia, idUsuarioTipo, imagen, 1);
+        
+        return { id: result.insertId, nombre, apellido, correoElectronico, contrasenia, idUsuarioTipo, imagen, activo: 1 };
     };
     
     registrar = async ({ nombre, apellido, correoElectronico, contrasenia, idUsuarioTipo, imagen = null }) => {
