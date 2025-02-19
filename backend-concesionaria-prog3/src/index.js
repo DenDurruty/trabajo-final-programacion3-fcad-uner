@@ -51,7 +51,7 @@ app.use('/api/v1/auth', v1AuthRouter);
 
 
 // Probar conexión a base de datos
-conn.connect(err => {
+conn.getConnection(err => {
     if (err) {
         console.error('❌ Error conectando a la base de datos:', err.message);
         process.exit(1);
