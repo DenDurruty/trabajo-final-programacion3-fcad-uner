@@ -11,7 +11,7 @@ Para CLIENTES:
 
 POST http://localhost:3000/api/v1/auth/registrar    =>    Registrar un usuario
 POST http://localhost:3000/api/v1/auth/login        =>    Iniciar sesión
-POST /reclamos: Crear un reclamo
+POST http://localhost:3000/api/v1/reclamos/crear    =>    Crear un reclamo
 GET /reclamos: Consultar sus reclamos
 PATCH /reclamos/:id: Cancelar un reclamo
 PATCH /perfil: Actualizar información personal
@@ -27,7 +27,9 @@ PATCH /reclamos/:id: Cambiar el estado del reclamo
 Para ADMINISTRADORES:
 
 POST /login: Iniciar sesión
-POST http://localhost:3000/api/v1/usuarios/crear     =>    Crear un usuario
+POST http://localhost:3000/api/v1/usuarios/crearUsuarioAdm     =>    Crear un usuario administrador
+POST http://localhost:3000/api/v1/usuarios/crearUsuarioEe     =>    Crear un usuario empleado
+POST http://localhost:3000/api/v1/usuarios/crearUsuarioClt     =>    Crear un usuario cliente
 POST /tipos-reclamos: Crear/gestionar tipos de reclamos
 POST /oficinas: Crear oficinas, agregar o quitar empleados
 GET /estadisticas: Obtener estadísticas de reclamos (procedures)
@@ -79,3 +81,13 @@ Crear usuario cliente     =>    POST http://localhost:3000/api/v1/usuarios/crear
                                                                                                                   "correoElectronico":"",
                                                                                                                   "contrasenia":""                                                                             
                                                                                                               }
+
+___________________________________________________________________________________________________________________________________________________
+
+Crear reclamo             =>    POST http://localhost:3000/api/v1/reclamos/crear                     =>      {
+                                                                                                                  "asunto":"",
+                                                                                                                  "idReclamoTipo":"",
+                                                                                                                  "idUsuarioCreador":""                                                                            
+                                                                                                              }
+
+                                                                                                              
