@@ -41,7 +41,7 @@ export default class UsuariosController{
             });
         }
     }
-
+/*
     crearUsuario = async (req, res) => {
 
         try { 
@@ -76,6 +76,129 @@ export default class UsuariosController{
             });
         }
     }
+*/
+    crearUsuarioAdm = async (req, res) => {
+
+        try { 
+            const { nombre, apellido, correoElectronico, contrasenia } = req.body;
+
+            // Limitar datos obligatorios
+            if (!nombre || !apellido || !correoElectronico || !contrasenia) {
+                return res.status(400).json({ mensaje: 'Faltan datos obligatorios para el registro.' });
+            };
+
+            // Verificar existencia de usuario
+            const usuarioExiste = await this.usuariosService.buscarPorEmail(correoElectronico);
+            if (usuarioExiste) {
+                return res.status(409).json({ message: 'Este usuario ya existe.' });
+            };
+            
+            // Hashear contraseña
+            const contraseniaHasheada = await bcrypt.hash(contrasenia, 10);
+            
+            // Crear usuario
+            const usuarioNuevo = await this.usuariosService.crearUsuarioAdm({
+                ...req.body,
+                contrasenia: contraseniaHasheada
+            });
+            
+            // Validar creación del usuario
+            if (!usuarioNuevo) {
+                return res.status(500).json({ mensaje: 'No se pudo crear el usuario.' });
+            }
+            res.status(201).json({ mensaje: 'Usuario ADMINISTRADOR creado exitosamente', usuario: usuarioNuevo });
+        
+        } catch (error){
+            console.log(error)
+            res.status(500).send({
+                estado:"Falla", mensaje: "Error interno en servidor."
+            });
+        }
+    }
+
+    crearUsuarioClt = async (req, res) => {
+
+        try { 
+            const { nombre, apellido, correoElectronico, contrasenia } = req.body;
+
+            // Limitar datos obligatorios
+            if (!nombre || !apellido || !correoElectronico || !contrasenia) {
+                return res.status(400).json({ mensaje: 'Faltan datos obligatorios para el registro.' });
+            };
+
+            // Verificar existencia de usuario
+            const usuarioExiste = await this.usuariosService.buscarPorEmail(correoElectronico);
+            if (usuarioExiste) {
+                return res.status(409).json({ message: 'Este usuario ya existe.' });
+            };
+            
+            // Hashear contraseña
+            const contraseniaHasheada = await bcrypt.hash(contrasenia, 10);
+            
+            // Crear usuario
+            const usuarioNuevo = await this.usuariosService.crearUsuarioClt({
+                ...req.body,
+                contrasenia: contraseniaHasheada
+            });
+
+            // Validar creación del usuario
+            if (!usuarioNuevo) {
+                return res.status(500).json({ mensaje: 'No se pudo crear el usuario.' });
+            }
+            res.status(201).json({ mensaje: 'Usuario CLIENTE creado exitosamente', usuario: usuarioNuevo });
+            
+        
+        } catch (error){
+            console.log(error)
+            res.status(500).send({
+                estado:"Falla", mensaje: "Error interno en servidor."
+            });
+        }
+    }
+
+    crearUsuarioEe = async (req, res) => {
+        try {
+          const { nombre, apellido, correoElectronico, contrasenia, idOficina } = req.body;
+      
+          // Validar datos obligatorios
+          if (!nombre || !apellido || !correoElectronico || !contrasenia) {
+            return res.status(400).json({ mensaje: 'Faltan datos obligatorios para el registro.' });
+          }
+      
+          // Verificar existencia de usuario
+          const usuarioExiste = await this.usuariosService.buscarPorEmail(correoElectronico);
+          if (usuarioExiste) {
+            return res.status(409).json({ mensaje: 'Este usuario ya existe.' });
+          }
+      
+          // Hashear la contraseña
+          const contraseniaHasheada = await bcrypt.hash(contrasenia, 10);
+      
+          // Crear usuario
+          const usuarioNuevo = await this.usuariosService.crearUsuarioEe({
+            nombre,
+            apellido,
+            correoElectronico,
+            contrasenia: contraseniaHasheada,
+            idUsuarioTipo: 2,
+            imagen: null, 
+            idOficina,
+          });
+      
+          // Validar creación del usuario
+          if (!usuarioNuevo) {
+            return res.status(500).json({ mensaje: 'No se pudo crear el usuario.' });
+          }
+          res.status(201).json({ mensaje: 'Usuario EMPLEADO creado exitosamente', usuario: usuarioNuevo });
+
+        } catch (error) {
+          console.error(error);
+          res.status(500).send({
+            estado: "Falla",
+            mensaje: "Error interno en el servidor.",
+          });
+        }
+      };
 
     modificar = async (req, res) => {
         try{

@@ -21,15 +21,31 @@ export default class UsuariosService {
     buscarPorEmail = (correoElectronico) => {
         return this.usuarios.buscarPorEmail(correoElectronico);
     }
-
+/*
     crearUsuario = (nombre, apellido, correoElectronico, contrasenia, idUsuarioTipo, imagen) => {
         return this.usuarios.crearUsuario(nombre, apellido, correoElectronico, contrasenia, idUsuarioTipo, imagen);
     }
+*/
+    crearUsuarioAdm = (nombre, apellido, correoElectronico, contrasenia, idUsuarioTipo, imagen) => {
+        return this.usuarios.crearUsuarioAdm(nombre, apellido, correoElectronico, contrasenia, idUsuarioTipo, imagen);
+    }
+
+    crearUsuarioClt = (nombre, apellido, correoElectronico, contrasenia, idUsuarioTipo, imagen) => {
+        return this.usuarios.crearUsuarioClt(nombre, apellido, correoElectronico, contrasenia, idUsuarioTipo, imagen);
+    }
+/*
+    crearUsuarioEe = (nombre, apellido, correoElectronico, contrasenia, idUsuarioTipo, imagen, idOficina) => {
+        return this.usuarios.crearUsuarioEe(nombre, apellido, correoElectronico, contrasenia, idUsuarioTipo, imagen, idOficina);
+    }
+*/
+    crearUsuarioEe = async ({ nombre, apellido, correoElectronico, contrasenia, idUsuarioTipo, imagen, idOficina }) => {
+        return this.usuarios.crearUsuarioEe({ nombre, apellido, correoElectronico, contrasenia, idUsuarioTipo, imagen, idOficina
+        });
+    };
 
     registrar = (nombre, apellido, correoElectronico, contrasenia, idUsuarioTipo, imagen) => {
         return this.usuarios.registrar(nombre, apellido, correoElectronico, contrasenia, idUsuarioTipo, imagen);
     }
-
 
     modificar = async (idUsuario, datos) => {
 
