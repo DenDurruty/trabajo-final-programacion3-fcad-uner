@@ -27,6 +27,7 @@ PATCH /reclamos/:id: Cambiar el estado del reclamo
 Para ADMINISTRADORES:
 
 POST /login: Iniciar sesión
+POST http://localhost:3000/api/v1/usuarios/crear     =>    Crear un usuario
 POST /tipos-reclamos: Crear/gestionar tipos de reclamos
 POST /oficinas: Crear oficinas, agregar o quitar empleados
 GET /estadisticas: Obtener estadísticas de reclamos (procedures)
@@ -53,3 +54,12 @@ Iniciar sesión    =>    POST http://localhost:3000/api/v1/auth/login         =>
 
 ___________________________________________________________________________________________________________________________________________________
 
+Crear usuario     =>    POST http://localhost:3000/api/v1/usuarios/crear     =>    {
+                                                                                        "nombre":"",
+                                                                                        "apellido":"",
+                                                                                        "idUsuarioTipo":"",
+                                                                                        "correoElectronico":"",
+                                                                                        "contrasenia":""                                                                                 
+                                                                                   }
+
+___________________________________________________________________________________________________________________________________________________
