@@ -20,11 +20,12 @@ export default class ReclamosService {
     }
     
     crear = async (reclamo) => {
+        // Verificar creación del reclamo
         const reclamoCreado = await this.reclamos.crear(reclamo);
         if (!reclamoCreado) {
             return {estado: false, mensaje: "Reclamo no creado"};
         }
-        return {estado: true, mensaje: "Reclamo creado", data: reclamoCreado};
+        return {estado: true, mensaje: "Su reclamo ha sido creado con éxito", data: reclamoCreado};
     }
 
     modificar = async (idReclamo, datos) => {
