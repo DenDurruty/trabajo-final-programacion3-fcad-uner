@@ -54,12 +54,28 @@ Iniciar sesión    =>    POST http://localhost:3000/api/v1/auth/login         =>
 
 ___________________________________________________________________________________________________________________________________________________
 
-Crear usuario     =>    POST http://localhost:3000/api/v1/usuarios/crear     =>    {
-                                                                                        "nombre":"",
-                                                                                        "apellido":"",
-                                                                                        "idUsuarioTipo":"",
-                                                                                        "correoElectronico":"",
-                                                                                        "contrasenia":""                                                                                 
-                                                                                   }
+Crear usuario administrador     =>    POST http://localhost:3000/api/v1/usuarios/crearUsuarioAdm     =>      {
+                                                                                                                  "nombre":"",
+                                                                                                                  "apellido":"",
+                                                                                                                  "correoElectronico":"",
+                                                                                                                  "contrasenia":""                                                                                 
+                                                                                                              }
 
 ___________________________________________________________________________________________________________________________________________________
+
+Crear usuario empleado     =>    POST http://localhost:3000/api/v1/usuarios/crearUsuarioEe           =>     {
+                                                                                                                  "nombre":"",
+                                                                                                                  "apellido":"",
+                                                                                                                  "correoElectronico":"",
+                                                                                                                  "contrasenia":"",
+                                                                                                                  "idOficina":""                                                                                 
+                                                                                                              }
+
+___________________________________________________________________________________________________________________________________________________
+
+Crear usuario cliente     =>    POST http://localhost:3000/api/v1/usuarios/crearUsuarioClt           =>      {
+                                                                                                                  "nombre":"",
+                                                                                                                  "apellido":"",
+                                                                                                                  "correoElectronico":"",
+                                                                                                                  "contrasenia":""                                                                             
+                                                                                                              }
