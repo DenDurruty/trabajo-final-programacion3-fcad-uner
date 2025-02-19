@@ -1,3 +1,4 @@
 node_modules/
 .env
 src/accesos.log
+backend-concesionaria-prog3/src/accesos.log
