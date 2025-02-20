@@ -19,6 +19,10 @@ export default class ReclamosService {
         return this.reclamos.buscarPorId(idReclamo);
     }
     
+    buscarPorCliente = (idUsuario) => {
+        return this.reclamos.buscarPorCliente(idUsuario);
+    }
+    
     crear = async (reclamo) => {
         // Verificar creación del reclamo
         const reclamoCreado = await this.reclamos.crear(reclamo);

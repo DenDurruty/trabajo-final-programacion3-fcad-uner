@@ -21,6 +21,38 @@ export default class ReclamosController{
         }
     }
 
+    buscarPorCliente = async (req, res) => {
+        try {
+            
+            const idUsuario = req.params.idUsuario;
+    
+            // Instanciar la clase
+            const reclamos = await this.reclamosService.buscarPorCliente(idUsuario);
+    
+            // Verificar si hay reclamos
+            if (reclamos && reclamos.length > 0) {
+
+                // Mapear datos 
+                const datosReclamo = reclamos.map(reclamo => ({
+                    idReclamo: reclamo.idReclamo,
+                    asunto: reclamo.asunto,
+                    tipo: reclamo.idReclamoTipo,
+                    estado: reclamo.idReclamoEstado
+                }));
+
+                res.status(200).send({ estado: 'OK', mensaje: 'Mis reclamos:', datos: datosReclamo });
+
+            } else {
+                
+                res.status(404).send({ estado: 'Falla', mensaje: 'No tienes reclamos realizados.' });
+            }
+
+        } catch (error) {
+
+            res.status(500).send({ estado: "Falla", mensaje: "Error interno en servidor." });
+        }
+    };
+    
     buscarPorId = async (req, res) => {
         const idReclamo = req.params.idReclamo;
 
@@ -43,8 +75,6 @@ export default class ReclamosController{
         }
     }
     
-    // no recibo el idReclamoEstado, al crear un nuevo reclamo siempre sera de tipo 1 "creado"
-    // fechaCreado lo hago con NOW() de mysql
     crear = async (req, res) => {
         const { asunto, idReclamoTipo, idUsuarioCreador } = req.body;
         
