@@ -38,6 +38,34 @@ export default class ReclamosService {
         return {estado: true, mensaje:"Reclamo modificado"};
     }
 
+    cancelacionReclamo = async (idReclamo, datosReclamo) => {
+        // Verificar existencia del reclamo y modificar
+        const existe = await this.reclamos.sePuedeCancelar(idReclamo);
+        if (existe === null) {
+            return {estado: false, mensaje: 'idReclamo no existe / Ya no se puede cancelar.'};
+        }    
+
+        const modificado = await this.reclamos.modificar(idReclamo, datosReclamo);
+        if (!modificado){
+            return {estado: false, mensaje: 'Reclamo no cancelado'};
+        }
+
+        // Buscar datos del cliente
+        const cliente = await this.reclamos.buscarInformacionClientePorReclamo(idReclamo);
+        if (!cliente){
+            return {estado: false, mensaje: 'Faltan datos de cliente'};
+        }
+
+        const datosCorreo = {
+            nombre: cliente[0].cliente,
+            correoElectronico: cliente[0].correoElectronico,
+            reclamo: idReclamo,
+            estado: cliente[0].estado,
+        }
+        // Enviar notificacion
+        return await this.notificaciones.enviarCorreo(datosCorreo);        
+    }
+
     atencionReclamo = async (idReclamo, datosReclamo) => {
         // verificar si existe el reclamo
         const existe = await this.reclamos.buscarPorId(idReclamo);

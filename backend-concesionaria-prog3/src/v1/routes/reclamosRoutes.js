@@ -9,6 +9,7 @@ router.get('/', reclamosController.buscarTodos);
 router.get('/:idReclamo', reclamosController.buscarPorId);
 router.post('/crear', autorizarUsuarios([3]), reclamosController.crear);
 router.patch('/modificar/:idReclamo', reclamosController.modificar);
+router.post('/cancelar/:idReclamo', autorizarUsuarios([3]), reclamosController.cancelacionReclamo);
 router.post('/atender/:idReclamo', reclamosController.atencionReclamo);
 router.get('/informe',  reclamosController.informe);
 //router.get('/informe?formato=csv',  reclamosController.informe);

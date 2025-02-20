@@ -25,7 +25,7 @@ export default class Reclamos{
     
     crear = async ({asunto, idReclamoTipo, idUsuarioCreador}) => {
 
-        const sql = 'INSERT INTO reclamos (asunto, fechaCreado, idReclamoTipo, idReclamoEstado, idUsuarioCreador) VALUES (?, NOW(), 1, ?, ?)';
+        const sql = 'INSERT INTO reclamos (asunto, fechaCreado, idReclamoTipo, idReclamoEstado, idUsuarioCreador) VALUES (?, NOW(), ?, 1, ?)';
         const [result] = await conn.query(sql, [asunto, idReclamoTipo, idUsuarioCreador]);
 
         if (result.affectedRows === 0) {
@@ -44,6 +44,12 @@ export default class Reclamos{
         }
 
         return true;
+    }
+
+    sePuedeCancelar = async (idReclamo) => {
+        const sql = `SELECT * FROM reclamos WHERE idReclamo = ? AND idReclamoEstado = 1`;
+        const [result] = await conn.query(sql, [idReclamo]);
+        return (result.length > 0) ? result[0] : null;
     }
 
     atencionReclamo = async (idReclamo, datos) => {

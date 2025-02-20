@@ -111,6 +111,31 @@ export default class ReclamosController{
         }
     }
 
+    cancelacionReclamo = async (req, res) => {
+        try{
+            const idReclamo = req.params.idReclamo;
+
+            // Verificar que se reciba el idReclamo 
+
+            const dato = {
+                idReclamoEstado: 3,
+                fechaCancelado: new Date().toISOString().slice(0, 19).replace('T', ' ')  // yyyy-mm-dd hh:mm:ss
+            };
+
+            const reclamoCancelado = await this.reclamosService.cancelacionReclamo(idReclamo, dato);
+
+            if (reclamoCancelado.estado){
+                res.status(200).send({estado:"OK", mensaje: "Su reclamo ha sido cancelado con éxito.", constancia: reclamoCancelado.mensaje});
+            }else{
+                res.status(404).send({estado:"Falla", mensaje: reclamoCancelado.mensaje});
+            }
+        }catch (error){
+            res.status(500).send({
+                estado:"Falla", mensaje: "Error interno en servidor."
+            });
+        }
+    }
+
     atencionReclamo = async (req, res) => {
         try{
             const idReclamo = req.params.idReclamo;
