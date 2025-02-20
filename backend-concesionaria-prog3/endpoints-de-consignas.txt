@@ -12,8 +12,8 @@ Para CLIENTES:
 POST http://localhost:3000/api/v1/auth/registrar    =>    Registrar un usuario
 POST http://localhost:3000/api/v1/auth/login        =>    Iniciar sesión
 POST http://localhost:3000/api/v1/reclamos/crear    =>    Crear un reclamo
-GET /reclamos: Consultar sus reclamos
-PATCH /reclamos/:id: Cancelar un reclamo
+GET  http://localhost:3000/api/v1/reclamos/mis-reclamos/:idUsuario    =>    Consultar todos los reclamos
+POST http://localhost:3000/api/v1/reclamos/cancelar/:idReclamo    =>    Cancelar un reclamo
 PATCH /perfil: Actualizar información personal
 
 
@@ -89,5 +89,12 @@ Crear reclamo             =>    POST http://localhost:3000/api/v1/reclamos/crear
                                                                                                                   "idReclamoTipo":"",
                                                                                                                   "idUsuarioCreador":""                                                                            
                                                                                                               }
+___________________________________________________________________________________________________________________________________________________
 
-                                                                                                              
+Consultar reclamos        =>    GET http://localhost:3000/api/v1/reclamos/mis-reclamos                    
+
+___________________________________________________________________________________________________________________________________________________
+
+Cancelar un reclamo       =>    POST http://localhost:3000/api/v1/reclamos/cancelar/:idReclamo              
+
+___________________________________________________________________________________________________________________________________________________
