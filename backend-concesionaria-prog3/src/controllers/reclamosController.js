@@ -52,6 +52,38 @@ export default class ReclamosController{
             res.status(500).send({ estado: "Falla", mensaje: "Error interno en servidor." });
         }
     };
+
+    buscarPorOficina = async (req, res) => {
+        try {
+            
+            const idOficina = req.params.idOficina;
+    
+            // Instanciar la clase
+            const reclamos = await this.reclamosService.buscarPorOficina(idOficina);
+    
+            // Verificar si hay reclamos
+            if (reclamos && reclamos.length > 0) {
+
+               /* // Mapear datos 
+                const datosReclamo = reclamos.map(reclamo => ({
+                    idReclamo: reclamo.idReclamo,
+                    asunto: reclamo.asunto,
+                    tipo: reclamo.idReclamoTipo,
+                    estado: reclamo.idReclamoEstado
+                }));*/
+
+                res.status(200).send({ estado: 'OK', mensaje: 'Todos los reclamos:', datos: reclamos });
+
+            } else {
+                
+                res.status(404).send({ estado: 'Falla', mensaje: 'No tienes reclamos.' });
+            }
+
+        } catch (error) {
+
+            res.status(500).send({ estado: "Falla", mensaje: "Error interno en servidor." });
+        }
+    };
     
     buscarPorId = async (req, res) => {
         const idReclamo = req.params.idReclamo;

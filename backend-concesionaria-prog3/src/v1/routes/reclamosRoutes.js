@@ -8,6 +8,7 @@ const reclamosController = new ReclamosController();
 router.get('/', reclamosController.buscarTodos);
 router.get('/:idReclamo', reclamosController.buscarPorId);
 router.get('/mis-reclamos/:idUsuario', autorizarUsuarios([3]), reclamosController.buscarPorCliente);
+router.get('/reclamos-oficina/:idOficina', autorizarUsuarios([2]), reclamosController.buscarPorOficina);
 router.post('/crear', autorizarUsuarios([3]), reclamosController.crear);
 router.patch('/modificar/:idReclamo', reclamosController.modificar);
 router.post('/cancelar/:idReclamo', autorizarUsuarios([3]), reclamosController.cancelacionReclamo);

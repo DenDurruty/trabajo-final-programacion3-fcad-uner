@@ -41,7 +41,7 @@ export default class UsuariosController{
             });
         }
     }
-/*
+
     crearUsuario = async (req, res) => {
 
         try { 
@@ -76,7 +76,7 @@ export default class UsuariosController{
             });
         }
     }
-*/
+
     crearUsuarioAdm = async (req, res) => {
 
         try { 
@@ -198,7 +198,7 @@ export default class UsuariosController{
             mensaje: "Error interno en el servidor.",
           });
         }
-      };
+    };
 
     modificar = async (req, res) => {
         try{

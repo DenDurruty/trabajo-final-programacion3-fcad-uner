@@ -22,6 +22,10 @@ export default class ReclamosService {
     buscarPorCliente = (idUsuario) => {
         return this.reclamos.buscarPorCliente(idUsuario);
     }
+
+    buscarPorOficina = (idOficina) => {
+        return this.reclamos.buscarPorOficina(idOficina);
+    }
     
     crear = async (reclamo) => {
         // Verificar creación del reclamo

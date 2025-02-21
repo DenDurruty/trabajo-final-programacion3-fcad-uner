@@ -28,7 +28,14 @@ export default class Reclamos{
         const [result] = await conn.query(sql, [idUsuario]);
         return (result.length > 0) ? result : [];
     }
+
+    buscarPorOficina = async (idOficina) => {
+        const sql = `SELECT * FROM reclamos WHERE idReclamoTipo = ?`;
+        const [result] = await conn.query(sql, [idOficina]);
+        return (result.length > 0) ? result : [];
     
+    }
+     
     crear = async ({asunto, idReclamoTipo, idUsuarioCreador}) => {
 
         const sql = 'INSERT INTO reclamos (asunto, fechaCreado, idReclamoTipo, idReclamoEstado, idUsuarioCreador) VALUES (?, NOW(), ?, 1, ?)';

@@ -9,29 +9,42 @@ administrador es potestad única de un usuario administrador.
 
 Para CLIENTES:
 
-POST http://localhost:3000/api/v1/auth/registrar    =>    Registrar un usuario
-POST http://localhost:3000/api/v1/auth/login        =>    Iniciar sesión
-POST http://localhost:3000/api/v1/reclamos/crear    =>    Crear un reclamo
-GET  http://localhost:3000/api/v1/reclamos/mis-reclamos/:idUsuario    =>    Consultar todos los reclamos
-POST http://localhost:3000/api/v1/reclamos/cancelar/:idReclamo    =>    Cancelar un reclamo
-PATCH /perfil: Actualizar información personal
+POST http://localhost:3000/api/v1/auth/registrar                            =>    Registrar un usuario
+POST http://localhost:3000/api/v1/auth/login                                =>    Iniciar sesión
+POST http://localhost:3000/api/v1/reclamos/crear                            =>    Crear un reclamo
+GET  http://localhost:3000/api/v1/reclamos/mis-reclamos/:idUsuario          =>    Consultar todos los reclamos
+POST http://localhost:3000/api/v1/reclamos/cancelar/:idReclamo              =>    Cancelar un reclamo
+GET http://localhost:3000/api/v1/usuarios/mi-perfil/:idUsuario              =>    Ver perfil de ususario
+PATCH http://localhost:3000/api/v1/usuarios/actualizar-perfil/:idUsuario    =>    Actualizar perfil de usuario
+
 
 
 Para EMPLEADOS:
 
-POST /login: Iniciar sesión
-GET /oficinas/:id/reclamos: Listar reclamos de su oficina
-PATCH /reclamos/:id: Cambiar el estado del reclamo
+POST http://localhost:3000/api/v1/auth/login                             =>    Iniciar sesión
+POST http://localhost:3000/api/v1/reclamos/atender/:idReclamo            =>    Atender un reclamo
+POST http://localhost:3000/api/v1/reclamos/finalizar/:idReclamo          =>    Finalizar un reclamo
+GET http://localhost:3000/api/v1/reclamos/reclamos-oficina/:idOficina    =>    Ver reclamos oficina
+// GET http://localhost:3000/api/v1/reclamos/:idOficina/reclamos-oficina  
+
 
 
 Para ADMINISTRADORES:
 
-POST /login: Iniciar sesión
-POST http://localhost:3000/api/v1/usuarios/crearUsuarioAdm     =>    Crear un usuario administrador
-POST http://localhost:3000/api/v1/usuarios/crearUsuarioEe     =>    Crear un usuario empleado
-POST http://localhost:3000/api/v1/usuarios/crearUsuarioClt     =>    Crear un usuario cliente
+POST http://localhost:3000/api/v1/auth/login                             =>    Iniciar sesión
+
+Gestión de usuarios:
+POST http://localhost:3000/api/v1/usuarios/crearUsuarioAdm               =>    Crear un usuario administrador
+POST http://localhost:3000/api/v1/usuarios/crearUsuarioEe                =>    Crear un usuario empleado
+POST http://localhost:3000/api/v1/usuarios/crearUsuarioClt               =>    Crear un usuario cliente
+
+Gestión de reclamos:
 POST /tipos-reclamos: Crear/gestionar tipos de reclamos
+
+Gestión de oficinas:
 POST /oficinas: Crear oficinas, agregar o quitar empleados
+
+Informes:
 GET /estadisticas: Obtener estadísticas de reclamos (procedures)
 GET /informes: Descargar informes en formato PDF
 
@@ -98,14 +111,28 @@ ________________________________________________________________________________
 Cancelar un reclamo       =>    POST http://localhost:3000/api/v1/reclamos/cancelar/:idReclamo              
 
 ___________________________________________________________________________________________________________________________________________________
-Atender un reclamo        =>    POST http://localhost:3000/api/v1/reclamos/atender/:idReclamo       =>       {
-                                                                                                                   "idReclamoEstado":"",
+Atender un reclamo        =>    POST http://localhost:3000/api/v1/reclamos/atender/:idReclamo       =>         {
+                                                                                                                   "idReclamoEstado":""
                                                                                                                 }
 
 ___________________________________________________________________________________________________________________________________________________
-Finalizar un reclamo       =>    POST http://localhost:3000/api/v1/reclamos/finalizar/:idReclamo    =>       {
-                                                                                                                   "idReclamoEstado":"",
+Finalizar un reclamo      =>    POST http://localhost:3000/api/v1/reclamos/finalizar/:idReclamo    =>          {
+                                                                                                                   "idReclamoEstado":""
                                                                                                                 }          
 
 ___________________________________________________________________________________________________________________________________________________
+
+Ver perfil                =>    GET http://localhost:3000/api/v1/usuarios/mi-perfil/:idUsuario     
+
+___________________________________________________________________________________________________________________________________________________
+
+Actualizar perfil         =>    PATCH http://localhost:3000/api/v1/usuarios/actualizar-perfil/:idUsuario    =>       {
+                                                                                                                        "correoElectronico":""
+                                                                                                                      }    
+
+                                                                                                                      imagen       
+
+___________________________________________________________________________________________________________________________________________________
+
+Ver reclamos oficina      =>    GET http://localhost:3000/api/v1/reclamos/reclamos-oficina/:idOficina       =>      
 
