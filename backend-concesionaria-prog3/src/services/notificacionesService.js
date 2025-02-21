@@ -57,8 +57,9 @@ export default class NotificacionesService {
     enviarCorreo = async (datosCorreo) => {
         const __filename = fileURLToPath(import.meta.url);
         const __dirname = path.dirname(__filename);
+        
 
-        // Determinar qué plantilla usar según el estado
+        // Determinar plantilla por estado
         let plantillaPath;
         switch (datosCorreo.estado.toLowerCase()) {
             case 'cancelado':
@@ -74,7 +75,7 @@ export default class NotificacionesService {
                 throw new Error('Estado desconocido: No se encontró una plantilla para el estado proporcionado.');
         }
 
-        // Leer y compilar la plantilla seleccionada
+        // Leer y compilar plantilla 
         const plantilla = fs.readFileSync(plantillaPath, 'utf-8');
         const template = handlebars.compile(plantilla);
 

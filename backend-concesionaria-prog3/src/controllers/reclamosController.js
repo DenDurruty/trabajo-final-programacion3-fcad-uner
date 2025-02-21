@@ -145,8 +145,7 @@ export default class ReclamosController{
         try{
             const idReclamo = req.params.idReclamo;
 
-            // Verificar que se reciba el idReclamo 
-
+            // Verificar idReclamo 
             const dato = {
                 idReclamoEstado: 3,
                 fechaCancelado: new Date().toISOString().slice(0, 19).replace('T', ' ')  // yyyy-mm-dd hh:mm:ss
@@ -166,6 +165,55 @@ export default class ReclamosController{
         }
     }
 
+    atencionReclamo = async (req, res) => {
+        try{
+            const idReclamo = req.params.idReclamo;
+            const idReclamoEstado = req.body.idReclamoEstado
+
+            // Verificar que se reciba el idReclamo 
+            const dato = {
+                idReclamoEstado
+            };
+
+            const reclamoAtendido = await this.reclamosService.atencionReclamo(idReclamo, dato);
+
+            if (reclamoAtendido.estado){
+                res.status(200).send({estado:"OK", mensaje: "Reclamo atendido.", constancia: reclamoAtendido.mensaje});
+            }else{
+                res.status(404).send({estado:"Falla", mensaje: reclamoAtendido.mensaje});
+            }
+        }catch (error){
+            res.status(500).send({
+                estado:"Falla", mensaje: "Error interno en servidor."
+            });
+        }
+    }
+
+    finalizacionReclamo = async (req, res) => {
+        try{
+            const idReclamo = req.params.idReclamo;
+            const idReclamoEstado = req.body.idReclamoEstado
+
+            // Verificar que se reciba el idReclamo 
+            const dato = {
+                idReclamoEstado,
+                fechaFinalizado: new Date().toISOString().slice(0, 19).replace('T', ' ')
+            };
+
+            const reclamoFinalizado = await this.reclamosService.finalizacionReclamo(idReclamo, dato);
+
+            if (reclamoFinalizado.estado){
+                res.status(200).send({estado:"OK", mensaje: "Reclamo finalizado.", constancia: reclamoFinalizado.mensaje});
+            }else{
+                res.status(404).send({estado:"Falla", mensaje: reclamoFinalizado.mensaje});
+            }
+        }catch (error){
+            res.status(500).send({
+                estado:"Falla", mensaje: "Error interno en servidor."
+            });
+        }
+    }
+/*
     atencionReclamo = async (req, res) => {
         try{
             const idReclamo = req.params.idReclamo;
@@ -197,7 +245,7 @@ export default class ReclamosController{
             });
         }
     }
-
+*/
     informe = async (req, res) => {
 
         try{

@@ -12,6 +12,7 @@ router.post('/crear', autorizarUsuarios([3]), reclamosController.crear);
 router.patch('/modificar/:idReclamo', reclamosController.modificar);
 router.post('/cancelar/:idReclamo', autorizarUsuarios([3]), reclamosController.cancelacionReclamo);
 router.post('/atender/:idReclamo', autorizarUsuarios([2]), reclamosController.atencionReclamo);
+router.post('/finalizar/:idReclamo', autorizarUsuarios([2]), reclamosController.finalizacionReclamo);
 router.get('/informe',  reclamosController.informe);
 //router.get('/informe?formato=csv',  reclamosController.informe);
 

@@ -69,6 +69,17 @@ export default class Reclamos{
         return true;
     }
 
+    finalizacionReclamo = async (idReclamo, datos) => {
+        const sql = 'UPDATE reclamos SET ? WHERE idReclamo = ?';
+        const [result] =await conn.query(sql, [datos, idReclamo]);
+
+        if (result.affectedRows === 0) {
+            return false;
+        }
+
+        return true;
+    }
+
     buscarInformacionClientePorReclamo = async (idReclamo) => {
         const sql = `SELECT CONCAT(u.apellido, ', ', u.nombre) AS cliente, u.correoElectronico, rt.descripcion AS estado 
                         FROM reclamos AS r 

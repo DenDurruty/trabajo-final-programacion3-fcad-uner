@@ -71,45 +71,65 @@ export default class ReclamosService {
     }
 
     atencionReclamo = async (idReclamo, datosReclamo) => {
-        // verificar si existe el reclamo
+        // Verificar existencia reclamo
         const existe = await this.reclamos.buscarPorId(idReclamo);
         if (existe === null) {
             return {estado: false, mensaje: 'idReclamo no existe'};
         }    
 
-        // modificar el reclamo
+        // Modificar reclamo
         const modificado = await this.reclamos.modificar(idReclamo, datosReclamo);
         if (!modificado){
             return {estado: false, mensaje: 'Reclamo no modificado'};
         }
 
-        // buscar los datos del cliente
+        // Buscar datos del cliente
         const cliente = await this.reclamos.buscarInformacionClientePorReclamo(idReclamo);
         if (!cliente || cliente.length === 0) {
             console.log("faltan datos");
             return {estado: false, mensaje: 'Faltan datos de cliente'};
         }
-        /*
-        if (resultado.length > 0) {
-            const datosCorreo = {
-                cliente: resultado[0].cliente,
-                correoElectronico: resultado[0].correoElectronico,
-                reclamo: idReclamo // Asigna manualmente el ID del reclamo
-            };
-        }
-        */
-       /* if (!cliente){
-            return {estado: false, mensaje: 'Faltan datos de cliente'};
-        }*/
-
          
         const datosCorreo = {
-            nombre: cliente[0].nombre,
+            nombre: cliente[0].cliente,
             correoElectronico: cliente[0].correoElectronico,
-            reclamo: idReclamo
+            reclamo: idReclamo,
+            estado: cliente[0].estado,
         }
         
-        // enviar la notificacion
+        // Enviar notificacion
+        return await this.notificaciones.enviarCorreo(datosCorreo);
+        
+    }
+
+    finalizacionReclamo = async (idReclamo, datosReclamo) => {
+        // Verificar existencia del reclamo
+        const existe = await this.reclamos.buscarPorId(idReclamo);
+        if (existe === null) {
+            return {estado: false, mensaje: 'idReclamo no existe'};
+        }    
+
+        // Modificar reclamo
+        const modificado = await this.reclamos.modificar(idReclamo, datosReclamo);
+        if (!modificado){
+            return {estado: false, mensaje: 'Reclamo no modificado'};
+        }
+
+        // Buscar datos del cliente
+        const cliente = await this.reclamos.buscarInformacionClientePorReclamo(idReclamo);
+        if (!cliente || cliente.length === 0) {
+            console.log("faltan datos");
+            return {estado: false, mensaje: 'Faltan datos de cliente'};
+        }
+         
+        const datosCorreo = {
+            nombre: cliente[0].cliente,
+            correoElectronico: cliente[0].correoElectronico,
+            reclamo: idReclamo,
+            estado: cliente[0].estado,
+        }
+        
+        // Enviar notificacion
         return await this.notificaciones.enviarCorreo(datosCorreo);
         
     }
