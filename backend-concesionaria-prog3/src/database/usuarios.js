@@ -28,7 +28,6 @@ export default class Usuarios{
         return result[0];
     };
   
-
     buscarPorEmail = async (correoElectronico) => {
         const sql = 'SELECT * FROM usuarios WHERE correoElectronico = ?;'
         const [result] = await conn.query(sql, [correoElectronico]);
@@ -116,7 +115,6 @@ export default class Usuarios{
         }
     };
 
-
     registrar = async ({ nombre, apellido, correoElectronico, contrasenia, idUsuarioTipo, imagen = null }) => {
         const sql = `INSERT INTO usuarios (nombre, apellido, correoElectronico, contrasenia, idUsuarioTipo, imagen, activo)
                     VALUES (?, ?, ?, ?, ?, ?, ?)`;
@@ -140,4 +138,23 @@ export default class Usuarios{
         
         return true;
     };
+
+    verPerfil = async (idUsuario) => {
+        const sql = `SELECT nombre, apellido, correoElectronico, imagen FROM usuarios WHERE idUsuario = ? `;
+        const [result] = await conn.query(sql, [idUsuario]);
+
+        return (result.length > 0) ? result[0] : null;
+    }
+
+    actualizarPerfil = async (idUsuario, datos) => {
+        const sql = `UPDATE usuarios SET ? WHERE idUsuario = ?;`;
+        const [result] = await conn.query(sql, [datos, idUsuario]);
+        
+        if (result.affectedRows === 0) {
+            return false;
+        }
+        
+        return true;
+    };
+
 }; 

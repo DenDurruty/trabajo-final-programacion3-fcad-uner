@@ -61,4 +61,23 @@ export default class UsuariosService {
             return {estado: false, mensaje: 'Usuario no modificado'};
         }
     }
+
+    verPerfil = (idUusario) => {
+        return this.usuarios.verPerfil(idUusario)
+    }
+    
+    actualizarPerfil = async (idUsuario, datos) => {
+
+        const existe = await this.usuarios.buscarPorId(idUsuario);
+        if (existe === null) {
+            return {estado: false, mensaje: 'idUsuario no existe'};
+        }    
+
+        const mod = await this.usuarios.actualizarPerfil(idUsuario, datos);
+        if (mod){
+            return {estado: true, mensaje: 'Perfil actualizado'};
+        }else{
+            return {estado: false, mensaje: 'Perfil actualizado'};
+        }
+    }
 }

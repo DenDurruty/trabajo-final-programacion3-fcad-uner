@@ -237,5 +237,60 @@ export default class UsuariosController{
             });
         }
     }
+
+    verPerfil = async (req, res) => {
+        const idUsuario = req.params.idUsuario;
+        
+        try {
+            const perfil = await this.usuariosService.verPerfil(idUsuario);
+            res.status(200).send({estado: 'OK',  perfil: perfil})
+        } catch (error) {
+            console.log(error);
+            res.status(500).send({
+                estado:"Falla", mensaje: "Error interno en servidor."
+            });
+        }
+    }
+
+    actualizarPerfil = async (req, res) => {
+        try{
+            const idUsuario = req.params.idUsuario;
+            const { correoElectronico } = req.body;
+            const imagen  = req.file ? req.file.filename : null;       
+
+            // Crear objeto   
+            const datos = {};
+            if (correoElectronico) datos.correoElectronico = correoElectronico;
+            if (imagen) datos.imagen = imagen;
+
+            // Validar datos
+            if (Object.keys(datos).length === 0) {
+                return res.status(400).send({
+                    estado:"Falla",
+                    mensaje: "No se enviaron datos para ser modificados."    
+                });
+            }
+
+            // Verificar existencia de usuario
+            const usuarioExiste = await this.usuariosService.buscarPorEmail(correoElectronico);
+            if (usuarioExiste) {
+                return res.status(409).json({ message: 'Este usuario ya existe.' });
+            };
+
+            const perfilActualizado = await this.usuariosService.actualizarPerfil(idUsuario, datos);
+            
+            if (perfilActualizado.estado){
+                res.status(200).send({estado:"OK", mensaje: perfilActualizado.mensaje});
+            }else{
+                res.status(404).send({estado:"Falla", mensaje: perfilActualizado.mensaje});
+            }
+
+        }catch (error){
+            console.log(error)
+            res.status(500).send({
+                estado:"Falla", mensaje: "Error interno en servidor."
+            });
+        }
+    }
     
 }    
