@@ -1,6 +1,5 @@
 import { conn } from './conn.js';
 
-// Crear clase para contener el método GET
 export default class ReclamosEstados {
 
     buscarTodos = async () => {

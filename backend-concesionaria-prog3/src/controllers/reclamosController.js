@@ -245,39 +245,7 @@ export default class ReclamosController{
             });
         }
     }
-/*
-    atencionReclamo = async (req, res) => {
-        try{
-            const idReclamo = req.params.idReclamo;
-            const idReclamoEstado = req.body.idReclamoEstado;
 
-            if(idReclamoEstado === undefined){
-                return res.status(400).send({
-                    estado:"Falla",
-                    mensaje: "Faltan datos obligatorios."    
-                })
-            }
-            
-            const dato = {
-                idReclamoEstado
-            } 
-
-            const reclamoModificado = await this.reclamosService.atencionReclamo(idReclamo, dato);
-
-            if (reclamoModificado.estado){
-                res.status(200).send({estado:"OK", mensaje: reclamoModificado.mensaje});
-            }else{
-                res.status(404).send({estado:"Falla", mensaje: reclamoModificado.mensaje});
-            }
-
-        }catch (error){
-            console.log(error)
-            res.status(500).send({
-                estado:"Falla", mensaje: "Error interno en servidor."
-            });
-        }
-    }
-*/
     informe = async (req, res) => {
 
         try{

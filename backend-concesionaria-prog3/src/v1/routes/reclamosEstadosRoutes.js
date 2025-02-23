@@ -4,6 +4,12 @@ import ReclamosEstadosController from '../../controllers/reclamosEstadosControll
 const router = express.Router();
 const reclamosEstadosController = new ReclamosEstadosController();
 
+// autorizarUsuarios por ROLES:
+// 1 = administrador
+// 2 = empleado
+// 3 = cliente 
+
+// Rutas autorizadas para todos los usuarios 
 router.get('/', reclamosEstadosController.buscarTodos);
 router.get('/:idReclamoEstado', reclamosEstadosController.buscarPorId);
 router.post('/crear', reclamosEstadosController.crear);

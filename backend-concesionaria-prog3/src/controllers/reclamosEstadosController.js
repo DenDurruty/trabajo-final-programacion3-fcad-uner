@@ -1,9 +1,6 @@
 import ReclamosEstadosService from '../services/reclamosEstadosService.js';
 
-// Crear una clase 
-// En su constructor instanciamos el servicio desde reclamosEstadosService
-// Utilizamos el método buscarTodos, en este caso sí voy a tener parámetros porque el controlador
-// tiene que manejar los datos de la solicitud y además tiene que responder al cliente
+
 export default class ReclamosEstadosController{
 
     constructor() {
@@ -119,39 +116,6 @@ export default class ReclamosEstadosController{
             });
         }
     }
-/*
-    cancelar = async (req, res) => {
-        const idReclamoEstado = req.params.idReclamoEstado;
-    
-        if (!idReclamoEstado) {
-            return res.status(400).send({
-                estado: "Falla",
-                mensaje: "Se requiere el id del reclamo a cancelar."
-            });
-        }
-    
-        try {
-            const resultado = await this.service.cancelar(idReclamoEstado);
-            if (resultado.status && resultado.status === 404) {
-                return res.status(404).send({
-                    estado: "Falla",
-                    mensaje: resultado.json.mensaje
-                });
-            }
-    
-            res.status(200).send({
-                estado: "OK",
-                data: resultado
-            });
-        } catch (error) {
-            console.log(error);
-            res.status(500).send({
-                estado: "Falla",
-                mensaje: "Error interno en servidor."
-            });
-        }
-    }
-*/
 
 }
 

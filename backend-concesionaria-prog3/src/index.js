@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import morgan from 'morgan';
 import cors from 'cors';
 
+import { router as v1ReclamosTiposRouter } from './v1/routes/reclamosTiposRoutes.js';
 import { router as v1ReclamosEstadoRouter } from './v1/routes/reclamosEstadosRoutes.js';
 import { router as v1ReclamosRouter } from './v1/routes/reclamosRoutes.js';
 import { router as v1OficinasRouter } from './v1/routes/oficinasRoutes.js';
@@ -43,9 +44,10 @@ app.get('/', (req, res) => {
     //res.json({'estado':true});
 });
 
-app.use('/api/v1/reclamos-estados', v1ReclamosEstadoRouter);
+app.use('/api/v1/reclamos-tipos', autenticarUsuario, v1ReclamosTiposRouter);
+app.use('/api/v1/reclamos-estados', autenticarUsuario, v1ReclamosEstadoRouter);
 app.use('/api/v1/reclamos', autenticarUsuario, v1ReclamosRouter);
-app.use('/api/v1/oficinas', v1OficinasRouter);
+app.use('/api/v1/oficinas', autenticarUsuario, v1OficinasRouter);
 app.use('/api/v1/usuarios', autenticarUsuario, v1UsuariosRouter);
 app.use('/api/v1/auth', v1AuthRouter);
 
