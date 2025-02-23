@@ -14,7 +14,7 @@ POST http://localhost:3000/api/v1/auth/login                                =>  
 POST http://localhost:3000/api/v1/reclamos/crear                            =>    Crear un reclamo
 GET  http://localhost:3000/api/v1/reclamos/mis-reclamos/:idUsuario          =>    Consultar todos los reclamos
 POST http://localhost:3000/api/v1/reclamos/cancelar/:idReclamo              =>    Cancelar un reclamo
-GET http://localhost:3000/api/v1/usuarios/mi-perfil/:idUsuario              =>    Ver perfil de ususario
+GET http://localhost:3000/api/v1/usuarios/mi-perfil                         =>    Ver perfil de usuario
 PATCH http://localhost:3000/api/v1/usuarios/actualizar-perfil/:idUsuario    =>    Actualizar perfil de usuario
 
 
@@ -38,8 +38,12 @@ POST http://localhost:3000/api/v1/usuarios/crearUsuarioAdm               =>    C
 POST http://localhost:3000/api/v1/usuarios/crearUsuarioEe                =>    Crear un usuario empleado
 POST http://localhost:3000/api/v1/usuarios/crearUsuarioClt               =>    Crear un usuario cliente
 
-Gestión de reclamos:
-POST /tipos-reclamos: Crear/gestionar tipos de reclamos
+Gestión de tipos de reclamos:
+GET http://localhost:3000/api/v1/reclamos-tipos/                                =>    Ver tipos de reclamos
+GET http://localhost:3000/api/v1/reclamos-tipos/:idReclamoTipo                  =>    Ver tipo de reclamo por id
+POST http://localhost:3000/api/v1/reclamos-tipos/crear                          =>    Crear un tipo de reclamo
+PATCH http://localhost:3000/api/v1/reclamos-tipos/modificar/:idReclamoTipo      =>    Modificar un tipo de reclamo
+DELETE http://localhost:3000/api/v1/reclamos-tipos/eliminar/:idReclamoTipo      =>    Modificar un tipo de reclamo
 
 Gestión de oficinas:
 POST /oficinas: Crear oficinas, agregar o quitar empleados
@@ -134,5 +138,35 @@ Actualizar perfil         =>    PATCH http://localhost:3000/api/v1/usuarios/actu
 
 ___________________________________________________________________________________________________________________________________________________
 
-Ver reclamos oficina      =>    GET http://localhost:3000/api/v1/reclamos/reclamos-oficina/:idOficina       =>      
+Ver reclamos oficina      =>    GET http://localhost:3000/api/v1/reclamos/reclamos-oficina/:idOficina             
 
+___________________________________________________________________________________________________________________________________________________
+
+Ver tipos de reclamos      =>    GET http://localhost:3000/api/v1/reclamos-tipos/            
+
+___________________________________________________________________________________________________________________________________________________
+
+Ver un tipo de reclamo      =>    GET http://localhost:3000/api/v1/reclamos-tipos/:idReclamoTipo            
+
+___________________________________________________________________________________________________________________________________________________
+
+Crear un tipo de reclamo    =>    POST http://localhost:3000/api/v1/reclamos-tipos/crear   =>       {
+                                                                                                         "descripcion":"",
+                                                                                                         "activo":""
+                                                                                                    }  
+                                                                                                                                                   
+___________________________________________________________________________________________________________________________________________________
+
+Modificar un tipo de reclamo      =>    PATCH http://localhost:3000/api/v1/reclamos-tipos/modificar/:idReclamoTipo   =>     {
+                                                                                                                                "descripcion":"",
+                                                                                                                                "activo":""
+                                                                                                                            }          
+
+___________________________________________________________________________________________________________________________________________________
+
+Eliminar un tipo de reclamo       =>    DELETE http://localhost:3000/api/v1/reclamos-tipos/eliminar/:idReclamoTipo            
+
+___________________________________________________________________________________________________________________________________________________
+
+
+  
