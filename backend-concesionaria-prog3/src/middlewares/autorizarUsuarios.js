@@ -13,7 +13,11 @@ function autorizarUsuarios(perfilesAutorizados = []) {
         }
 
         next(); 
+        console.log("Middleware autorizarUsuarios - req.user:", req.user);
+
+
     };
+    
 }
 
 

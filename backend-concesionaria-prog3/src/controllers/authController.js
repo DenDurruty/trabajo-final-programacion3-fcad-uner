@@ -59,7 +59,7 @@ export default class AuthController {
             }
             
             // Generar token para el nuevo
-            const payload = {idUsuario: usuarioNuevo.id, idUsuarioTipo: usuarioNuevo.idUsuarioTipo}
+            const payload = {idUsuario: usuarioNuevo.idUsuario, idUsuarioTipo: usuarioNuevo.idUsuarioTipo}
             const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' });
             return res.status(201).json({ mensaje: 'Usuario registrado con éxito.', correoElectronico, token: token });
 
@@ -94,7 +94,7 @@ export default class AuthController {
             }
 
             // Generar token 
-            const payload = {idUsuario: usuarioExiste.id, idUsuarioTipo: usuarioExiste.idUsuarioTipo}
+            const payload = {idUsuario: usuarioExiste.idUsuario, idUsuarioTipo: usuarioExiste.idUsuarioTipo}
             const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' });
             return res.status(201).json({ mensaje: 'Bienvenido', token: token });
 
