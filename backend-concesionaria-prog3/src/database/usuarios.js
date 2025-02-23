@@ -139,6 +139,17 @@ export default class Usuarios{
         return true;
     };
 
+    modificarUsuario = async (idUsuario, datos) => {
+        const sql = `UPDATE usuarios SET ? WHERE idUsuario = ?;`;
+        const [result] = await conn.query(sql, [datos, idUsuario]);
+        
+        if (result.affectedRows === 0) {
+            return false;
+        }
+        
+        return true;
+    };
+
     verPerfil = async (idUsuario) => {
         const sql = `SELECT nombre, apellido, correoElectronico, imagen FROM usuarios WHERE idUsuario = ? `;
         const [result] = await conn.query(sql, [idUsuario]);

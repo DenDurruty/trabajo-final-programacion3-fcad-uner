@@ -238,19 +238,90 @@ export default class UsuariosController{
         }
     }
 
-    verPerfil = async (req, res) => {
-        const idUsuario = req.params.idUsuario;
-        
+    modificarUsuario = async (req, res) => {
         try {
-            const perfil = await this.usuariosService.verPerfil(idUsuario);
-            res.status(200).send({estado: 'OK',  perfil: perfil})
+            const idUsuario = req.params.idUsuario;
+    
+            if (!idUsuario) {
+                return res.status(400).send({
+                    estado: "Falla",
+                    mensaje: "Faltan datos obligatorios."    
+                });
+            }
+    
+            const usuarioActual = await this.usuariosService.buscarPorId(idUsuario);
+            if (!usuarioActual) {
+                return res.status(404).send({
+                    estado: "Falla",
+                    mensaje: "El usuario no existe."    
+                });
+            }
+    
+            const datos = req.body;
+    
+            // Campos que puede modificar el admin
+            let datosPermitidos = {};
+            
+            if (datos.idUsuarioTipo) {
+                datosPermitidos.idUsuarioTipo = datos.idUsuarioTipo;
+            }
+            
+            if (datos.idOficina) {
+                datosPermitidos.idOficina = datos.idOficina;
+            }
+    
+            if (Object.keys(datosPermitidos).length === 0) {
+                return res.status(400).send({
+                    estado: "Falla",
+                    mensaje: "No se enviaron datos válidos para modificar."
+                });
+            }
+    
+            const usuarioModificado = await this.usuariosService.modificarUsuario(idUsuario, datosPermitidos);
+            
+            if (usuarioModificado.estado) {
+                res.status(200).send({ estado: "OK", mensaje: usuarioModificado.mensaje });
+            } else {
+                res.status(404).send({ estado: "Falla", mensaje: usuarioModificado.mensaje });
+            }
+    
         } catch (error) {
             console.log(error);
             res.status(500).send({
-                estado:"Falla", mensaje: "Error interno en servidor."
+                estado: "Falla", 
+                mensaje: "Error interno en el servidor."
             });
         }
     }
+
+    verPerfil = async (req, res) => {
+        console.log("Usuario autenticado:", req.user); // 👀 Ver qué hay en req.user
+    
+        const idUsuario = req.user?.idUsuario; // Aseguramos que req.user exista
+    
+        if (!idUsuario) {
+            return res.status(401).send({
+                estado: "Falla",
+                mensaje: "No autorizado. No se encontró el usuario autenticado."
+            });
+        }
+    
+        try {
+            const perfil = await this.usuariosService.verPerfil(idUsuario);
+    
+            if (!perfil) {
+                return res.status(404).send({ estado: "Falla", mensaje: "Perfil no encontrado." });
+            }
+    
+            res.status(200).send({ estado: "OK", perfil: perfil });
+        } catch (error) {
+            console.log(error);
+            res.status(500).send({
+                estado: "Falla",
+                mensaje: "Error interno en servidor."
+            });
+        }
+    };
 
     actualizarPerfil = async (req, res) => {
         try{
@@ -293,4 +364,5 @@ export default class UsuariosController{
         }
     }
     
+
 }    
