@@ -6,11 +6,24 @@ export default class OficinasService {
         this.oficinas = new Oficinas();
     }
 
-    agregarEmpleados = async (oficinaEmpleados) => {
-        // podria controlar 
-        // si los empleados existen
-        // si los empleados ya no estan en la relacion con la oficina (activo 1)
-        
-        return await this.oficinas.agregarEmpleados(oficinaEmpleados);
+    buscarTodos = () => {
+        return this.oficinas.buscarTodos();
     }
+
+    buscarPorId = (idOficina) => {
+        return this.oficinas.buscarPorId(idOficina);
+    }
+
+    crear = (oficina) => {
+        return this.oficinas.crear(oficina);
+    }
+
+    modificar = (oficina) => {
+        return this.oficinas.modificar(oficina);
+    };
+
+    eliminar = (idOficina) => {
+        return this.oficinas.eliminar(idOficina);
+    }
+
 }
