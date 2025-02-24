@@ -46,7 +46,8 @@ app.get('/', (req, res) => {
 
 app.use('/api/v1/reclamos-tipos', autenticarUsuario, v1ReclamosTiposRouter);
 app.use('/api/v1/reclamos-estados', autenticarUsuario, v1ReclamosEstadoRouter);
-app.use('/api/v1/reclamos', autenticarUsuario, v1ReclamosRouter);
+//app.use('/api/v1/reclamos', autenticarUsuario, v1ReclamosRouter);
+app.use('/api/v1/reclamos', v1ReclamosRouter);
 app.use('/api/v1/oficinas', autenticarUsuario, v1OficinasRouter);
 app.use('/api/v1/usuarios', autenticarUsuario, v1UsuariosRouter);
 app.use('/api/v1/auth', v1AuthRouter);

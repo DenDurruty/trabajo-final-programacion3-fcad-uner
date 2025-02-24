@@ -21,7 +21,8 @@ router.post('/atender/:idReclamo', autorizarUsuarios([2]), reclamosController.at
 router.post('/finalizar/:idReclamo', autorizarUsuarios([2]), reclamosController.finalizacionReclamo);
 
 // Rutas autorizadas para los usuarios administradores
-router.get('/informe', autorizarUsuarios([1]), reclamosController.informe);
+//router.get('/informe', autorizarUsuarios([1]), reclamosController.informe);
+router.get('/informe', reclamosController.informe);
 //router.get('/informe?formato=csv',  reclamosController.informe);
 
 
