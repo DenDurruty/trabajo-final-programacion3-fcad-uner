@@ -294,6 +294,55 @@ export default class UsuariosController{
         }
     }
 
+    modificarUsuarioEe = async (req, res) => {
+        try {
+            const { idUsuario } = req.params;
+            if (!idUsuario) {
+                return res.status(400).json({ estado: "Falla", mensaje: "Falta el id del usuario." });
+            }
+    
+            const { idUsuarioTipo, idOficina } = req.body;
+            let datosPermitidos = {};
+            if (idUsuarioTipo !== undefined) datosPermitidos.idUsuarioTipo = idUsuarioTipo;
+            if (idOficina !== undefined) datosPermitidos.idOficina = idOficina;
+    
+            if (Object.keys(datosPermitidos).length === 0) {
+                return res.status(400).json({ estado: "Falla", mensaje: "No se enviaron datos válidos para modificar." });
+            }
+    
+            const resultado = await this.usuariosService.modificarUsuarioEe(idUsuario, datosPermitidos);
+    
+            if (resultado.estado) {
+                return res.status(200).json({ estado: "OK", mensaje: resultado.mensaje, data: datosPermitidos });
+            } else {
+                return res.status(400).json({ estado: "Falla", mensaje: resultado.mensaje });
+            }
+        } catch (error) {
+            console.error("Error en modificarUsuarioEe:", error);
+            return res.status(500).json({ estado: "Falla", mensaje: "Error interno del servidor." });
+        }
+    };
+
+    eliminarUsuarioEe = async (req, res) => {
+        try {
+            const { idUsuario } = req.params;
+            if (!idUsuario) {
+                return res.status(400).json({ estado: "Falla", mensaje: "Falta el id del usuario." });
+            }
+    
+            const resultado = await this.usuariosService.eliminarUsuarioEe(idUsuario);
+    
+            if (resultado.estado) {
+                return res.status(200).json({ estado: "OK", mensaje: resultado.mensaje });
+            } else {
+                return res.status(400).json({ estado: "Falla", mensaje: resultado.mensaje });
+            }
+        } catch (error) {
+            console.error("Error en eliminarUsuario:", error);
+            return res.status(500).json({ estado: "Falla", mensaje: "Error interno del servidor." });
+        }
+    };
+    
     verPerfil = async (req, res) => {
         console.log("Usuario autenticado:", req.user); // 👀 Ver qué hay en req.user
     

@@ -34,20 +34,6 @@ export default class Usuarios{
 
         return (result.length > 0) ? result[0] : null;
     };
-/*
-    crearUsuario = async ({ nombre, apellido, correoElectronico, contrasenia, idUsuarioTipo, imagen = null }) => {
-        const sql = `INSERT INTO usuarios (nombre, apellido, correoElectronico, contrasenia, idUsuarioTipo, imagen, activo)
-                    VALUES (?, ?, ?, ?, ?, ?, ?)`;
-    
-        const [result] = await conn.query(sql, [nombre, apellido, correoElectronico, contrasenia, idUsuarioTipo, imagen, 1]);
-    
-        if (result.affectedRows === 0) {
-            return null;
-        }
-        
-        return { id: result.insertId, nombre, apellido, correoElectronico, contrasenia, idUsuarioTipo, imagen, activo: 1 };
-    };
-*/
 
     crearUsuarioAdm = async ({ nombre, apellido, correoElectronico, contrasenia, idUsuarioTipo, imagen = null }) => {
         const sql = `INSERT INTO usuarios (nombre, apellido, correoElectronico, contrasenia, idUsuarioTipo, imagen, activo)
@@ -139,17 +125,85 @@ export default class Usuarios{
         return true;
     };
 
-    modificarUsuario = async (idUsuario, datos) => {
-        const sql = `UPDATE usuarios SET ? WHERE idUsuario = ?;`;
-        const [result] = await conn.query(sql, [datos, idUsuario]);
-        
-        if (result.affectedRows === 0) {
-            return false;
+    modificarUsuarioEe = async (idUsuario, datos, idOficina) => {
+        const pool = await conn.getConnection();
+    
+        try {
+            await pool.beginTransaction();
+    
+            // Obtener los datos actuales del usuario
+            const [usuarioActual] = await pool.query(`SELECT idUsuarioTipo FROM usuarios WHERE idUsuario = ?`, [idUsuario]);
+    
+            if (!usuarioActual.length) {
+                await pool.rollback();
+                return null; // Usuario no existe
+            }
+    
+            // Si no se envió idUsuarioTipo, se mantiene el actual
+            const idUsuarioTipo = datos.idUsuarioTipo !== undefined ? datos.idUsuarioTipo : usuarioActual[0].idUsuarioTipo;
+    
+            // Actualizar usuario en `usuarios`
+            const sql1 = `UPDATE usuarios SET idUsuarioTipo = ? WHERE idUsuario = ?`;
+            await pool.query(sql1, [idUsuarioTipo, idUsuario]);
+    
+            // Manejo de oficina
+            const [oficinaActual] = await pool.query(`SELECT idOficina FROM usuarios_oficinas WHERE idUsuario = ?`, [idUsuario]);
+    
+            if (idOficina !== undefined) {
+                if (oficinaActual.length) {
+                    // Si ya tiene oficina, actualizarla
+                    const sql2 = `UPDATE usuarios_oficinas SET idOficina = ? WHERE idUsuario = ?`;
+                    await pool.query(sql2, [idOficina, idUsuario]);
+                } else {
+                    // Si no tenía oficina, insertarla
+                    const sql3 = `INSERT INTO usuarios_oficinas (idUsuario, idOficina) VALUES (?, ?)`;
+                    await pool.query(sql3, [idUsuario, idOficina]);
+                }
+            }
+    
+            await pool.commit();
+            return { idUsuario, idUsuarioTipo, idOficina };
+    
+        } catch (error) {
+            await pool.rollback();
+            console.error('Error al modificar el usuario:', error);
+            return null;
+        } finally {
+            pool.release();
         }
-        
-        return true;
     };
 
+    eliminarUsuarioEe = async (idUsuario) => {
+        const pool = await conn.getConnection();
+    
+        try {
+            await pool.beginTransaction();
+    
+            // Verificar si el usuario existe
+            const [usuarioExiste] = await pool.query(`SELECT * FROM usuarios WHERE idUsuario = ?`, [idUsuario]);
+            if (!usuarioExiste.length) {
+                await pool.rollback();
+                return null; // Usuario no encontrado
+            }
+    
+            // Eliminar relación con oficina (si existe)
+            await pool.query(`DELETE FROM usuarios_oficinas WHERE idUsuario = ?`, [idUsuario]);
+    
+            // Eliminar usuario de la tabla `usuarios`
+            await pool.query(`DELETE FROM usuarios WHERE idUsuario = ?`, [idUsuario]);
+    
+            await pool.commit();
+            return true;
+    
+        } catch (error) {
+            await pool.rollback();
+            console.error('Error al eliminar el usuario:', error);
+            return null;
+        } finally {
+            pool.release();
+        }
+    };
+    
     verPerfil = async (idUsuario) => {
         const sql = `SELECT nombre, apellido, correoElectronico, imagen FROM usuarios WHERE idUsuario = ? `;
         const [result] = await conn.query(sql, [idUsuario]);

@@ -25,9 +25,10 @@ router.get('/:idUsuario', autorizarUsuarios([1]), usuariosController.buscarPorId
 router.post('/crearUsuarioAdm', autorizarUsuarios([1]), usuariosController.crearUsuarioAdm);
 router.post('/crearUsuarioClt', autorizarUsuarios([1]), usuariosController.crearUsuarioClt);
 router.patch('/:idUsuario', autorizarUsuarios([1]), usuariosController.modificarUsuario); 
+router.patch('/modificar/:idUsuario', autorizarUsuarios([1]), usuariosController.modificarUsuarioEe); 
+router.delete('/eliminar/:idUsuario', autorizarUsuarios([1]), usuariosController.eliminarUsuarioEe); 
 
-
-router.patch('modificar/:idUsuario', upload.single('imagen'), autorizarUsuarios([1]), usuariosController.modificar); 
+//router.patch('modificar/:idUsuario', upload.single('imagen'), autorizarUsuarios([1]), usuariosController.modificar); 
 router.post('/crearUsuarioEe', autorizarUsuarios([1]), usuariosController.crearUsuarioEe); // Crear usuario empleado y asignar oficina a la que pertenece
 
 //router.patch('/:idUsuario', upload.single('imagen'), autorizarUsuarios([1]), usuariosController.modificarUsuarioEe); 
