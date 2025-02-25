@@ -154,7 +154,7 @@ Recuerda que cada tipo de usuario tiene una serie de tareas que puede y que no p
   
 **5)** Clic en **"Execute"**
   
-**6)** ¡LISTO! ¡YA ESTÁS REGISTRAD@! Ahora podés seguir ejecutando el resto de las pruebas!
+**6)** ¡LISTO! ¡YA ESTÁS REGISTRAD@! ¡Ahora podés seguir ejecutando el resto de las pruebas!
                            
 
 🔐Importante: a la derecha de las pruebas hay un ícono de un candado abierto, allí debes ingresar el token que te dió el registro o el login para poder ejecutar esa tarea.
@@ -175,5 +175,11 @@ Recuerda que cada tipo de usuario tiene una serie de tareas que puede y que no p
 
 #### 📌 **Si querés atender un reclamo**, debés ingresar como **empleado**:
 
-**1)** Hacé lo mismo que con el adminitrador pero con una cuenta de empleado predeterminada.
+**1)** Hacé lo mismo que con el adminitrador pero con una cuenta de empleado predeterminada que vas a encontrar en el archivo "endpoints-de-consignas.txt".
+
+____________________________________________________________________________________________________________________________________
+
+### ¡Gracias por pasar por acá! 😊
+#### Den 
+ 
 
