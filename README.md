@@ -49,43 +49,42 @@ Este proyecto responde a la consigna de crear una **API Rest** para la gestión 
 
 ## Instalación 🔧
 
-**1-** Clonar el repositorio:
+1️⃣ Clonar el repositorio:
 ```bash
    git clone https://github.com/usuario/repositorio.git
    cd repositorio
 ```
 
-**2-** Instalar las dependencias:
+2️⃣ Instalar las dependencias:
 ```bash
    npm install
 ```
 
-**3-** Configurar variables de entorno:
+3️⃣ Configurar variables de entorno:
+* Crea un archivo .env y coloca esto...
 ```bash
-   PORT=3000
-   DATABASE_=
-   JWT_SECRET=
-   PORT=3000
-   DATABASE_=
-   JWT_SECRET=
+   PUERTO=3000
+   HOST_DATABASE=localhost
+   USER_DATABASE=tu_usuario
+   PASS_DATABASE=tu_contrasenia
+   NAME_DATABASE=nombre_de_la_base_de_datos
+   CORREO=tu_correo_electronico
+   CLAVE=tu_clave_de_aplicacion
+   JWT_SECRET=tu_palabra_secreta
 ```
-
-**4-** Iniciar el servidor:
+4️⃣ Iniciar el servidor:
 ```bash
    npm run dev
 ```
 
 
-## ¿Cómo probamos la API? 🚀
-> [!IMPORTANT]
-> ROLES DE LOS USUARIOS:
-> 
-> **Administrador** = idUsuarioTipo: **1**
-> 
-> **Empleado** = idUsuarioTipo: **2**
-> 
-> **Cliente** = idUsuarioTipo: **3**
-> 
+##  🚀 ¿Cómo probamos la API?
+### 🏷️ ROLES DE LOS USUARIOS:
+
+ **Administrador** = idUsuarioTipo: **1**
+ **Empleado** = idUsuarioTipo: **2**
+ **Cliente** = idUsuarioTipo: **3**
+ 
 
 
 
