@@ -81,11 +81,11 @@ Este proyecto responde a la consigna de crear una **API Rest** para la gestión 
 ##  🚀 ¿Cómo probamos la API?
 ### 🏷️ ROLES DE USUARIO:
 
- **Administrador** = idUsuarioTipo: **1**
+* 👑 **Administrador** = idUsuarioTipo: **1**
  
- **Empleado** = idUsuarioTipo: **2**
+* 🛠️ **Empleado** = idUsuarioTipo: **2**
  
- **Cliente** = idUsuarioTipo: **3**
+* 👤 **Cliente** = idUsuarioTipo: **3**
 
    
 ### 📌 PERMISOS DE CADA USUARIO:
@@ -154,7 +154,7 @@ Recuerda que cada tipo de usuario tiene una serie de tareas que puede y que no p
   
 **5)** Clic en **"Execute"**
   
-**6)** ¡LISTO! ¡Ya estás registrad@! Ahora podés seguir ejecutando el resto de las pruebas!
+**6)** ¡LISTO! ¡YA ESTÁS REGISTRAD@! Ahora podés seguir ejecutando el resto de las pruebas!
                            
 
 🔐Importante: a la derecha de las pruebas hay un ícono de un candado abierto, allí debes ingresar el token que te dió el registro o el login para poder ejecutar esa tarea.
