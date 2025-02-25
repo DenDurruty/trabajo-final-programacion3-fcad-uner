@@ -61,8 +61,11 @@ Este proyecto responde a la consigna de crear una API Rest para la gestión de r
 > ROLES DE LOS USUARIOS:
 > 
 > **Administrador**= idUsuarioTipo:**1**
+> 
 > **Empleado**= idUsuarioTipo:**2**
+> 
 > **Cliente**= idUsuarioTipo:**3**
+> 
 >
 
 LOS USUARIOS PUEDEN:
