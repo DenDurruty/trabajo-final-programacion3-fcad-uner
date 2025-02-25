@@ -71,19 +71,31 @@ Este proyecto responde a la consigna de crear una API Rest para la gestión de r
 LOS USUARIOS PUEDEN:
 
 **Administrador**: 
+
 **-** Iniciar sesión, visualizar y actualizar su perfil
+
 **-** Crear, listar, modificar y eliminar cualquier tipo de reclamo
+
 **-** Crear, listar, modificar (sólo el idUsuarioTipo e idOficina) y eliminar cualquier tipo de usuario
+
 **-** Crear, listar, modificar y eliminar cualquier oficina y tipo de reclamo
+
 **-** Visualizar información estadística sobre los reclamos
+
 **-** Descargar reclamos en formato PDF/CSV
 
+
 **Empleado**: 
+
 **-** Iniciar sesión, visualizar y actualizar su perfil
+
 **-** Listar, atender y finalizar todos (y únicamente) los reclamos asignados a su oficina
 
+
 **Cliente**: 
+
 **-** Iniciar sesión, visualizar y actualizar su perfil
+
 **-** Crear, listar, consultar y cancelar sus reclamos
 
 * Cada vez que un reclamo sufre un cambio de estado (cancelado, atendido o finalizado) se envía un notificación a la casilla de correo del cliente.
