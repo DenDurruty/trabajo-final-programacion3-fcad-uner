@@ -69,6 +69,7 @@ Este proyecto responde a la consigna de crear una API Rest para la gestión de r
 
 
 LOS USUARIOS PUEDEN:
+
 **Administrador**: 
 **-** Iniciar sesión, visualizar y actualizar su perfil
 **-** Crear, listar, modificar y eliminar cualquier tipo de reclamo
