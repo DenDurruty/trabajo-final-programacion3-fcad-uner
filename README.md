@@ -6,30 +6,30 @@ Este repositorio contiene mi Trabajo Final Integrador de la cátedra "Programaci
 ## 📋 Introducción 
 Este proyecto responde a la consigna de crear una **API Rest** para la gestión de reclamos de la concesionaria de automóviles **"PROG III"**. 
 
-**.** 📌 Usuarios Clientes: se registran desde la interfaz de usuario en el navegador.
+**-** 📌 Usuarios Clientes: se registran desde la interfaz de usuario en el navegador.
 
-**.** 🔑 Usuarios Empleados y Administradores: solo pueden ser creados por un administrador.
+**-** 🔑 Usuarios Empleados y Administradores: solo pueden ser creados por un administrador.
 
-**.** 🔒 Roles y permisos: cada usuario tiene restricciones y permisos según su rol.
+**-** 🔒 Roles y permisos: cada usuario tiene restricciones y permisos según su rol.
 
 
 ## Tecnologías utilizadas ⚙️
 
-** - Node.Js**                                             =>    Entorno de ejecución para JavaScript
-** - Express**                                             =>    Framework para aplicaciones web
-** - express-validator**                                   =>    Validación de datos
-** - Mysql2**                                              =>    Conexión a base de datos
-** - dotenv**                                              =>    Manejo de variables de entorno
-** - bcryptjs**                                            =>    Hasheo y encriptación de contraseñas
-** - jasonwebtoken**                                       =>    Generación de tokens JWT
-** - Handlebars**                                          =>    Generación de vistas y reportes en PDF
-** - cors**                                                =>    Seguridad en el acceso a la API
-** - morgan**                                              =>    Registro de solicitudes HTTP
-** - csv-writer**                                          =>    Generación de reportes en CSV
-** - puppeteer**                                           =>    Descarga de reportes en PDF
-** - multer**                                              =>    Carga de imágenes
-** - swagger-jsdoc y swagger-ui-express**                  =>    Documentación interactiva de la API
-** - yamljs**                                              =>    Especificación de documentación
+**- Node.Js**                                             =>    Entorno de ejecución para JavaScript
+**- Express**                                             =>    Framework para aplicaciones web
+**- express-validator**                                   =>    Validación de datos
+**- Mysql2**                                              =>    Conexión a base de datos
+**- dotenv**                                              =>    Manejo de variables de entorno
+**- bcryptjs**                                            =>    Hasheo y encriptación de contraseñas
+**- jasonwebtoken**                                       =>    Generación de tokens JWT
+**- Handlebars**                                          =>    Generación de vistas y reportes en PDF
+**- cors**                                                =>    Seguridad en el acceso a la API
+**- morgan**                                              =>    Registro de solicitudes HTTP
+**- csv-writer**                                          =>    Generación de reportes en CSV
+**- puppeteer**                                           =>    Descarga de reportes en PDF
+**- multer**                                              =>    Carga de imágenes
+**- swagger-jsdoc y swagger-ui-express**                  =>    Documentación interactiva de la API
+**- yamljs**                                              =>    Especificación de documentación
 
 
 ## Instalación 🔧
