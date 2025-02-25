@@ -15,35 +15,35 @@ Este proyecto responde a la consigna de crear una **API Rest** para la gestión 
 
 ## Tecnologías utilizadas ⚙️
 
-**- Node.Js**                                             =>    Entorno de ejecución para JavaScript
+* **Node.Js**                                                 *Entorno de ejecución para JavaScript*
 
-**- Express**                                             =>    Framework para aplicaciones web
+* **Express**                                                 *Framework para aplicaciones web*
 
-**- express-validator**                                   =>    Validación de datos
+* **express-validator**                                       *Validación de datos*
 
-**- Mysql2**                                              =>    Conexión a base de datos
+* **Mysql2**                                                  *Conexión a base de datos*
 
-**- dotenv**                                              =>    Manejo de variables de entorno
+* **dotenv**                                                  *Manejo de variables de entorno*
 
-**- bcryptjs**                                            =>    Hasheo y encriptación de contraseñas
+* **bcryptjs**                                                *Hasheo y encriptación de contraseñas*
 
-**- jasonwebtoken**                                       =>    Generación de tokens JWT
+* **jsonwebtoken**                                           *Generación de tokens JWT*
 
-**- Handlebars**                                          =>    Generación de vistas y reportes en PDF
+* **Handlebars**                                              *Generación de vistas y reportes en PDF*
 
-**- cors**                                                =>    Seguridad en el acceso a la API
+* **cors**                                                    *Seguridad en el acceso a la API*
 
-**- morgan**                                              =>    Registro de solicitudes HTTP
+* **morgan**                                                  *Registro de solicitudes HTTP*
 
-**- csv-writer**                                          =>    Generación de reportes en CSV
+* **csv-writer**                                              *Generación de reportes en CSV*
 
-**- puppeteer**                                           =>    Descarga de reportes en PDF
+* **puppeteer**                                               *Descarga de reportes en PDF*
 
-**- multer**                                              =>    Carga de imágenes
+* **multer**                                                  *Carga de imágenes*
 
-**- swagger-jsdoc y swagger-ui-express**                  =>    Documentación interactiva de la API
+* **swagger-jsdoc y swagger-ui-express**                      *Documentación interactiva de la API*
 
-**- yamljs**                                              =>    Especificación de documentación
+* **yamljs**                                                  *Especificación de documentación*
 
 
 
@@ -86,7 +86,8 @@ Este proyecto responde a la consigna de crear una **API Rest** para la gestión 
  **Empleado** = idUsuarioTipo: **2**
  
  **Cliente** = idUsuarioTipo: **3**
- 
+
+   
 ### 📌 PERMISOS DE CADA USUARIO:
 
 👑**Administrador**: 
@@ -117,26 +118,35 @@ Este proyecto responde a la consigna de crear una **API Rest** para la gestión 
 
 **-** Crear, listar, consultar y cancelar sus reclamos
 
-* Cada vez que un reclamo sufre un cambio de estado (cancelado, atendido o finalizado) se envía un notificación a la casilla de correo del cliente.
+Cada vez que un reclamo sufre un cambio de estado (cancelado, atendido o finalizado) se envía un notificación a la casilla de correo del cliente.
 
-### ¡1,2 3... probando-probando!
-Si ya descargaste el archivo, lo abriste en tu entorno de desarrollo, instalaste las dependencias y levantaste el servidor. Ahora el siguiente paso es ver lo que puede hacer. ¿Cómo? Abriendo un software de pruebas de desarrollo como puede ser POSTMAN o SWAGGER. 
+### 🔍 ¡1,2 3... probando-probando!
+Si ya clonaste el repositorio, instalaste dependencias y levantaste el servidor, ahora es momento de probar la API. 📡
 
-**POSTMAN**: 
-1) Abrir Postman
-2) Dentro del proyecto vas a encontrar un archivo .txt llamado "endpoint-finales.txt" donde vas a encontrar todos los endpoints de la aplicación y ejemplos en formato tipo json de los datos que debes ingresar con cada uno de ellos para ejecutar las pruebas.
+## 🧪 **POSTMAN**: 
 
-**SWAGGER**:
-1) Esta aplicación fue documentada con Swagger por lo tanto, para realizar las pruebas, lo único que tenés que hacer es abrir tu navegador y entrar a localhost:3000/api/v1/docs-s, allí te encontrarás con la interfaz de Swagger y todos los endpoints de esta aplicación listos para probar.
+1️⃣ Abrir Postman
+
+2️⃣ Dentro del proyecto vas a encontrar un archivo llamado "endpoints-de-consignas.txt" donde están todos los endpoints y ejemplos de datos en JSON para ejecutar las pruebas.
+
+
+## 📝 **SWAGGER**:
+
+1️⃣ Esta API está documentada con **Swagger** por lo tanto, para realizar las pruebas, lo único que tenés que hacer es abrir tu navegador
+
+2️⃣ Entrar a localhost:3000/api-docs 
+
+3️⃣ Explorá los endpoints y probalos directamente desde la interfaz
 
 Recuerda que cada tipo de usuario tiene una serie de tareas que puede y que no puede realizar. Así que por ej:
 
-- **Si quieres crear un reclamo**, debes registrarte primero como *cliente*:
-  **a)** Ir al endpoint POST http://localhost...
-  **b)** Clic en "try.."
-  **c)** Clic en "execute"
+### 🔑 **Instrucciones de prueba**
+📌  **Si querés crear un reclamo**, debés registrarte primero como **cliente**:
+  **a)** Ir al endpoint POST /registro
+  **b)** Clic en **"Try it out"**
+  **c)** Clic en **Execute"**
   **d)** Cambiar los datos de registro
-  **c)** Clic en "execute"
+  **c)** Clic en **"Execute"**
                            y voalá... YA ESTÁS REGISTRADO, ahora podés seguir ejecutando el resto de las pruebas!
 
   Importante: a la derecha de las pruebas hay un ícono de un candado abierto, allí debes ingresar el token que te dió el registro o el login para poder ejecutar esa tarea.
