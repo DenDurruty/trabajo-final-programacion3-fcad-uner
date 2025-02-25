@@ -79,7 +79,7 @@ Este proyecto responde a la consigna de crear una **API Rest** para la gestión 
 
 
 ##  🚀 ¿Cómo probamos la API?
-### 🏷️ ROLES DE USUARIO:
+#### 🏷️ ROLES DE USUARIO:
 
  **Administrador** = idUsuarioTipo: **1**
  
@@ -88,7 +88,7 @@ Este proyecto responde a la consigna de crear una **API Rest** para la gestión 
  **Cliente** = idUsuarioTipo: **3**
 
    
-### 📌 PERMISOS DE CADA USUARIO:
+#### 📌 PERMISOS DE CADA USUARIO:
 
 👑**Administrador**: 
 
@@ -120,17 +120,17 @@ Este proyecto responde a la consigna de crear una **API Rest** para la gestión 
 
 Cada vez que un reclamo sufre un cambio de estado (cancelado, atendido o finalizado) se envía un notificación a la casilla de correo del cliente.
 
-### 🔍 ¡1,2 3... probando-probando!
+## 🔍 ¡1,2 3... probando-probando!
 Si ya clonaste el repositorio, instalaste dependencias y levantaste el servidor, ahora es momento de probar la API. 📡
 
-## 🧪 **POSTMAN**: 
+### 🧪 **POSTMAN**: 
 
 1️⃣ Abrir Postman
 
 2️⃣ Dentro del proyecto vas a encontrar un archivo llamado "endpoints-de-consignas.txt" donde están todos los endpoints y ejemplos de datos en JSON para ejecutar las pruebas.
 
 
-## 📝 **SWAGGER**:
+### 📝 **SWAGGER**:
 
 1️⃣ Esta API está documentada con **Swagger** por lo tanto, para realizar las pruebas, lo único que tenés que hacer es abrir tu navegador
 
