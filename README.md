@@ -59,8 +59,15 @@ Este proyecto responde a la consigna de crear una API Rest para la gestión de r
 ## ¿Cómo lo probamos? 🚀
 > [!IMPORTANT]
 > ROLES DE LOS USUARIOS:
-> **Administrador**= idUsuarioTipo : 1
-> **Empleado** = idUsuarioTipo : 2
-> **Cliente** = idUsuarioTipo : 3
+> **Administrador**= idUsuarioTipo:**1**
+> **Empleado**= idUsuarioTipo:**2**
+> **Cliente**= idUsuarioTipo:**3**
 >
-> IMPLICANCIAS DE LOS USUARIOS: 
+LOS USUARIOS PUEDEN:
+**Administrador**: 
+**-** Iniciar sesión, visualizar y modificar su perfil
+**-** Visualizar, crear, modificar y eliminar cualquier tipo de reclamo
+**-** Visualizar, crear, modificar (sólo el idUsuarioTipo e idOficina) y eliminar cualquier tipo de usuario
+**-** Visualizar, crear, modificar y eliminar cualquier oficina y tipo de reclamo
+**-** Visualizar información estadística sobre los reclamos
+**-** Descargar reclamos en formato PDF/CSV
