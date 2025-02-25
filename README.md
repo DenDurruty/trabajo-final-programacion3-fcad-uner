@@ -79,19 +79,17 @@ Este proyecto responde a la consigna de crear una **API Rest** para la gestión 
 
 
 ##  🚀 ¿Cómo probamos la API?
-### 🏷️ ROLES DE LOS USUARIOS:
+### 🏷️ ROLES DE USUARIO:
 
  **Administrador** = idUsuarioTipo: **1**
+ 
  **Empleado** = idUsuarioTipo: **2**
+ 
  **Cliente** = idUsuarioTipo: **3**
  
+### 📌 PERMISOS DE CADA USUARIO:
 
-
-
-
-LOS USUARIOS PUEDEN:
-
-**Administrador**: 
+👑**Administrador**: 
 
 **-** Iniciar sesión, visualizar y actualizar su perfil
 
@@ -106,14 +104,14 @@ LOS USUARIOS PUEDEN:
 **-** Descargar reclamos en formato PDF/CSV
 
 
-**Empleado**: 
+🛠️ **Empleado**: 
 
 **-** Iniciar sesión, visualizar y actualizar su perfil
 
 **-** Listar, atender y finalizar todos (y únicamente) los reclamos asignados a su oficina
 
 
-**Cliente**: 
+👤 **Cliente**: 
 
 **-** Iniciar sesión, visualizar y actualizar su perfil
 
