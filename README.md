@@ -160,13 +160,20 @@ Recuerda que cada tipo de usuario tiene una serie de tareas que puede y que no p
 🔐Importante: a la derecha de las pruebas hay un ícono de un candado abierto, allí debes ingresar el token que te dió el registro o el login para poder ejecutar esa tarea.
 
 📌 **Si querés agregar un empleado**, debés ingresar como **administrador**:
+
 **1)** Ir al endpoint POST /login
+
 **2)** Clic en **"Try it out.."**
+
 **3)** Clic en **"Execute"**
+
 **4)** No cambiar los datos del login (porque este usuario y su contraseña ya están en la base de datos)
+
 **5)** Clic en **"Execute"** nuevamente
+
 **6)** ¡LISTO! ¡YA INICIASTE SESIÓN!, ahora copiá el **token** de autenticación y usalo para acceder al endpoint de creación de usuarios empleados.
 
 📌 **Si querés atender un reclamo**, debés ingresar como **empleado**:
+
 **1)** Hacé lo mismo que con el adminitrador pero con una cuenta de empleado predeterminada.
 
