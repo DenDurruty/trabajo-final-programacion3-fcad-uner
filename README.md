@@ -6,11 +6,11 @@ Este repositorio contiene mi Trabajo Final Integrador de la cátedra "Programaci
 ## 📋 Introducción 
 Este proyecto responde a la consigna de crear una **API Rest** para la gestión de reclamos de la concesionaria de automóviles **"PROG III"**. 
 
-**-** 📌 Usuarios Clientes: se registran desde la interfaz de usuario en el navegador.
+* 📌 Usuarios Clientes: se registran desde la interfaz de usuario en el navegador.
 
-**-** 🔑 Usuarios Empleados y Administradores: solo pueden ser creados por un administrador.
+* 🔑 Usuarios Empleados y Administradores: solo pueden ser creados por un administrador.
 
-**-** 🔒 Roles y permisos: cada usuario tiene restricciones y permisos según su rol.
+* 🔒 Roles y permisos: cada usuario tiene restricciones y permisos según su rol.
 
 
 ## Tecnologías utilizadas ⚙️
