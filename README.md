@@ -4,27 +4,32 @@ Este repositorio contiene mi Trabajo Final Integrador de la cátedra "Programaci
 
 
 ## 📋 Introducción 
-Este proyecto responde a la consigna de crear una API Rest para la gestión de reclamos de la concesionaria de automóviles "PROG III". La lógica de esta aplicación está pensada para que cualquier persona usuaria pueda registrarse desde la interfaz de usuario en el navegador, pero que la cuenta allí creada sea por defecto una cuenta de tipo usuario cliente, siendo potestad única de los administradores crear cuentas del tipo usuario empleado o usuario administrador. Cada uno de estos tipos de usuarios tiene sus correspondientes validaciones de acceso para realizar las tareas que su rol le permite.
+Este proyecto responde a la consigna de crear una **API Rest** para la gestión de reclamos de la concesionaria de automóviles **"PROG III"**. 
+
+**.** 📌 Usuarios Clientes: se registran desde la interfaz de usuario en el navegador.
+
+**.** 🔑 Usuarios Empleados y Administradores: solo pueden ser creados por un administrador.
+
+**.** 🔒 Roles y permisos: cada usuario tiene restricciones y permisos según su rol.
 
 
 ## Tecnologías utilizadas ⚙️
 
-- **Node.Js**
-- **Express**
-- **Express validator**
-- **mysql12**
-- **dotenv** para levantar variables de entorno
-- **bcryptjs** hasheo encriptacion
-- **jasonwebtoken** para token autenticacion
-- **handlebars** para crear la interfaz de las notificaciones de los reclamos y el infirme pdf
-- **cors**
-- **morgan**
-- **csv-writer** para generar csv
-- **puppeteer** para descargar pdf
-- **multer** para subir imagenes
-- **swagger-jsdoc** para documentar
-- **swagger-ui-express**
-- **yaml swagger**
+** - Node.Js**                                             =>    Entorno de ejecución para JavaScript
+** - Express**                                             =>    Framework para aplicaciones web
+** - express-validator**                                   =>    Validación de datos
+** - Mysql2**                                              =>    Conexión a base de datos
+** - dotenv**                                              =>    Manejo de variables de entorno
+** - bcryptjs**                                            =>    Hasheo y encriptación de contraseñas
+** - jasonwebtoken**                                       =>    Generación de tokens JWT
+** - Handlebars**                                          =>    Generación de vistas y reportes en PDF
+** - cors**                                                =>    Seguridad en el acceso a la API
+** - morgan**                                              =>    Registro de solicitudes HTTP
+** - csv-writer**                                          =>    Generación de reportes en CSV
+** - puppeteer**                                           =>    Descarga de reportes en PDF
+** - multer**                                              =>    Carga de imágenes
+** - swagger-jsdoc y swagger-ui-express**                  =>    Documentación interactiva de la API
+** - yamljs**                                              =>    Especificación de documentación
 
 
 ## Instalación 🔧
