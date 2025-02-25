@@ -1,9 +1,9 @@
-# Trabajo Final Integrador de Programación III: API Rest - Gestión de reclamos 
+# Trabajo Final Integrador de Programación III: API Rest - Gestión de reclamos 💻⚙️
 
-Este repositorio contiene mi Trabajo Final Integrador de la cátedra "Programación lll" del ciclo lectivo 2024 de la Tecnicatura Universitaria en Desarrollo Web perteneciente a la FCAD - UNER.
+Este repositorio contiene mi Trabajo Final Integrador de la cátedra "Programación lll" del ciclo lectivo 2024 de la **Tecnicatura Universitaria en Desarrollo Web** perteneciente a la FCAD - UNER.
 
 
-## Introducción 📋
+##📋 Introducción 
 Este proyecto responde a la consigna de crear una API Rest para la gestión de reclamos de la concesionaria de automóviles "PROG III". La lógica de esta aplicación está pensada para que cualquier persona usuaria pueda registrarse desde la interfaz de usuario en el navegador, pero que la cuenta allí creada sea por defecto una cuenta de tipo usuario cliente, siendo potestad única de los administradores crear cuentas del tipo usuario empleado o usuario administrador. Cada uno de estos tipos de usuarios tiene sus correspondientes validaciones de acceso para realizar las tareas que su rol le permite.
 
 
