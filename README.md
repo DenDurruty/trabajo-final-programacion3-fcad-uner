@@ -4,7 +4,7 @@ Este repositorio contiene mi Trabajo Final Integrador de la cátedra "Programaci
 
 
 ## Introducción 📋
-Este proyecto responde a la consigna de crear una API Rest para la gestión de reclamos de la concesionaria de automóviles "PROG III". La lógica de esta aplicación está pensada para que cualquier persona usuaria pueda registrarse desde la interfaz de usuario en el navegador, pero que la cuenta allí creada sea por defecto una cuenta de tipo usuario cliente, siendo potestad única de los administradores crear cuentas del tipo usuario empleado o usuario administrador. Cada uno de estos tipos de usuarios tiene sus correspondientes validaciones de acceso para realizar las tareas que abarca su implicancia.
+Este proyecto responde a la consigna de crear una API Rest para la gestión de reclamos de la concesionaria de automóviles "PROG III". La lógica de esta aplicación está pensada para que cualquier persona usuaria pueda registrarse desde la interfaz de usuario en el navegador, pero que la cuenta allí creada sea por defecto una cuenta de tipo usuario cliente, siendo potestad única de los administradores crear cuentas del tipo usuario empleado o usuario administrador. Cada uno de estos tipos de usuarios tiene sus correspondientes validaciones de acceso para realizar las tareas que su rol le permite.
 
 
 ## Tecnologías utilizadas ⚙️
@@ -59,10 +59,12 @@ Este proyecto responde a la consigna de crear una API Rest para la gestión de r
 ## ¿Cómo lo probamos? 🚀
 > [!IMPORTANT]
 > ROLES DE LOS USUARIOS:
+> 
 > **Administrador**= idUsuarioTipo:**1**
 > **Empleado**= idUsuarioTipo:**2**
 > **Cliente**= idUsuarioTipo:**3**
 >
+
 LOS USUARIOS PUEDEN:
 **Administrador**: 
 **-** Iniciar sesión, visualizar y modificar su perfil
