@@ -102,5 +102,6 @@ LOS USUARIOS PUEDEN:
 
 * Cada vez que un reclamo sufre un cambio de estado (cancelado, atendido o finalizado) se envía un notificación a la casilla de correo del cliente.
 
-
+### Paso 1
+Si ya descargaste el archivo, lo abriste en tu entorno de desarrollo e instalaste las dependencias. Ahora el siguiente paso es 
 
