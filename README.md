@@ -56,7 +56,7 @@ Este proyecto responde a la consigna de crear una API Rest para la gestión de r
 ```
 
 
-## ¿Cómo lo probamos? 🚀
+## ¿Cómo probamos la API? 🚀
 > [!IMPORTANT]
 > ROLES DE LOS USUARIOS:
 > 
@@ -66,10 +66,12 @@ Este proyecto responde a la consigna de crear una API Rest para la gestión de r
 > 
 > **Cliente** = idUsuarioTipo: **3**
 > 
-> []
+> 
 
 LOS USUARIOS PUEDEN:
+
 **Administrador**: 
+
 **-** Iniciar sesión, visualizar y modificar su perfil
 **-** Visualizar, crear, modificar y eliminar cualquier tipo de reclamo
 **-** Visualizar, crear, modificar (sólo el idUsuarioTipo e idOficina) y eliminar cualquier tipo de usuario
