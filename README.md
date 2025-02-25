@@ -13,7 +13,7 @@ Este proyecto responde a la consigna de crear una **API Rest** para la gestión 
 * 🔒 Roles y permisos: cada usuario tiene restricciones y permisos según su rol.
 
 
-## Tecnologías utilizadas ⚙️
+## ⚙️ Tecnologías utilizadas 
 
 * **Node.Js**                                                 *Entorno de ejecución para JavaScript*
 
@@ -47,7 +47,7 @@ Este proyecto responde a la consigna de crear una **API Rest** para la gestión 
 
 
 
-## Instalación 🔧
+## 🔧 Instalación 
 
 1️⃣ Clonar el repositorio:
 ```bash
