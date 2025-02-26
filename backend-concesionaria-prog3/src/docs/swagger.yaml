@@ -1,0 +1,1150 @@
+openapi: 3.0.0
+info:
+  title: API REST - Programación 3 - 2024
+  description: API REST para la gestión de reclamos de la concesionaria de automóviles Prog.III.
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:3000/api/v1
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+paths:
+
+# RUTAS AUTH
+
+  /auth/registrar:
+    post:
+      summary: Registrar un nuevo usuario
+      description: Endpoint para registrar un nuevo usuario con una cuenta de tipo cliente por defecto.
+      tags:
+        - AUTH
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nombre:
+                  example: "Cliente"
+                apellido:
+                  example: "de Pruebas"
+                correoElectronico:
+                  example: "clt.correodepruebasfullstack@gmail.com"
+                contrasenia:
+                  example: "Cliente2025."
+      responses:
+        201:
+          description: Usuario registrado con éxito.
+        400:
+          description: La contraseña debe tener al menos 8 caracteres, incluyendo una mayúscula, una minúscula, un número y un carácter especial.
+        409:
+          description: Este usuario ya existe.
+        500:
+          description: Error al registrar el usuario.
+
+  /auth/login:
+    post:
+      summary: Iniciar sesión
+      description: Endpoint para iniciar sesión.
+      tags:
+        - AUTH
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                correoElectronico:
+                  example: "clt.correodepruebasfullstack@gmail.com"
+                contrasenia:
+                  example: "Cliente2025."
+      responses:
+        201:
+          description: Bienvenido.
+        400:
+          description: Faltan datos obligatorios.
+        400:
+          description: Solicitud incorrecta.
+        500:
+          description: Error interno del servidor. Intente mas tarde...
+
+
+
+# RUTAS USUARIOS
+
+  /usuarios/mi-perfil:
+    get:
+      summary: Obtiene perfil del usuario
+      tags:
+        - USUARIOS
+      security: 
+      - BearerAuth: []
+      description: Permite obtener el perfil del usuario para el propio usuario.
+      responses:
+        '200':
+          example: Mi perfil
+        '400':
+          example: Datos inválidos o faltantes
+        '404':
+          example: No existe perfil 
+  
+  /usuarios/mi-perfil-actualizar/{idUsuario}:
+    patch:
+      summary: Actualiza el perfil de un usuario
+      tags:
+        - USUARIOS
+      security: 
+      - BearerAuth: []
+      description: Permite modificar los campos `correoElectronico` e `imagen` del perfil de un usuario.
+      parameters:
+        - name: idUsuario
+          in: path
+          required: true
+          description: El ID del usuario que desea actualizar su perfil.
+          schema:
+            type: integer
+            example: 34
+            
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                correoElectronico:
+                  type: string
+                  description: Correo electrónico nuevo.
+                  example: usuario@email.com
+                imagen:
+                  type: string
+                  format: binary
+                  description: Archivo de imagen de perfil.
+
+      responses:
+        '200':
+          description: Perfil actualizado exitosamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  idUsuario:
+                    type: integer
+                    description: ID del usuario actualizado
+                    example: 34
+                  correoElectronico:
+                    type: string
+                    description: Correo electrónico nuevo
+                    example: usuario@email.com
+                  imagen:
+                    type: string
+                    description: Nombre del archivo de imagen
+                    example: cliente.jpg
+                  
+        '400':
+          description: Datos inválidos o faltantes
+        '404':
+          description: Perfil no encontrado
+
+  /usuarios/:
+    get:
+      summary: Obtiene todos los usuarios
+      tags:
+        - USUARIOS
+      security: 
+      - BearerAuth: []
+      description: Permite listar todos los usuarios.
+      
+      responses:
+        '200':
+          example: Usuarios
+        '400':
+          example: Datos inválidos o faltantes
+        '404':
+          example: No existen usuarios 
+
+  /usuarios/{idUsuario}:
+    get:
+      summary: Obtiene un usuario 
+      tags:
+        - USUARIOS
+      security: 
+      - BearerAuth: []
+      description: Permite obtener un usuario según su id.
+      parameters:
+        - name: idUsuario
+          in: path
+          required: true
+          description: El ID del usuario que se desea obtener.
+          schema:
+            type: integer
+            example: 34
+      responses:
+        '200':
+          example: "Usuario"
+        '400':
+          example: Datos inválidos o faltantes
+        '404':
+          example: Usuario no encontrado
+
+  /usuarios/crearUsuarioAdm:
+    post:
+      summary: Crea un usuario administrador
+      description: Endpoint para crear un nuevo usuario de tipo empleado.
+      tags: 
+        - USUARIOS
+      security: 
+      - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nombre:
+                  example: Administrador
+                apellido: 
+                  example: de Prueba
+                correoElectronico: 
+                  example: adm.correodepruebasfullstack@gmail.com
+                contrasenia:
+                  example: Administrador2025.  
+      responses:
+        201:
+          description: El usuario administrador ha sido creado con éxito.
+        400:
+          description: Faltan datos obligatorios.
+        500:
+          description: Error interno en servidor.
+
+  /usuarios/crearUsuarioClt:
+    post:
+      summary: Crea un usuario cliente
+      description: Endpoint para crear un nuevo usuario de tipo cliente.
+      tags: 
+        - USUARIOS
+      security: 
+      - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nombre:
+                  example: Clientes
+                apellido: 
+                  example: de Prueba
+                correoElectronico: 
+                  example: clt.correodepruebasfullstack@gmail.com
+                contrasenia:
+                  example: Cliente2025.
+                
+      responses:
+        201:
+          description: El usuario cliente ha sido creado con éxito.
+        400:
+          description: Faltan datos obligatorios.
+        500:
+          description: Error interno en servidor.
+
+  /usuarios/crearUsuarioEe:
+    post:
+      summary: Crea un usuario empleado
+      description: Endpoint para crear un nuevo usuario de tipo empleado.
+      tags: 
+        - USUARIOS
+      security: 
+      - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nombre:
+                  example: Empleado
+                apellido: 
+                  example: de Prueba
+                correoElectronico: 
+                  example: ee.correodepruebasfullstack@gmail.com
+                contrasenia:
+                  example: Empleado2025.
+                idOficina:
+                  example: 3
+                
+      responses:
+        201:
+          description: El usuario administrador ha sido creado con éxito.
+        400:
+          description: Faltan datos obligatorios.
+        500:
+          description: Error interno en servidor.
+
+  /usuarios/modificar-usuarios/{idUsuario}:
+    patch:
+      summary: Actualiza un usuario
+      tags:
+        - USUARIOS
+      security: 
+      - BearerAuth: []
+      description: Permite modificar campos de un usuario existente. Se pueden actualizar los campos `idUsuarioTipo` e `idOficina`.
+      parameters:
+        - name: idUsuario
+          in: path
+          required: true
+          description: El ID del usuario que se desea actualizar.
+          schema:
+            type: integer
+            example: 34
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                idUsuarioTipo:
+                  type: string
+                  description: ID del nuevo tipo de usuario al que se quiere reasignar al usuario.
+                  example: 1
+                idOficina:
+                  type: string
+                  description: ID de la oficina a la que se quiere asignar o reasignar a un usuario.
+                  example: 1  
+      responses:
+        '200':
+          description: Usuario actualizado exitosamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  idUsuario:
+                    type: integer
+                    description: ID del usuario actualizado
+                    example: 34
+                  idUsuarioTipo:
+                    type: string
+                    description: ID del tipo de usuario reasignado
+                    example: 2
+                  idOficina:
+                    type: string
+                    description: ID de la oficina asignada/reasignada
+                    example: 1
+                  
+        '400':
+          description: Datos inválidos o faltantes
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  estado:
+                    type: string
+                    example: "Falla"
+                  mensaje:
+                    type: string
+                    example: "Faltan datos obligatorios o formato incorrecto"
+        '404':
+          description: Usuario no encontrado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "No se encontró un usuario con el ID proporcionado."
+
+  /usuarios/eliminar-usuarios/{idUsuario}:
+    delete:
+      summary: Eliminar un usuario
+      description: Endpoint para eliminar un usuario.
+      tags: 
+        - USUARIOS
+      security: 
+      - BearerAuth: []
+      parameters:
+        - name: idUsuario
+          in: path
+          required: true
+          description: El ID del usuario que se quiere eliminar.
+          schema:
+            type: integer
+            example: 11
+                
+      responses:
+        201:
+          description: El usuario ha sido eliminado con éxito.
+        400:
+          description: Faltan datos obligatorios.
+        500:
+          description: Error interno en servidor.
+
+
+
+# RUTAS RECLAMOS
+
+  /reclamos/crear:
+    post:
+      summary: Crear un nuevo reclamo
+      description: Endpoint para crear un nuevo reclamo.
+      tags: 
+        - RECLAMOS
+      security: 
+      - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                asunto:
+                  example: "Falla motor"
+                idReclamoTipo:
+                  example: 1
+                idUsuarioCreador:
+                  example: 76
+      responses:
+        201:
+          description: Su reclamo ha sido creado con éxito.
+        400:
+          description: Faltan datos obligatorios.
+        500:
+          description: Error interno en servidor.
+
+  /reclamos/mis-reclamos/{:idUsuario}:
+    get:
+      summary: Obtiene información de todos los reclamos de un usuario
+      description: Endpoint para obtener todos los reclamos realizados por un usuario cliente. 
+      tags: 
+        - RECLAMOS
+      security: 
+      - BearerAuth: []
+      parameters:
+        - name: idUsuario
+          in: path
+          required: true
+          description: El ID del usuario cliente que creó los reclamos.
+          schema:
+            type: integer
+            example: 76
+      responses:
+        200:
+          description: Mis reclamos.
+        404:
+          description: No tienes reclamos realizados.
+        500:
+          description: Error interno en servidor.
+
+  /reclamos/cancelar/{:idReclamo}:
+    post:
+      summary: Cancela un reclamo
+      description: Endpoint para cancelar un reclamo que recibe como parametro, ademas notifica al cliente el cambio de estado.
+      tags:
+        - RECLAMOS
+      security: 
+      - BearerAuth: []
+      parameters:
+        - name: idReclamo
+          in: path
+          required: true
+          description: El ID del usuario cliente que creó los reclamos.
+          schema:
+            type: integer
+            example: 69
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                comentario:
+                  type: string
+                  example: "Cancelación solicitada por el usuario."
+      responses:
+        201:
+          description: Correo electrónico enviado.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  estado:
+                    type: string
+                    example: "OK"
+                  mensaje:
+                    type: string
+                    example: "Correo electrónico enviado."
+        404:
+          description: Mensaje informativo con el error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  estado:
+                    type: string
+                    example: "Falla"
+                  mensaje:
+                    type: string
+                    example: "Faltan datos obligatorios" 
+
+  /reclamos/atender/{idReclamo}:
+    post:
+      summary: Marca como atendido el reclamo
+      description: Endpoint marcar como atendido el reclamo que recibe como parametro, ademas notificia al cliente el cambio de estado
+      tags: 
+        - RECLAMOS
+      security: 
+      - BearerAuth: []
+      parameters:
+        - name: idReclamo
+          in: path
+          required: true
+          description: El ID del reclamo que se desea actualizar.
+          schema:
+            type: integer
+            example: 57
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - idReclamoEstado
+              properties:
+                idReclamoEstado:
+                  type: integer
+                  description: ID del estado inicial del reclamo
+                  example: 2
+      responses:
+        201:
+          description: Correo electrónico enviado.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  estado:
+                    type: string
+                    example: "OK"
+                  mensaje:
+                    type: string
+                    example: "Correo electrónico enviado."
+        404:
+          description: Mensaje informativo con el error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  estado:
+                    type: string
+                    example: "Falla"
+                  mensaje:
+                    type: string
+                    example: "Faltan datos obligatorios"
+  
+  /reclamos/modificar/{idReclamo}:
+    patch:
+      summary: Actualiza un reclamo existente
+      tags:
+        - RECLAMOS
+      security: 
+      - BearerAuth: []
+      description: Permite modificar campos de un reclamo existente. Se pueden actualizar los campos `asunto`, `descripcion`, `fechaCreado`, `fechaFinalizado`, `fechaCancelado`, `idUsuarioFinalizador`, `idReclamoTipo`, `idReclamoEstado`.
+      parameters:
+        - name: idReclamo
+          in: path
+          required: true
+          description: El ID del reclamo que se desea actualizar.
+          schema:
+            type: integer
+            example: 56
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                asunto:
+                  type: string
+                  description: El asunto o título del reclamo
+                  example: "Problema con la entrega"
+                descripcion:
+                  type: string
+                  description: Descripción detallada del reclamo
+                  example: "El pedido llegó incompleto"   
+      responses:
+        '200':
+          description: Reclamo actualizado correctamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  idReclamo:
+                    type: integer
+                    description: ID del reclamo actualizado
+                    example: 1
+                  asunto:
+                    type: string
+                    description: Asunto del reclamo
+                    example: "Problema con la entrega"
+                  descripcion:
+                    type: string
+                    description: Descripción del reclamo
+                    example: "El pedido llegó incompleto"
+                  fechaCreado:
+                    type: string
+                    format: date-time
+                    description: Fecha y hora de creación del reclamo
+                    example: "2024-10-12T10:30:00Z"
+                  fechaFinalizado:
+                    type: string
+                    format: date-time
+                    description: Fecha y hora de finalización del reclamo
+                    example: "2024-10-13T12:00:00Z"
+                  fechaCancelado:
+                    type: string
+                    format: date-time
+                    description: Fecha y hora de cancelación del reclamo
+                    example: "2024-10-14T15:00:00Z"
+                  idUsuarioFinalizador:
+                    type: integer
+                    description: ID del usuario que finalizó el reclamo
+                    example: 456
+                  idReclamoTipo:
+                    type: number
+                    description: ID del tipo de reclamo
+                    example: 2
+                  idReclamoEstado:
+                    type: number
+                    description: ID del estado actual del reclamo
+                    example: 3
+        '400':
+          description: Datos inválidos o faltantes
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  estado:
+                    type: string
+                    example: "Falla"
+                  mensaje:
+                    type: string
+                    example: "Faltan datos obligatorios o formato incorrecto"
+        '404':
+          description: Reclamo no encontrado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "No se encontró un reclamo con el ID proporcionado."
+
+  /reclamos/reclamos-oficina/{idOficina}:
+    get:
+      summary: Obtiene los reclamos por oficina
+      tags:
+        - RECLAMOS
+      security: 
+      - BearerAuth: []
+      description: Permite listar todos los reclamos asignados a una oficina por medio de su id.
+      parameters:
+        - name: idOficina
+          in: path
+          required: true
+          description: El ID de la oficina que desea listar sus reclamos asignados.
+          schema:
+            type: integer
+            example: 4
+      responses:
+        '200':
+          example: Reclamos
+        '400':
+          example: Datos inválidos o faltantes
+        '404':
+          example: Reclamo no encontrado
+
+  /reclamos/finalizar/{idReclamo}:
+    post:
+      summary: Marca como finalizado el reclamo
+      description: Endpoint para marcar como finalizado el reclamo que recibe como parámetro, además notifica al cliente el cambio de estado
+      tags: 
+        - RECLAMOS
+      security: 
+      - BearerAuth: []
+      parameters:
+        - name: idReclamo
+          in: path
+          required: true
+          description: El ID del reclamo que se desea actualizar.
+          schema:
+            type: integer
+            example: 57
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - idReclamoEstado
+              properties:
+                idReclamoEstado:
+                  type: integer
+                  description: ID del reclamo finalizador
+                  example: 4
+      responses:
+        201:
+          description: Correo electrónico enviado.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  estado:
+                    type: string
+                    example: "OK"
+                  mensaje:
+                    type: string
+                    example: "Correo electrónico enviado."
+        404:
+          description: Mensaje informativo con el error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  estado:
+                    type: string
+                    example: "Falla"
+                  mensaje:
+                    type: string
+                    example: "Faltan datos obligatorios"
+
+  /reclamos/informe:
+    get:
+      summary: Obtiene informe sobre los reclamos
+      tags:
+        - RECLAMOS
+      security: 
+      - BearerAuth: []
+      parameters:
+        - name: formato
+          in: query
+          required: true
+          description: Formato del informe (csv o pdf)
+          schema:
+            type: string
+            enum: [csv, pdf]
+            example: csv
+      responses:
+        '200':
+          description: Informe generado exitosamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  estado:
+                    type: string
+                    example: "OK"
+                  mensaje:
+                    type: string
+                    example: "Informe generado correctamente."
+        '400':
+          description: Datos inválidos o faltantes
+        '404':
+          description: Reclamo no encontrado
+
+
+
+# RUTAS RECLAMOS-TIPOS
+
+  /reclamos-tipos/:
+    get:
+      summary: Obtiene los tipos de reclamos
+      tags:
+        - RECLAMOS-TIPOS
+      security: 
+      - BearerAuth: []
+      description: Permite listar todos los tipos de reclamos.
+      
+      responses:
+        '200':
+          example: Tipos de reclamos
+        '400':
+          example: Datos inválidos o faltantes
+        '404':
+          example: Reclamo no encontrado
+
+  /reclamos-tipos/{idReclamoTipo}:
+    get:
+      summary: Obtiene un tipo de reclamo
+      tags:
+        - RECLAMOS-TIPOS
+      security: 
+      - BearerAuth: []
+      description: Permite obtener un tipo de reclamo según su id.
+      parameters:
+        - name: idReclamoTipo
+          in: path
+          required: true
+          description: El ID del reclamo que se desea obtener.
+          schema:
+            type: integer
+            example: 3
+      responses:
+        '200':
+          example: "Tipos de reclamos"
+        '400':
+          example: Datos inválidos o faltantes
+        '404':
+          example: Reclamo no encontrado
+
+  /reclamos-tipos/crear:
+    post:
+      summary: Crear un nuevo tipo de reclamo
+      description: Endpoint para crear un nuevo tipo de reclamo.
+      tags: 
+        - RECLAMOS-TIPOS
+      security: 
+      - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                descripcion:
+                  example: "Garantía"
+                activo:
+                  example: 1
+                
+      responses:
+        201:
+          description: El tipo de reclamo ha sido creado con éxito.
+        400:
+          description: Faltan datos obligatorios.
+        500:
+          description: Error interno en servidor.
+
+  /reclamos-tipos/modificar/{idReclamoTipo}:
+    patch:
+      summary: Actualiza un tipo de reclamo existente
+      tags:
+        - RECLAMOS-TIPOS
+      security: 
+      - BearerAuth: []
+      description: Permite modificar campos de un tipo de reclamo existente. Se pueden actualizar los campos `descripcion` y `activo`.
+      parameters:
+        - name: idReclamoTipo
+          in: path
+          required: true
+          description: El ID del tipo de reclamo que se desea actualizar.
+          schema:
+            type: integer
+            example: 9
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                descripcion:
+                  type: string
+                  description: Descripción del tipo de reclamo
+                  example: "Garantías y devoluciones"
+                activo:
+                  type: string
+                  description: Estado activo o incativo del tipo de reclamo
+                  example: 1  
+      responses:
+        '200':
+          description: Tipo de reclamo actualizado exitosamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  idReclamoTipo:
+                    type: integer
+                    description: ID del reclamo actualizado
+                    example: 1
+                  descripcion:
+                    type: string
+                    description: Descripcion del tipo de reclamo
+                    example: "Garantías y devoluciones"
+                  activo:
+                    type: string
+                    description: Estado activo o inactivo del tipo de reclamo
+                    example: 1
+                  
+        '400':
+          description: Datos inválidos o faltantes
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  estado:
+                    type: string
+                    example: "Falla"
+                  mensaje:
+                    type: string
+                    example: "Faltan datos obligatorios o formato incorrecto"
+        '404':
+          description: Reclamo no encontrado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "No se encontró un tipo de reclamo con el ID proporcionado."
+
+  /reclamos-tipos/eliminar/{idReclamoTipo}:
+    delete:
+      summary: Eliminar un tipo de reclamo
+      description: Endpoint para eliminar un tipo de reclamo.
+      tags: 
+        - RECLAMOS-TIPOS
+      security: 
+      - BearerAuth: []
+      parameters:
+        - name: idReclamoTipo
+          in: path
+          required: true
+          description: El ID del tipo de reclamo que se quiere eliminar.
+          schema:
+            type: integer
+            example: 69
+                
+      responses:
+        201:
+          description: El tipo de reclamo ha sido eliminado con éxito.
+        400:
+          description: Faltan datos obligatorios.
+        500:
+          description: Error interno en servidor.
+
+
+
+    /reclamos-tipos/:
+    get:
+      summary: Obtiene los tipos de reclamos
+      tags:
+        - RECLAMOS-TIPOS
+      security: 
+      - BearerAuth: []
+      description: Permite listar todos los tipos de reclamos.
+      
+      responses:
+        '200':
+          example: Tipos de reclamos
+        '400':
+          example: Datos inválidos o faltantes
+        '404':
+          example: Reclamo no encontrado
+
+
+
+# RUTAS OFICINAS
+
+  /oficinas/:
+    get:
+      summary: Obtiene todas las oficinas
+      tags:
+        - OFICINAS
+      security: 
+      - BearerAuth: []
+      description: Permite listar todas las oficinas.
+      
+      responses:
+        '200':
+          example: Oficina
+        '400':
+          example: Datos inválidos o faltantes
+        '404':
+          example: Oficina no encontrada
+
+  /oficinas/{idOficina}:
+    get:
+      summary: Obtiene una oficina 
+      tags:
+        - OFICINAS
+      security: 
+      - BearerAuth: []
+      description: Permite obtener una oficina según su id.
+      parameters:
+        - name: idOficina
+          in: path
+          required: true
+          description: El ID de la oficina que se desea obtener.
+          schema:
+            type: integer
+            example: 3
+      responses:
+        '200':
+          example: "Oficina"
+        '400':
+          example: Datos inválidos o faltantes
+        '404':
+          example: Oficina no encontrada
+
+  /oficinas/crear:
+    post:
+      summary: Crear un nueva oficina
+      description: Endpoint para crear una nueva oficina.
+      tags: 
+        - OFICINAS
+      security: 
+      - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nombre:
+                  example: "Dpto. de Marketing y Publicidad"
+                idReclamoTipo:
+                  example: 1
+                
+      responses:
+        201:
+          description: La oficina ha sido creada con éxito.
+        400:
+          description: Faltan datos obligatorios.
+        500:
+          description: Error interno en servidor.
+
+  /oficinas/modificar/{idOficina}:
+    patch:
+      summary: Actualiza una oficina
+      tags:
+        - OFICINAS
+      security: 
+      - BearerAuth: []
+      description: Permite modificar campos de una oficina existente. Se pueden actualizar los campos `nombre` e `idReclamoTipo`.
+      parameters:
+        - name: idOficina
+          in: path
+          required: true
+          description: El ID de la oficina que se desea actualizar.
+          schema:
+            type: integer
+            example: 9
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nombre:
+                  type: string
+                  description: Nombre de la oficina
+                  example: "Dpto de Marketing, Publicidad y Redes"
+                idReclamoTipo:
+                  type: string
+                  description: ID del tipo de reclamo que pertenece a esa oficina
+                  example: 1  
+      responses:
+        '200':
+          description: Oficina actualizada exitosamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  idOficina:
+                    type: integer
+                    description: ID de la oficina actualizada
+                    example: 1
+                  nombre:
+                    type: string
+                    description: Descripcion de la oficina
+                    example: "Dpto de Marketing, Publicidad y Redes"
+                  idReclamoTipo:
+                    type: string
+                    description: ID del tipo de reclamo que pertenece a esa oficina
+                    example: 1
+                  
+        '400':
+          description: Datos inválidos o faltantes
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  estado:
+                    type: string
+                    example: "Falla"
+                  mensaje:
+                    type: string
+                    example: "Faltan datos obligatorios o formato incorrecto"
+        '404':
+          description: Oficina no encontrada
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "No se encontró una oficina con el ID proporcionado."
+
+  /oficinas/eliminar/{idOficina}:
+    delete:
+      summary: Eliminar una oficina
+      description: Endpoint para eliminar una oficina.
+      tags: 
+        - OFICINAS
+      security: 
+      - BearerAuth: []
+      parameters:
+        - name: idOficina
+          in: path
+          required: true
+          description: El ID de la oficina que se quiere eliminar.
+          schema:
+            type: integer
+            example: 11
+                
+      responses:
+        201:
+          description: La oficina ha sido eliminada con éxito.
+        400:
+          description: Faltan datos obligatorios.
+        500:
+          description: Error interno en servidor.
+
+
+
