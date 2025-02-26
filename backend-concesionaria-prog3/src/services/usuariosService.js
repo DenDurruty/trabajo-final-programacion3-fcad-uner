@@ -23,11 +23,7 @@ export default class UsuariosService {
     buscarPorEmail = (correoElectronico) => {
         return this.usuarios.buscarPorEmail(correoElectronico);
     }
-/*
-    crearUsuario = (nombre, apellido, correoElectronico, contrasenia, idUsuarioTipo, imagen) => {
-        return this.usuarios.crearUsuario(nombre, apellido, correoElectronico, contrasenia, idUsuarioTipo, imagen);
-    }
-*/
+
     crearUsuarioAdm = (nombre, apellido, correoElectronico, contrasenia, idUsuarioTipo, imagen) => {
         return this.usuarios.crearUsuarioAdm(nombre, apellido, correoElectronico, contrasenia, idUsuarioTipo, imagen);
     }
@@ -60,22 +56,7 @@ export default class UsuariosService {
         }
     }
 
-    modificarUsuario = async (idUsuario, datos) => {
-
-        const existe = await this.usuarios.buscarPorId(idUsuario);
-        if (existe === null) {
-            return {estado: false, mensaje: 'idUsuario no existe'};
-        }    
-
-        const mod = await this.usuarios.modificarUsuario(idUsuario, datos);
-        if (mod){
-            return {estado: true, mensaje: 'Usuario modificado'};
-        }else{
-            return {estado: false, mensaje: 'Usuario no modificado'};
-        }
-    }
-
-    modificarUsuarioEe = async (idUsuario, datos) => {
+    modificarUsuarios = async (idUsuario, datos) => {
         const usuarioExiste = await this.usuarios.buscarPorId(idUsuario);
         if (!usuarioExiste) {
             return { estado: false, mensaje: 'El usuario no existe.' };
@@ -90,7 +71,7 @@ export default class UsuariosService {
         }
     
         // Modificar usuario en `usuarios`
-        const usuarioModificado = await this.usuarios.modificarUsuarioEe(idUsuario, datos, datos.idOficina);
+        const usuarioModificado = await this.usuarios.modificarUsuarios(idUsuario, datos, datos.idOficina);
     
         if (!usuarioModificado) {
             return { estado: false, mensaje: 'No se pudo modificar el usuario.' };
@@ -99,13 +80,13 @@ export default class UsuariosService {
         return { estado: true, mensaje: 'Usuario modificado correctamente.' };
     };
     
-    eliminarUsuarioEe = async (idUsuario) => {
+    eliminarUsuarios = async (idUsuario) => {
         const usuarioExiste = await this.usuarios.buscarPorId(idUsuario);
         if (!usuarioExiste) {
             return { estado: false, mensaje: 'El usuario no existe.' };
         }
     
-        const eliminado = await this.usuarios.eliminarUsuarioEe(idUsuario);
+        const eliminado = await this.usuarios.eliminarUsuarios(idUsuario);
         
         if (!eliminado) {
             return { estado: false, mensaje: 'No se pudo eliminar el usuario.' };
@@ -114,7 +95,6 @@ export default class UsuariosService {
         return { estado: true, mensaje: 'Usuario eliminado correctamente.' };
     };
     
-
     verPerfil = (idUsuario) => {
         return this.usuarios.verPerfil(idUsuario)
     }

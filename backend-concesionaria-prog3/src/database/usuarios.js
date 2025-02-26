@@ -125,7 +125,7 @@ export default class Usuarios{
         return true;
     };
 
-    modificarUsuarioEe = async (idUsuario, datos, idOficina) => {
+    modificarUsuarios = async (idUsuario, datos, idOficina) => {
         const pool = await conn.getConnection();
     
         try {
@@ -173,7 +173,7 @@ export default class Usuarios{
         }
     };
 
-    eliminarUsuarioEe = async (idUsuario) => {
+    eliminarUsuarios = async (idUsuario) => {
         const pool = await conn.getConnection();
     
         try {

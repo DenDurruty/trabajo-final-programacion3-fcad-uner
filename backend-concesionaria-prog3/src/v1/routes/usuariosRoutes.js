@@ -18,21 +18,14 @@ const upload = multer( { storage } );
 router.get('/mi-perfil', autorizarUsuarios([1,2,3]), usuariosController.verPerfil);
 router.patch('/mi-perfil-actualizar/:idUsuario', upload.single('imagen'), autorizarUsuarios([1,2,3]), usuariosController.actualizarPerfil);
 
-// Rutas autorizadas solo para los administradores
+// Rutas autorizadas solo para los usuarios administradores
 router.get('/', autorizarUsuarios([1]), usuariosController.buscarTodos);
 router.get('/:idUsuario', autorizarUsuarios([1]), usuariosController.buscarPorId);
-
 router.post('/crearUsuarioAdm', autorizarUsuarios([1]), usuariosController.crearUsuarioAdm);
-router.post('/crearUsuarioClt', autorizarUsuarios([1]), usuariosController.crearUsuarioClt);
-router.patch('/:idUsuario', autorizarUsuarios([1]), usuariosController.modificarUsuario); 
-router.patch('/modificar/:idUsuario', autorizarUsuarios([1]), usuariosController.modificarUsuarioEe); 
-router.delete('/eliminar/:idUsuario', autorizarUsuarios([1]), usuariosController.eliminarUsuarioEe); 
-
-//router.patch('modificar/:idUsuario', upload.single('imagen'), autorizarUsuarios([1]), usuariosController.modificar); 
+router.post('/crearUsuarioClt', autorizarUsuarios([1]), usuariosController.crearUsuarioClt); 
 router.post('/crearUsuarioEe', autorizarUsuarios([1]), usuariosController.crearUsuarioEe); // Crear usuario empleado y asignar oficina a la que pertenece
+router.patch('/modificar-usuarios/:idUsuario', autorizarUsuarios([1]), usuariosController.modificarUsuarios); 
+router.delete('/eliminar-usuarios/:idUsuario', autorizarUsuarios([1]), usuariosController.eliminarUsuarios); 
 
-//router.patch('/:idUsuario', upload.single('imagen'), autorizarUsuarios([1]), usuariosController.modificarUsuarioEe); 
 
 export {router};
-
-// router.patch('/modificar/:idUsuario', usuariosController.modificar);

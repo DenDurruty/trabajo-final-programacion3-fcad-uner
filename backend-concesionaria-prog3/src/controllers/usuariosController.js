@@ -21,7 +21,9 @@ export default class UsuariosController{
     }
 
     buscarPorId = async (req, res) => {
-        const idUsuario = req.params.idUsuario;
+        //const idUsuario = req.params.idUsuario;
+        const idUsuario = req.params.idUsuario || req.query.idUsuario;
+
 
         if (idUsuario === undefined) {
             return res.status(400).send({
@@ -161,7 +163,7 @@ export default class UsuariosController{
           const { nombre, apellido, correoElectronico, contrasenia, idOficina } = req.body;
       
           // Validar datos obligatorios
-          if (!nombre || !apellido || !correoElectronico || !contrasenia) {
+          if (!nombre || !apellido || !correoElectronico || !contrasenia || !idOficina) {
             return res.status(400).json({ mensaje: 'Faltan datos obligatorios para el registro.' });
           }
       
@@ -238,63 +240,7 @@ export default class UsuariosController{
         }
     }
 
-    modificarUsuario = async (req, res) => {
-        try {
-            const idUsuario = req.params.idUsuario;
-    
-            if (!idUsuario) {
-                return res.status(400).send({
-                    estado: "Falla",
-                    mensaje: "Faltan datos obligatorios."    
-                });
-            }
-    
-            const usuarioActual = await this.usuariosService.buscarPorId(idUsuario);
-            if (!usuarioActual) {
-                return res.status(404).send({
-                    estado: "Falla",
-                    mensaje: "El usuario no existe."    
-                });
-            }
-    
-            const datos = req.body;
-    
-            // Campos que puede modificar el admin
-            let datosPermitidos = {};
-            
-            if (datos.idUsuarioTipo) {
-                datosPermitidos.idUsuarioTipo = datos.idUsuarioTipo;
-            }
-            
-            if (datos.idOficina) {
-                datosPermitidos.idOficina = datos.idOficina;
-            }
-    
-            if (Object.keys(datosPermitidos).length === 0) {
-                return res.status(400).send({
-                    estado: "Falla",
-                    mensaje: "No se enviaron datos válidos para modificar."
-                });
-            }
-    
-            const usuarioModificado = await this.usuariosService.modificarUsuario(idUsuario, datosPermitidos);
-            
-            if (usuarioModificado.estado) {
-                res.status(200).send({ estado: "OK", mensaje: usuarioModificado.mensaje });
-            } else {
-                res.status(404).send({ estado: "Falla", mensaje: usuarioModificado.mensaje });
-            }
-    
-        } catch (error) {
-            console.log(error);
-            res.status(500).send({
-                estado: "Falla", 
-                mensaje: "Error interno en el servidor."
-            });
-        }
-    }
-
-    modificarUsuarioEe = async (req, res) => {
+    modificarUsuarios = async (req, res) => {
         try {
             const { idUsuario } = req.params;
             if (!idUsuario) {
@@ -310,7 +256,7 @@ export default class UsuariosController{
                 return res.status(400).json({ estado: "Falla", mensaje: "No se enviaron datos válidos para modificar." });
             }
     
-            const resultado = await this.usuariosService.modificarUsuarioEe(idUsuario, datosPermitidos);
+            const resultado = await this.usuariosService.modificarUsuarios(idUsuario, datosPermitidos);
     
             if (resultado.estado) {
                 return res.status(200).json({ estado: "OK", mensaje: resultado.mensaje, data: datosPermitidos });
@@ -323,14 +269,14 @@ export default class UsuariosController{
         }
     };
 
-    eliminarUsuarioEe = async (req, res) => {
+    eliminarUsuarios = async (req, res) => {
         try {
             const { idUsuario } = req.params;
             if (!idUsuario) {
                 return res.status(400).json({ estado: "Falla", mensaje: "Falta el id del usuario." });
             }
     
-            const resultado = await this.usuariosService.eliminarUsuarioEe(idUsuario);
+            const resultado = await this.usuariosService.eliminarUsuarios(idUsuario);
     
             if (resultado.estado) {
                 return res.status(200).json({ estado: "OK", mensaje: resultado.mensaje });
@@ -344,9 +290,8 @@ export default class UsuariosController{
     };
     
     verPerfil = async (req, res) => {
-        console.log("Usuario autenticado:", req.user); // 👀 Ver qué hay en req.user
-    
-        const idUsuario = req.user?.idUsuario; // Aseguramos que req.user exista
+        
+        const idUsuario = req.user?.idUsuario; // Existencia de req.user 
     
         if (!idUsuario) {
             return res.status(401).send({
