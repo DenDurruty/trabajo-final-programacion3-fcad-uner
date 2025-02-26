@@ -19,11 +19,11 @@ router.post('/cancelar/:idReclamo', autorizarUsuarios([3]), reclamosController.c
 router.get('/reclamos-oficina/:idOficina', autorizarUsuarios([2]), reclamosController.buscarPorOficina);
 router.post('/atender/:idReclamo', autorizarUsuarios([2]), reclamosController.atencionReclamo);
 router.post('/finalizar/:idReclamo', autorizarUsuarios([2]), reclamosController.finalizacionReclamo);
+router.patch('/modificar/:idReclamo', autorizarUsuarios([2]), reclamosController.modificar);
 
 // Rutas autorizadas para los usuarios administradores
-//router.get('/informe', autorizarUsuarios([1]), reclamosController.informe);
 router.get('/informe', reclamosController.informe);
-//router.get('/informe?formato=csv',  reclamosController.informe);
+router.get('/informe', autorizarUsuarios([1]), reclamosController.informe);
 
 
 export {router};
