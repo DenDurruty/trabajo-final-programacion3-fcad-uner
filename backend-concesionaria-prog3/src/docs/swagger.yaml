@@ -41,13 +41,51 @@ paths:
                   example: "Cliente2025."
       responses:
         201:
-          description: Usuario registrado con éxito.
+          description: "Usuario registrado con éxito."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    example: "Usuario registrado con éxito."
+                  idUsuario:
+                    type: string
+                    example: "1"
         400:
-          description: La contraseña debe tener al menos 8 caracteres, incluyendo una mayúscula, una minúscula, un número y un carácter especial.
+          description: "Solicitud incorrecta. Hay dos posibles errores:"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Faltan datos obligatorios para el registro."  
+                  error:
+                    type: string
+                    example: "La contraseña debe tener al menos 8 caracteres, incluyendo una mayúscula, una minúscula, un número y un carácter especial."  # Segundo posible error
         409:
-          description: Este usuario ya existe.
+          description: "Este usuario ya existe."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Este usuario ya existe."
         500:
-          description: Error al registrar el usuario.
+          description: "Error al registrar el usuario."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Error al registrar el usuario."  
 
   /auth/login:
     post:
@@ -68,14 +106,41 @@ paths:
                   example: "Cliente2025."
       responses:
         201:
-          description: Bienvenido.
+          description: "Bienvenido."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    example: "Bienvenido."
+                  token:
+                    type: string
+                    example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
         400:
-          description: Faltan datos obligatorios.
-        400:
-          description: Solicitud incorrecta.
+          description: "Solicitud incorrecta. Posibles errores:"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Faltan datos obligatorios."  
+                  error:
+                    type: string
+                    example: "Correo electrónico o contraseña incorrecta."  
         500:
-          description: Error interno del servidor. Intente mas tarde...
-
+          description: "Error interno del servidor. Intente más tarde."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Error interno del servidor. Intente más tarde."
 
 
 # RUTAS USUARIOS
@@ -90,12 +155,55 @@ paths:
       description: Permite obtener el perfil del usuario para el propio usuario.
       responses:
         '200':
-          example: Mi perfil
-        '400':
-          example: Datos inválidos o faltantes
+          description: "Mi perfil"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  nombre:
+                    type: string
+                    example: "Cliente"
+                  apellido:
+                    type: string
+                    example: "de Pruebas"
+                  correoElectronico:
+                    type: string
+                    example: "clt.correodepruebasfullstack@gmail.com"
+                  imagen:
+                    type: string
+                    example: "cliente.png"
+        '401':
+          description: "No autorizado. No se encontró el usuario."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "No autorizado. No se encontró el usuario."
         '404':
-          example: No existe perfil 
-  
+          description: "Perfil no encontrado."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Perfil no encontrado."
+        '500':
+          description: "Error interno en servidor."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Error interno en servidor."
+      
   /usuarios/mi-perfil-actualizar/{idUsuario}:
     patch:
       summary: Actualiza el perfil de un usuario
@@ -111,8 +219,7 @@ paths:
           description: El ID del usuario que desea actualizar su perfil.
           schema:
             type: integer
-            example: 34
-            
+            example: 2
       requestBody:
         required: true
         content:
@@ -123,15 +230,15 @@ paths:
                 correoElectronico:
                   type: string
                   description: Correo electrónico nuevo.
-                  example: usuario@email.com
+                  example: clt.correodepruebasfullstack@gmail.com
                 imagen:
                   type: string
                   format: binary
                   description: Archivo de imagen de perfil.
-
+                  example: cliente.jpg
       responses:
-        '200':
-          description: Perfil actualizado exitosamente
+        200:
+          description: "Perfil actualizado exitosamente."
           content:
             application/json:
               schema:
@@ -139,21 +246,56 @@ paths:
                 properties:
                   idUsuario:
                     type: integer
-                    description: ID del usuario actualizado
-                    example: 34
+                    description: "ID del usuario actualizado"
+                    example: 76
                   correoElectronico:
                     type: string
                     description: Correo electrónico nuevo
-                    example: usuario@email.com
+                    example: "clt.correodepruebasfullstack@gmail.com"
                   imagen:
                     type: string
                     description: Nombre del archivo de imagen
-                    example: cliente.jpg
-                  
-        '400':
-          description: Datos inválidos o faltantes
-        '404':
-          description: Perfil no encontrado
+                    example: "cliente.jpg"
+        400:
+          description: "No se enviaron datos para ser modificados."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "No se enviaron datos para ser modificados."
+        409:
+          description: "Este usuario ya existe."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Este usuario ya existe."
+        404:
+          description: "Perfil no encontrado."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Perfil no encontrado."
+        500:
+          description: "Error interno en servidor."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Error interno en servidor."
 
   /usuarios/:
     get:
@@ -166,11 +308,36 @@ paths:
       
       responses:
         '200':
-          example: Usuarios
-        '400':
-          example: Datos inválidos o faltantes
-        '404':
-          example: No existen usuarios 
+          description: Usuarios
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    idUsuario:
+                      type: integer
+                      example: 2
+                    nombre:
+                      type: string
+                      example: "Jon"
+                    apellido:
+                      type: string
+                      example: "Snow"
+                    correoElectronico:
+                      type: string
+                      example: "jonsno@gmail.com"
+        '500':
+          description: Error interno en el servidor.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Error interno en el servidor."
 
   /usuarios/{idUsuario}:
     get:
@@ -187,15 +354,48 @@ paths:
           description: El ID del usuario que se desea obtener.
           schema:
             type: integer
-            example: 34
+            example: 2
       responses:
-        '200':
-          example: "Usuario"
-        '400':
-          example: Datos inválidos o faltantes
-        '404':
-          example: Usuario no encontrado
-
+        200:
+          description: Usuario
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  idUsuario:
+                    type: integer
+                    example: 2
+                  nombre:
+                    type: string
+                    example: "Jon"
+                  apellido:
+                    type: string
+                    example: "Snow"
+                  correoElectronico:
+                    type: string
+                    example: "jonsno@gmail.com"
+        400:
+          description: Faltan datos obligatorios
+          content:
+            aplication/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Faltan datos obligatorios."
+        500:
+          description: Error interno en el servidor.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Error interno en el servidor."
+                
   /usuarios/crearUsuarioAdm:
     post:
       summary: Crea un usuario administrador
@@ -220,12 +420,68 @@ paths:
                 contrasenia:
                   example: Administrador2025.  
       responses:
-        201:
-          description: El usuario administrador ha sido creado con éxito.
+        '201':
+          description: Usuario ADMINISTRADOR creado exitosamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  idUsuario:
+                    type: integer
+                    example: 77
+                  nombre:
+                    type: string
+                    example: "Aministrador"
+                  apellido:
+                    type: string
+                    example: "de Pruebas"
+                  correoElectronico:
+                    type: string
+                    example: "adm.correodepruebasfullstack@gmail.com"
+                  contrasenia:
+                    type: string
+                    example: Administrador2025.
         400:
-          description: Faltan datos obligatorios.
+          description: Faltan datos obligatorios para el registro
+          content:
+            aplication/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Faltan datos obligatorios para el registro"     
+        409:
+          description: Este usuario ya existe
+          content:
+            aplication/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Este usuario ya existe"
         500:
-          description: Error interno en servidor.
+          description: No se pudo crear el usuario
+          content:
+            aplication/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "No se pudo crear el usuario"
+        500:
+          description: Error interno en el servidor.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Error interno en el servidor"
 
   /usuarios/crearUsuarioClt:
     post:
@@ -243,21 +499,76 @@ paths:
               type: object
               properties:
                 nombre:
-                  example: Clientes
+                  example: Cliente
                 apellido: 
                   example: de Prueba
                 correoElectronico: 
                   example: clt.correodepruebasfullstack@gmail.com
                 contrasenia:
-                  example: Cliente2025.
-                
+                  example: Cliente2025.  
       responses:
         201:
-          description: El usuario cliente ha sido creado con éxito.
+          description: Usuario CLIENTE creado exitosamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  idUsuario:
+                    type: integer
+                    example: 2
+                  nombre:
+                    type: string
+                    example: "Cliente"
+                  apellido:
+                    type: string
+                    example: "de Pruebas"
+                  correoElectronico:
+                    type: string
+                    example: "clt.correodepruebasfullstack@gmail.com"
+                  contrasenia:
+                    type: string
+                    example: Cliente2025.
         400:
-          description: Faltan datos obligatorios.
+          description: Faltan datos obligatorios para el registro
+          content:
+            aplication/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Faltan datos obligatorios para el registro"     
+        409:
+          description: Este usuario ya existe
+          content:
+            aplication/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Este usuario ya existe"
         500:
-          description: Error interno en servidor.
+          description: No se pudo crear el usuario
+          content:
+            aplication/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "No se pudo crear el usuario"
+        500:
+          description: Error interno en el servidor.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Error interno en el servidor"
 
   /usuarios/crearUsuarioEe:
     post:
@@ -277,21 +588,79 @@ paths:
                 nombre:
                   example: Empleado
                 apellido: 
-                  example: de Prueba
+                  example: de Pruebas
                 correoElectronico: 
                   example: ee.correodepruebasfullstack@gmail.com
                 contrasenia:
                   example: Empleado2025.
                 idOficina:
-                  example: 3
-                
+                  example: 3          
       responses:
         201:
-          description: El usuario administrador ha sido creado con éxito.
+          description: Usuario EMPLEADO creado exitosamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  idUsuario:
+                    type: integer
+                    example: 78
+                  nombre:
+                    type: string
+                    example: "Empleado"
+                  apellido:
+                    type: string
+                    example: "de Pruebas"
+                  correoElectronico:
+                    type: string
+                    example: "ee.correodepruebasfullstack@gmail.com"
+                  contrasenia:
+                    type: string
+                    example: Empleado2025.
+                  idOficina:
+                    type: integer
+                    example: 3
         400:
-          description: Faltan datos obligatorios.
+          description: Faltan datos obligatorios para el registro
+          content:
+            aplication/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Faltan datos obligatorios para el registro"     
+        409:
+          description: Este usuario ya existe
+          content:
+            aplication/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Este usuario ya existe"
         500:
-          description: Error interno en servidor.
+          description: No se pudo crear el usuario
+          content:
+            aplication/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "No se pudo crear el usuario"
+        500:
+          description: Error interno en el servidor.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Error interno en el servidor"
 
   /usuarios/modificar-usuarios/{idUsuario}:
     patch:
@@ -308,7 +677,7 @@ paths:
           description: El ID del usuario que se desea actualizar.
           schema:
             type: integer
-            example: 34
+            example: 0
       requestBody:
         required: true
         content:
@@ -325,8 +694,8 @@ paths:
                   description: ID de la oficina a la que se quiere asignar o reasignar a un usuario.
                   example: 1  
       responses:
-        '200':
-          description: Usuario actualizado exitosamente
+        200:
+          description: Usuario modificado correctamente
           content:
             application/json:
               schema:
@@ -335,17 +704,17 @@ paths:
                   idUsuario:
                     type: integer
                     description: ID del usuario actualizado
-                    example: 34
+                    example: 0
                   idUsuarioTipo:
                     type: string
                     description: ID del tipo de usuario reasignado
-                    example: 2
+                    example: 1
                   idOficina:
                     type: string
                     description: ID de la oficina asignada/reasignada
                     example: 1
                   
-        '400':
+        400:
           description: Datos inválidos o faltantes
           content:
             application/json:
@@ -357,9 +726,22 @@ paths:
                     example: "Falla"
                   mensaje:
                     type: string
-                    example: "Faltan datos obligatorios o formato incorrecto"
-        '404':
-          description: Usuario no encontrado
+                    example: "No se encontraron datos válidos para modificar"
+        400:
+          description: No se pudo modificar el usuario
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  estado:
+                    type: string
+                    example: "Falla"
+                  mensaje:
+                    type: string
+                    example: "No se pudo modificar el usuario"
+        500:
+          description: Error interno en el servidor
           content:
             application/json:
               schema:
@@ -367,7 +749,7 @@ paths:
                 properties:
                   message:
                     type: string
-                    example: "No se encontró un usuario con el ID proporcionado."
+                    example: "Error interno en el servidor"
 
   /usuarios/eliminar-usuarios/{idUsuario}:
     delete:
@@ -384,18 +766,56 @@ paths:
           description: El ID del usuario que se quiere eliminar.
           schema:
             type: integer
-            example: 11
-                
+            example: 0
       responses:
-        201:
-          description: El usuario ha sido eliminado con éxito.
+        200:
+          description: Usuario eliminado correctamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  estado:
+                    type: string
+                    example: OK
+                  mensaje: 
+                    type: string
+                    example: "Usuario eliminado correctamente"
         400:
-          description: Faltan datos obligatorios.
+          description: Falta el id del usuario
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    example: "Falta el id del usuario"
+        400:
+          description: No se pudo eliminar el usuario
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  estado:
+                    type: string
+                    example: "Falla"
+                  mensaje:
+                    type: string
+                    example: "No se pudo eliminar el usuario"
         500:
-          description: Error interno en servidor.
-
-
-
+          description: Error interno en el servidor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Error interno en el servidor"
+                
+      
 # RUTAS RECLAMOS
 
   /reclamos/crear:
@@ -420,12 +840,39 @@ paths:
                 idUsuarioCreador:
                   example: 76
       responses:
-        201:
-          description: Su reclamo ha sido creado con éxito.
-        400:
-          description: Faltan datos obligatorios.
-        500:
-          description: Error interno en servidor.
+        '201':
+          description: Su reclamo ha sido creado con éxito
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  estado:
+                    type: string
+                    example: OK
+                  mensaje: 
+                    type: string
+                    example: "Su reclamo ha sido creado con éxito"
+        '400':
+          description: Faltan datos obligatorios
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    example: "Faltan datos obligatorios"
+        '500':
+          description: Error interno en el servidor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Error interno en el servidor"
 
   /reclamos/mis-reclamos/{:idUsuario}:
     get:
@@ -444,13 +891,35 @@ paths:
             type: integer
             example: 76
       responses:
-        200:
-          description: Mis reclamos.
-        404:
-          description: No tienes reclamos realizados.
-        500:
-          description: Error interno en servidor.
-
+        '200':
+          description: Mis reclamos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    idReclamo:
+                      type: integer
+                      example: 1
+                    asunto:
+                      type: string
+                      example: "Falla motor"
+                    idReclamoEstado:
+                      type: integer
+                      example: 1
+        '500':
+          description: Error interno en el servidor.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Error interno en el servidor."
+      
   /reclamos/cancelar/{:idReclamo}:
     post:
       summary: Cancela un reclamo
@@ -463,19 +932,10 @@ paths:
         - name: idReclamo
           in: path
           required: true
-          description: El ID del usuario cliente que creó los reclamos.
+          description: El ID del reclamo que se quiere cancelar.
           schema:
             type: integer
-            example: 69
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                comentario:
-                  type: string
-                  example: "Cancelación solicitada por el usuario."
+            example: 0
       responses:
         201:
           description: Correo electrónico enviado.
@@ -491,7 +951,7 @@ paths:
                     type: string
                     example: "Correo electrónico enviado."
         404:
-          description: Mensaje informativo con el error
+          description: Faltan datos obligatorios
           content:
             application/json:
               schema:
@@ -502,7 +962,17 @@ paths:
                     example: "Falla"
                   mensaje:
                     type: string
-                    example: "Faltan datos obligatorios" 
+                    example: "Faltan datos obligatorios"
+        '500':
+          description: Error interno en el servidor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Error interno en el servidor" 
 
   /reclamos/atender/{idReclamo}:
     post:
@@ -561,108 +1031,6 @@ paths:
                     type: string
                     example: "Faltan datos obligatorios"
   
-  /reclamos/modificar/{idReclamo}:
-    patch:
-      summary: Actualiza un reclamo existente
-      tags:
-        - RECLAMOS
-      security: 
-      - BearerAuth: []
-      description: Permite modificar campos de un reclamo existente. Se pueden actualizar los campos `asunto`, `descripcion`, `fechaCreado`, `fechaFinalizado`, `fechaCancelado`, `idUsuarioFinalizador`, `idReclamoTipo`, `idReclamoEstado`.
-      parameters:
-        - name: idReclamo
-          in: path
-          required: true
-          description: El ID del reclamo que se desea actualizar.
-          schema:
-            type: integer
-            example: 56
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                asunto:
-                  type: string
-                  description: El asunto o título del reclamo
-                  example: "Problema con la entrega"
-                descripcion:
-                  type: string
-                  description: Descripción detallada del reclamo
-                  example: "El pedido llegó incompleto"   
-      responses:
-        '200':
-          description: Reclamo actualizado correctamente
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  idReclamo:
-                    type: integer
-                    description: ID del reclamo actualizado
-                    example: 1
-                  asunto:
-                    type: string
-                    description: Asunto del reclamo
-                    example: "Problema con la entrega"
-                  descripcion:
-                    type: string
-                    description: Descripción del reclamo
-                    example: "El pedido llegó incompleto"
-                  fechaCreado:
-                    type: string
-                    format: date-time
-                    description: Fecha y hora de creación del reclamo
-                    example: "2024-10-12T10:30:00Z"
-                  fechaFinalizado:
-                    type: string
-                    format: date-time
-                    description: Fecha y hora de finalización del reclamo
-                    example: "2024-10-13T12:00:00Z"
-                  fechaCancelado:
-                    type: string
-                    format: date-time
-                    description: Fecha y hora de cancelación del reclamo
-                    example: "2024-10-14T15:00:00Z"
-                  idUsuarioFinalizador:
-                    type: integer
-                    description: ID del usuario que finalizó el reclamo
-                    example: 456
-                  idReclamoTipo:
-                    type: number
-                    description: ID del tipo de reclamo
-                    example: 2
-                  idReclamoEstado:
-                    type: number
-                    description: ID del estado actual del reclamo
-                    example: 3
-        '400':
-          description: Datos inválidos o faltantes
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  estado:
-                    type: string
-                    example: "Falla"
-                  mensaje:
-                    type: string
-                    example: "Faltan datos obligatorios o formato incorrecto"
-        '404':
-          description: Reclamo no encontrado
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    example: "No se encontró un reclamo con el ID proporcionado."
-
   /reclamos/reclamos-oficina/{idOficina}:
     get:
       summary: Obtiene los reclamos por oficina
@@ -681,12 +1049,50 @@ paths:
             example: 4
       responses:
         '200':
-          example: Reclamos
-        '400':
-          example: Datos inválidos o faltantes
+          description: Reclamos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    idReclamo:
+                      type: integer
+                      example: 1
+                    idUsuarioCreador:
+                      type: integer
+                      example: 2
+                    asunto:
+                      type: string
+                      example: "Falla motor"
+                    idReclamoEstado:
+                      type: integer
+                      example: 1
         '404':
-          example: Reclamo no encontrado
-
+          description: No tienes reclamos
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  estado:
+                    type: string
+                    example: "Falla"
+                  mensaje:
+                    type: string
+                    example: "No tienes reclamos"
+        '500':
+          description: Error interno en el servidor.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Error interno en el servidor."
+      
   /reclamos/finalizar/{idReclamo}:
     post:
       summary: Marca como finalizado el reclamo
@@ -743,6 +1149,16 @@ paths:
                   mensaje:
                     type: string
                     example: "Faltan datos obligatorios"
+        '500':
+          description: Error interno en el servidor.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Error interno en el servidor."
 
   /reclamos/informe:
     get:
@@ -774,11 +1190,29 @@ paths:
                   mensaje:
                     type: string
                     example: "Informe generado correctamente."
-        '400':
-          description: Datos inválidos o faltantes
-        '404':
-          description: Reclamo no encontrado
-
+        404:
+          description: Faltan datos obligatorios
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  estado:
+                    type: string
+                    example: "Falla"
+                  mensaje:
+                    type: string
+                    example: "Faltan datos obligatorios"
+        '500':
+          description: Error interno en el servidor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Error interno en el servidor"
 
 
 # RUTAS RECLAMOS-TIPOS
@@ -791,15 +1225,36 @@ paths:
       security: 
       - BearerAuth: []
       description: Permite listar todos los tipos de reclamos.
-      
       responses:
         '200':
-          example: Tipos de reclamos
-        '400':
-          example: Datos inválidos o faltantes
-        '404':
-          example: Reclamo no encontrado
-
+          description: Reclamos tipos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    idReclamoTipo:
+                      type: integer
+                      example: 1
+                    descripcion:
+                      type: string
+                      example: "Aprobación de cobertura"
+                    activo:
+                      type: number
+                      example: 1
+        '500':
+          description: Error interno en el servidor.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Error interno en el servidor."
+      
   /reclamos-tipos/{idReclamoTipo}:
     get:
       summary: Obtiene un tipo de reclamo
@@ -818,11 +1273,44 @@ paths:
             example: 3
       responses:
         '200':
-          example: "Tipos de reclamos"
-        '400':
-          example: Datos inválidos o faltantes
-        '404':
-          example: Reclamo no encontrado
+          description: Reclamo tipo
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  idReclamoTipo:
+                    type: integer
+                    example: 1
+                  descripcion:
+                    type: string
+                    example: "Aprobación de cobertura"
+                  activo:
+                    type: number
+                    example: 1
+        404:
+          description: Faltan datos obligatorios
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  estado:
+                    type: string
+                    example: "Falla"
+                  mensaje:
+                    type: string
+                    example: "Faltan datos obligatorios"
+        '500':
+          description: Error interno en el servidor.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Error interno en el servidor."
 
   /reclamos-tipos/crear:
     post:
@@ -843,14 +1331,46 @@ paths:
                   example: "Garantía"
                 activo:
                   example: 1
-                
       responses:
-        201:
-          description: El tipo de reclamo ha sido creado con éxito.
-        400:
-          description: Faltan datos obligatorios.
-        500:
-          description: Error interno en servidor.
+        200:
+          description: Reclamo tipo creado 
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  idReclamoTipo:
+                    type: integer
+                    example: 1
+                  descripcion:
+                    type: string
+                    example: "Aprobación de cobertura"
+                  activo:
+                    type: number
+                    example: 1
+        404:
+          description: Faltan datos obligatorios
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  estado:
+                    type: string
+                    example: "Falla"
+                  mensaje:
+                    type: string
+                    example: "Faltan datos obligatorios"
+        '500':
+          description: Error interno en el servidor.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Error interno en el servidor."
 
   /reclamos-tipos/modificar/{idReclamoTipo}:
     patch:
@@ -867,7 +1387,7 @@ paths:
           description: El ID del tipo de reclamo que se desea actualizar.
           schema:
             type: integer
-            example: 9
+            example: 0
       requestBody:
         required: true
         content:
@@ -884,7 +1404,7 @@ paths:
                   description: Estado activo o incativo del tipo de reclamo
                   example: 1  
       responses:
-        '200':
+        200:
           description: Tipo de reclamo actualizado exitosamente
           content:
             application/json:
@@ -894,7 +1414,7 @@ paths:
                   idReclamoTipo:
                     type: integer
                     description: ID del reclamo actualizado
-                    example: 1
+                    example: 12
                   descripcion:
                     type: string
                     description: Descripcion del tipo de reclamo
@@ -904,7 +1424,7 @@ paths:
                     description: Estado activo o inactivo del tipo de reclamo
                     example: 1
                   
-        '400':
+        400:
           description: Datos inválidos o faltantes
           content:
             application/json:
@@ -917,7 +1437,7 @@ paths:
                   mensaje:
                     type: string
                     example: "Faltan datos obligatorios o formato incorrecto"
-        '404':
+        404:
           description: Reclamo no encontrado
           content:
             application/json:
@@ -927,6 +1447,16 @@ paths:
                   message:
                     type: string
                     example: "No se encontró un tipo de reclamo con el ID proporcionado."
+        500:
+          description: Error interno en el servidor.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Error interno en el servidor."
 
   /reclamos-tipos/eliminar/{idReclamoTipo}:
     delete:
@@ -943,35 +1473,54 @@ paths:
           description: El ID del tipo de reclamo que se quiere eliminar.
           schema:
             type: integer
-            example: 69
-                
+            example: 0
       responses:
-        201:
-          description: El tipo de reclamo ha sido eliminado con éxito.
+        200:
+          description: Reclamo tipo eliminado correctamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  estado:
+                    type: string
+                    example: OK
+                  mensaje: 
+                    type: string
+                    example: "Reclamo tipo eliminado correctamente"
         400:
-          description: Faltan datos obligatorios.
+          description: Falta el id del reclamo tipo
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    example: "Se requiere el id del reclamo tipo a eliminar"
+        400:
+          description: No se pudo eliminar el tipo de reclamo
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  estado:
+                    type: string
+                    example: "Falla"
+                  mensaje:
+                    type: string
+                    example: "No se pudo eliminar el tipo de reclamo, puede ser que el tipo de reclamo ya no exista."
         500:
-          description: Error interno en servidor.
-
-
-
-    /reclamos-tipos/:
-    get:
-      summary: Obtiene los tipos de reclamos
-      tags:
-        - RECLAMOS-TIPOS
-      security: 
-      - BearerAuth: []
-      description: Permite listar todos los tipos de reclamos.
-      
-      responses:
-        '200':
-          example: Tipos de reclamos
-        '400':
-          example: Datos inválidos o faltantes
-        '404':
-          example: Reclamo no encontrado
-
+          description: Error interno en el servidor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Error interno en el servidor"
 
 
 # RUTAS OFICINAS
@@ -987,11 +1536,33 @@ paths:
       
       responses:
         '200':
-          example: Oficina
-        '400':
-          example: Datos inválidos o faltantes
-        '404':
-          example: Oficina no encontrada
+          description: Oficinas
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    idOficina:
+                      type: integer
+                      example: 1
+                    nombre:
+                      type: string
+                      example: "Dpto. de Taller y Servicio Técnico"
+                    idReclamoTipo:
+                      type: number
+                      example: 1
+        '500':
+          description: Error interno en el servidor.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Error interno en el servidor."
 
   /oficinas/{idOficina}:
     get:
@@ -1008,15 +1579,48 @@ paths:
           description: El ID de la oficina que se desea obtener.
           schema:
             type: integer
-            example: 3
+            example: 1
       responses:
         '200':
-          example: "Oficina"
-        '400':
-          example: Datos inválidos o faltantes
-        '404':
-          example: Oficina no encontrada
-
+          description: Oficina
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  idOficina:
+                    type: integer
+                    example: 1
+                  nombre:
+                    type: string
+                    example: "Dpto. de Taller y Servicio Técnico"
+                  idReclamoTipo:
+                    type: number
+                    example: 1
+        404:
+          description: Faltan datos obligatorios
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  estado:
+                    type: string
+                    example: "Falla"
+                  mensaje:
+                    type: string
+                    example: "Faltan datos obligatorios"
+        '500':
+          description: Error interno en el servidor.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Error interno en el servidor."
+      
   /oficinas/crear:
     post:
       summary: Crear un nueva oficina
@@ -1036,14 +1640,46 @@ paths:
                   example: "Dpto. de Marketing y Publicidad"
                 idReclamoTipo:
                   example: 1
-                
       responses:
-        201:
-          description: La oficina ha sido creada con éxito.
-        400:
-          description: Faltan datos obligatorios.
+        200:
+          description: Oficina 
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  idOficina:
+                    type: integer
+                    example: 1
+                  nombre:
+                    type: string
+                    example: "Dpto. de Marketing y Publicidad"
+                  idReclamoTipo:
+                    type: number
+                    example: 1
+        404:
+          description: Faltan datos obligatorios
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  estado:
+                    type: string
+                    example: "Falla"
+                  mensaje:
+                    type: string
+                    example: "Faltan datos obligatorios"
         500:
-          description: Error interno en servidor.
+          description: Error interno en el servidor.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Error interno en el servidor."
 
   /oficinas/modificar/{idOficina}:
     patch:
@@ -1060,7 +1696,7 @@ paths:
           description: El ID de la oficina que se desea actualizar.
           schema:
             type: integer
-            example: 9
+            example: 0
       requestBody:
         required: true
         content:
@@ -1087,7 +1723,7 @@ paths:
                   idOficina:
                     type: integer
                     description: ID de la oficina actualizada
-                    example: 1
+                    example: 0
                   nombre:
                     type: string
                     description: Descripcion de la oficina
@@ -1136,15 +1772,54 @@ paths:
           description: El ID de la oficina que se quiere eliminar.
           schema:
             type: integer
-            example: 11
-                
+            example: 0
       responses:
-        201:
-          description: La oficina ha sido eliminada con éxito.
-        400:
-          description: Faltan datos obligatorios.
-        500:
-          description: Error interno en servidor.
+        '200':
+          description: Oficina eliminada correctamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  estado:
+                    type: string
+                    example: OK
+                  mensaje: 
+                    type: string
+                    example: "Oficina eliminada correctamente"
+        '400':
+          description: Falta el id de la oficina
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    example: "Se requiere el id de la oficina a eliminar"
+        '400':
+          description: No se pudo eliminar la oficina
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  estado:
+                    type: string
+                    example: "Falla"
+                  mensaje:
+                    type: string
+                    example: "No se pudo eliminar la oficina, puede ser que la oficina ya no exista."
+        '500':
+          description: Error interno en el servidor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Error interno en el servidor"
 
 
 
