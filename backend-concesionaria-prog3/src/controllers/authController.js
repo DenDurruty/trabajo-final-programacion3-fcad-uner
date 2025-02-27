@@ -100,7 +100,7 @@ export default class AuthController {
 
          } catch (error) {
             console.error('Intente mas tarde', error);
-            return res.status(500).json({ mensaje: 'Error interno del servidor. Intente mas tarde.' });
+            return res.status(500).json({ mensaje: 'Error interno del servidor. Intente más tarde.' });
 
         }
 

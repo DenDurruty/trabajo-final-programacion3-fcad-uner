@@ -112,9 +112,7 @@ export default class ReclamosController{
         
         if (asunto === undefined || idReclamoTipo === undefined || idUsuarioCreador === undefined) {
             return res.status(400).send({
-                estado:"Falla",
-                mensaje: "Faltan datos obligatorios."    
-            })
+                estado:"Falla", mensaje: "Faltan datos obligatorios."})
         }
         
         try{

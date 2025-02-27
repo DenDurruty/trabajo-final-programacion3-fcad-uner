@@ -18,7 +18,7 @@ const upload = multer( { storage } );
 router.get('/mi-perfil', autorizarUsuarios([1,2,3]), usuariosController.verPerfil);
 router.patch('/mi-perfil-actualizar/:idUsuario', upload.single('imagen'), autorizarUsuarios([1,2,3]), usuariosController.actualizarPerfil);
 
-// Rutas autorizadas solo para los usuarios administradores
+// Rutas autorizadas sólo para los usuarios administradores
 router.get('/', autorizarUsuarios([1]), usuariosController.buscarTodos);
 router.get('/:idUsuario', autorizarUsuarios([1]), usuariosController.buscarPorId);
 router.post('/crearUsuarioAdm', autorizarUsuarios([1]), usuariosController.crearUsuarioAdm);

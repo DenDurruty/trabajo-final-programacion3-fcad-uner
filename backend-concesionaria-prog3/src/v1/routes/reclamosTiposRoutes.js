@@ -10,7 +10,7 @@ const reclamosTiposController = new ReclamosTiposController();
 // 2 = empleado
 // 3 = cliente 
 
-// Rutas autorizadas solo para los usuarios administradores
+// Rutas autorizadas sólo para los usuarios administradores
 router.get('/', autorizarUsuarios([1]) , reclamosTiposController.buscarTodos);
 router.get('/:idReclamoTipo', autorizarUsuarios([1]) ,reclamosTiposController.buscarPorId);
 router.post('/crear', autorizarUsuarios([1]), reclamosTiposController.crear);

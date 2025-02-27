@@ -8,7 +8,6 @@ import YAML from 'yamljs';
 
 
 import { router as v1ReclamosTiposRouter } from './v1/routes/reclamosTiposRoutes.js';
-import { router as v1ReclamosEstadoRouter } from './v1/routes/reclamosEstadosRoutes.js';
 import { router as v1ReclamosRouter } from './v1/routes/reclamosRoutes.js';
 import { router as v1OficinasRouter } from './v1/routes/oficinasRoutes.js';
 import { router as v1UsuariosRouter } from './v1/routes/usuariosRoutes.js';
@@ -50,16 +49,10 @@ app.get('/', (req, res) => {
 app.use('/api/v1/auth', v1AuthRouter);
 app.use('/api/v1/usuarios', autenticarUsuario, v1UsuariosRouter);
 app.use('/api/v1/oficinas', autenticarUsuario, v1OficinasRouter);
-//app.use('/api/v1/reclamos', v1ReclamosRouter);
 app.use('/api/v1/reclamos', autenticarUsuario, v1ReclamosRouter);
 app.use('/api/v1/reclamos-tipos', autenticarUsuario, v1ReclamosTiposRouter);
-app.use('/api/v1/reclamos-estados', autenticarUsuario, v1ReclamosEstadoRouter);
-
 
 // Swagger 
-//const swaggerDocs = swaggerJsdoc(swaggerOptions);
-//app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
-
 const swaggerDocument = YAML.load('./docs/swagger.yaml');
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
