@@ -27,7 +27,7 @@ Este proyecto responde a la consigna de crear una **API Rest** para la gestión 
 
 * **bcryptjs**                                                *Hasheo y encriptación de contraseñas*
 
-* **jsonwebtoken**                                           *Generación de tokens JWT*
+* **jsonwebtoken**                                            *Generación de tokens JWT*
 
 * **Handlebars**                                              *Generación de vistas y reportes en PDF*
 
@@ -44,6 +44,11 @@ Este proyecto responde a la consigna de crear una **API Rest** para la gestión 
 * **swagger-jsdoc y swagger-ui-express**                      *Documentación interactiva de la API*
 
 * **yamljs**                                                  *Especificación de documentación*
+
+* **Visual Studio Code**                                      *Desarrollo del proyecto*
+
+* **ChatGPT**                                                 *Asistencia en la resolución de errores*
+
 
 
 
@@ -90,7 +95,7 @@ Este proyecto responde a la consigna de crear una **API Rest** para la gestión 
    
 ### 📌 PERMISOS DE CADA USUARIO:
 
-#### 👑**Administrador**: 
+#### 👑 **Administrador**: 
 
 * Iniciar sesión, visualizar y actualizar su perfil
 
