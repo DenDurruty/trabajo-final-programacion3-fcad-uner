@@ -1,87 +1,83 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cambio de Estado - Notificación</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f0f0f0;
-      margin: 0;
-      padding: 0;
-    }
-    .container {
-      max-width: 600px;
-      margin: 0 auto;
-      padding: 20px;
-      background-color: #ffffff;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-    .header {
-      background-color: #03912e;
-      color: #ffffff;
-      padding: 10px 0;
-      text-align: center;
-    }
-    .header h1 {
-      margin: 0;
-      font-size: 24px;
-    }
-    .content {
-      padding: 20px;
-      text-align: left;
-      color: #333;
-    }
-    h2 {
-      color: #03912e;
-    }
-    p {
-      line-height: 1.6;
-      color: #333;
-    }
-    .footer {
-      margin-top: 20px;
-      padding: 10px 0;
-      text-align: center;
-      font-size: 12px;
-      color: #666;
-      border-top: 1px solid #ddd;
-    }
-    .footer p {
-      margin: 5px 0;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Concesionaria PROG3</title>
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(to right, #f0f0f0, #dcdcdc);
+            margin: 0;
+            padding: 0;
+            
+        }
+        header {
+            background-color: #4C7361;
+            color: white;
+            padding: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+        .container {
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            color: black;
+        }
+ 
+        .titulo {
+            margin-left: 185px;
+        }
+        
+        footer {
+            margin-top: 20px;
+            padding: 20px;
+            background: #333;
+            color: white;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <!-- Header -->
-    <div class="header">
-      <h1>Cambio de Estado de Reclamo</h1>
-    </div>
+    <div class="container">
+      <!-- Header <div class="titulo"><h1><strong>PROG 3</strong></h1></div>-->
+      <header>
+        
+        <h1 class= titulo style="font-family: 'Bebas Neue', sans-serif; color: #333;">
+            PROG
+            <span style="font-family: 'Times New Roman', serif; color: #c56f36">3</span>
+        </h1>
 
-    <!-- Content -->
-    <div class="content">
-      <h2>Estimado/a {{nombre}},</h2>
-      <p>
-        Nos ponemos en contacto para informarle que su reclamo número <strong>{{reclamo}}</strong> ha cambiado de estado.
-      </p>
-      <p>
-        A continuación, encontrará más detalles sobre el estado actual de su reclamo.
-      </p>
-      <ul>
-        <li><strong>Número de Reclamo:</strong> {{reclamo}}</li>
-        <li><strong>Estado Actual:</strong> FINALIZADO </li>
-        <p></p>
-      </ul>
+      </header>
+      <!-- Content -->
+      <div class="content" style="color: black;">
+        <h2>Estimado/a {{nombre}},</h2>
+        <p>
+          Nos ponemos en contacto para informarle que su reclamo número <strong>{{reclamo}}</strong> ha cambiado de estado.
+        </p>
+        <p>
+          A continuación, encontrará más detalles sobre el estado actual de su reclamo.
+        </p>
+        <ul>
+          <li><strong>Número de Reclamo:</strong> {{reclamo}}</li>
+          <li><strong>Estado Actual:</strong> FINALIZADO{{estado}}</li>
+        </ul>
+      </div>
+  
+      <!-- Footer -->
+      <footer>
+        <p>Contacto: +54 11 1234-5678 | Email: info@concesionariaprog3.com</p>
+        <p>Síguenos en Instagram: <a href="https://instagram.com/concesionariaprog3" style="color: #c56f36;">@concesionariaprog3</a></p>
+        <p>Visita nuestro sitio web: <a href="https://www.concesionariaprog3.com" style="color: #c56f36;">www.concesionariaprog3.com</a></p>
+        <p>"Tu confianza, nuestro compromiso"</p>
+    </footer>
     </div>
-
-    <!-- Footer -->
-    <div class="footer">
-      <p>No responder a este correo.</p>
-      <p><strong>Programación 3 - Año 2024</strong></p>
-      <p>FACULTAD DE CIENCIAS DE LA ADMINISTRACIÓN - UNIVERSIDAD NACIONAL DE ENTRE RÍOS</p>
-    </div>
-  </div>
-</body>
-</html>
+  </body>
+  </html>
