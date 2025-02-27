@@ -1,13 +1,12 @@
 .............................................
-
-Tengo que crear una API Rest para:
+Crear una API Rest para:
 
 - GESTIONAR RECLAMOS con
 - SISTEMA DE AUTENTICACIÓN y 
 - SISTEMA DE AUTORIZACIÓN
 
 
-La Api es usada por tres TIPOS DE USUARIOS:
+La API será usada por tres TIPOS DE USUARIOS:
 
 - CLIENTES
 - EMPLEADOS
@@ -24,54 +23,25 @@ Los CLIENTES solo pueden:                                   Los EMPLEADOS solo p
 - Cancelar un reclamo                                                                                                           - Gestionar oficinas (pueden agregar o quitar empleados)
 - Actualizar info de su perfil                                                                                                  - Ver info estadística sobre reclamos (stores procedures)
                                                                                                                                 - Descargar informes sobre reclamos en formato pdf
+                                                                                                                                                                                                                                                                       
+..........................................................................................................................................................................................
 
-.............................................................................................................................................................................................................................................
-
-¿Cómo resolver CLIENTES?
-
-PARTE 1:
-
-- Crear función "crear reclamos"/"nuevo reclamo" según las buenas prácticas en los archivos reclamos.js/database, reclamosService.js/services, reclamosController.js/controllers, reclamosRoutes.js/routes/v1, index.js
-- Crear función "consultar reclamos"/"mis reclamos" según las buenas prácticas en los archivos reclamos.js/database, reclamosService.js/services, reclamosController.js/controllers, reclamosRoutes.js/routes/v1, index.js
-- Crear función "cancelar reclamo" Crear función "crear reclamos" según las buenas prácticas en los archivos reclamos.js/database, reclamosService.js/services, reclamosController.js/controllers, reclamosRoutes.js/routes/v1, index.js
-
-NOTAS:
-- "consultar reclamos"/"mis reclamos" debe traer los reclamos solo de ese usuario y mostrar estado y detalles. Lo que significa que para esta instancia los empleados ya pueden acceder a los recla-
-mos y cambiar el estado? Entonces, ¿al cambiar el estado se genera un id nuevo?
-
-- "cancelar reclamo" debe modificar el estado "creado" a "cancelado". Los reclamos activo = 1 son los creados.
-
-..........................................................................................................................................................................................................................................................
-
-¿Cómo resolver EMPLEADOS?
-
-PARTE 1:
-
-- Crear función "Atender reclamos"/"modificar estado" según las buenas prácticas en los archivos reclamosEstados.js/database, reclamosEstadosService.js/services, reclamosEstadosController.js/controllers, reclamosEstadosRoutes.js/routes/v1, index.js
-- Crear función "Ver reclamos" según las buenas prácticas en los archivos reclamos.js/database, reclamosEstadosService.js/services, reclamosEstadosController.js/controllers, reclamosEstadosRoutes.js/routes/v1, index.js
-
-NOTAS:
-- "Ver reclamos" debe traer los reclamos solo de la oficina para la cual trabaja el empleado y mostrar estado y detalles. Lo que significa que para esta instancia los empleados ya pueden acceder a los recla-
-mos y cambiar el estado? Entonces, ¿al cambiar el estado se genera un id nuevo?
-
-..........................................................................................................................................................................................................................................................
+Desarrollar aplicando: 
 
      ------  MEJORES PRÁCTICAS  ------
 
-/ archivo: reclamosEstados.js carpeta: database 
-/ archivo: reclamosEstadosService.js carpeta: services 
-/ archivo: reclamosEstadosController.js carpeta: controllers 
-/ archivo: reclamosEstadosRoutes.js carpeta: routers
+/ archivo: archivo.js carpeta: database 
+/ archivo: archivoService.js carpeta: services 
+/ archivo: archivoController.js carpeta: controllers 
+/ archivo: archivoRoutes.js carpeta: routers
 / archivo: index.js
 
-.................................................................................................................................................................................
-
---- REGISTRO ---
+..........................................................................................................................................................................................
 
 Aclaraciones: 
 
-- En esta API rest cualquiera puede crearse una cuenta, pero la cuenta te asignará por defecto el idUsuarioTipo=3 
-perteneciente a los clientes.
+- En esta API Rest cualquiera puede crearse una cuenta desde la interfaz de usuario del navegador, 
+pero la cuenta creada será por defecto una cuenta de tipo cliente. 
 
 - Los usuarios de tipo empleado y administrador, sólo pueden ser creados por un administrador.
-                 
+                

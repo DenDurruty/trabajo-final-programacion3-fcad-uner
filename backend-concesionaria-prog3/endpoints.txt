@@ -7,6 +7,7 @@ por defecto, la aplicación creará una cuenta de tipo cliente. La creación de 
 administrador es potestad única de un usuario administrador.
 
 
+
 Para CLIENTES:
 
 POST http://localhost:3000/api/v1/auth/registrar                            =>    Registrar un usuario
@@ -21,36 +22,45 @@ PATCH http://localhost:3000/api/v1/usuarios/actualizar-perfil/:idUsuario    =>  
 
 Para EMPLEADOS:
 
-POST http://localhost:3000/api/v1/auth/login                             =>    Iniciar sesión
-POST http://localhost:3000/api/v1/reclamos/atender/:idReclamo            =>    Atender un reclamo
-POST http://localhost:3000/api/v1/reclamos/finalizar/:idReclamo          =>    Finalizar un reclamo
-GET http://localhost:3000/api/v1/reclamos/reclamos-oficina/:idOficina    =>    Ver reclamos oficina
-// GET http://localhost:3000/api/v1/reclamos/:idOficina/reclamos-oficina  
+POST http://localhost:3000/api/v1/auth/login                                =>    Iniciar sesión
+GET http://localhost:3000/api/v1/usuarios/mi-perfil                         =>    Ver perfil de usuario
+PATCH http://localhost:3000/api/v1/usuarios/actualizar-perfil/:idUsuario    =>    Actualizar perfil de usuario
+POST http://localhost:3000/api/v1/reclamos/atender/:idReclamo               =>    Atender un reclamo
+POST http://localhost:3000/api/v1/reclamos/finalizar/:idReclamo             =>    Finalizar un reclamo
+GET http://localhost:3000/api/v1/reclamos/reclamos-oficina/:idOficina       =>    Ver reclamos oficina 
 
 
 
 Para ADMINISTRADORES:
 
-POST http://localhost:3000/api/v1/auth/login                             =>    Iniciar sesión
+POST http://localhost:3000/api/v1/auth/login                                =>    Iniciar sesión
+GET http://localhost:3000/api/v1/usuarios/mi-perfil                         =>    Ver perfil de usuario
+PATCH http://localhost:3000/api/v1/usuarios/actualizar-perfil/:idUsuario    =>    Actualizar perfil de usuario
 
 Gestión de usuarios:
-POST http://localhost:3000/api/v1/usuarios/crearUsuarioAdm               =>    Crear un usuario administrador
-POST http://localhost:3000/api/v1/usuarios/crearUsuarioEe                =>    Crear un usuario empleado
-POST http://localhost:3000/api/v1/usuarios/crearUsuarioClt               =>    Crear un usuario cliente
+POST http://localhost:3000/api/v1/usuarios/crearUsuarioAdm                  =>    Crear un usuario administrador
+POST http://localhost:3000/api/v1/usuarios/crearUsuarioEe                   =>    Crear un usuario empleado
+POST http://localhost:3000/api/v1/usuarios/crearUsuarioClt                  =>    Crear un usuario cliente
+POST http://localhost:3000/api/v1/usuarios/modificar-usuarios/idUsuario     =>    Modificar un usuario
+POST http://localhost:3000/api/v1/usuarios/eliminar-usuarios/idUsuario      =>    Eliminar un usuario
 
 Gestión de tipos de reclamos:
 GET http://localhost:3000/api/v1/reclamos-tipos/                                =>    Ver tipos de reclamos
 GET http://localhost:3000/api/v1/reclamos-tipos/:idReclamoTipo                  =>    Ver tipo de reclamo por id
 POST http://localhost:3000/api/v1/reclamos-tipos/crear                          =>    Crear un tipo de reclamo
 PATCH http://localhost:3000/api/v1/reclamos-tipos/modificar/:idReclamoTipo      =>    Modificar un tipo de reclamo
-DELETE http://localhost:3000/api/v1/reclamos-tipos/eliminar/:idReclamoTipo      =>    Modificar un tipo de reclamo
+DELETE http://localhost:3000/api/v1/reclamos-tipos/eliminar/:idReclamoTipo      =>    Eliminar un tipo de reclamo
 
 Gestión de oficinas:
-POST /oficinas: Crear oficinas, agregar o quitar empleados
+GET http://localhost:3000/api/v1/oficinas/                                      =>    Ver oficinas
+GET http://localhost:3000/api/v1/oficinas/:idOficina                            =>    Ver una oficina por id
+POST http://localhost:3000/api/v1/oficinas/crear                                =>    Crear una oficina
+PATCH http://localhost:3000/api/v1/oficinas/modificar/:idOficina                =>    Modificar una oficina
+DELETE http://localhost:3000/api/v1/oficinas/eliminar/:idOficina                =>    Eliminar una oficina
 
 Informes:
-GET /estadisticas: Obtener estadísticas de reclamos (procedures)
-GET /informes: Descargar informes en formato PDF
+GET http://localhost:3000/api/v1/reclamos/reclamos/informe                      =>    Visualizar y descargar informe de reclamos
+
 
 
 ___________________________________________________________________________________________________________________________________________________
@@ -168,5 +178,29 @@ Eliminar un tipo de reclamo       =>    DELETE http://localhost:3000/api/v1/recl
 
 ___________________________________________________________________________________________________________________________________________________
 
+Ver oficinas                      =>    GET http://localhost:3000/api/v1/oficinas/  
 
+___________________________________________________________________________________________________________________________________________________
+Ver una oficina por id            =>    GET http://localhost:3000/api/v1/oficinas/:idOficina                         =>     {
+                                                                                                                                "idOficina":""
+                                                                                                                            } 
+
+___________________________________________________________________________________________________________________________________________________
+Crear una oficina                 =>    POST http://localhost:3000/api/v1/oficinas/crear                             =>     {
+                                                                                                                                "nombre":"",
+                                                                                                                                "idOficina:"",
+                                                                                                                                "activo":""
+                                                                                                                            } 
+___________________________________________________________________________________________________________________________________________________                               
+Modificar una oficina      =>    PATCH http://localhost:3000/api/v1/oficinas/modificar/:idOficina                    =>     {
+                                                                                                                                "nombre":"",
+                                                                                                                                "idOficina:"",
+                                                                                                                                "activo":""
+                                                                                                                            } 
+___________________________________________________________________________________________________________________________________________________  
+Eliminar una oficina              =>    DELETE http://localhost:3000/api/v1/oficinas/eliminar/:idOficina             
+___________________________________________________________________________________________________________________________________________________ 
+
+Visualizar/descargar informe reclamos   =>     GET http://localhost:3000/api/v1/reclamos/informe  
+___________________________________________________________________________________________________________________________________________________                 
   
