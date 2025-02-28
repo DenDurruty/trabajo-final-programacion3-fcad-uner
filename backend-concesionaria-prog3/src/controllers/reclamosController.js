@@ -175,7 +175,6 @@ export default class ReclamosController{
         try{
             const idReclamo = req.params.idReclamo;
 
-            // Verificar idReclamo 
             const dato = {
                 idReclamoEstado: 3,
                 fechaCancelado: new Date().toISOString().slice(0, 19).replace('T', ' ')  // yyyy-mm-dd hh:mm:ss
@@ -200,7 +199,6 @@ export default class ReclamosController{
             const idReclamo = req.params.idReclamo;
             const idReclamoEstado = req.body.idReclamoEstado
 
-            // Verificar que se reciba el idReclamo 
             const dato = {
                 idReclamoEstado
             };
@@ -224,7 +222,6 @@ export default class ReclamosController{
             const idReclamo = req.params.idReclamo;
             const idReclamoEstado = req.body.idReclamoEstado
 
-            // Verificar que se reciba el idReclamo 
             const dato = {
                 idReclamoEstado,
                 fechaFinalizado: new Date().toISOString().slice(0, 19).replace('T', ' ')
@@ -255,18 +252,17 @@ export default class ReclamosController{
                 })
             }
             
-            
-            // generar informe
+            // Generar informe
             const {buffer, path, headers} = await this.reclamosService.generarInforme(formato);
 
-            // setear la cabecera de respuesta 
+            // Setear la cabecera de respuesta 
             res.set(headers)
 
             if (formato === 'pdf') {
-                // respuesta al cliente  
+                // Respuesta al cliente  
                 res.status(200).end(buffer);
             } else if (formato === 'csv') {
-                // respuesta al cliente
+                // Respuesta al cliente
                 res.status(200).download(path, (err) => {
                     if (err) {
                         return res.status(500).send({

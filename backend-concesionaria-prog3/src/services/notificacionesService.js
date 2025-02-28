@@ -45,9 +45,11 @@ export default class NotificacionesService {
                 user: process.env.CORREO,
                 pass: process.env.CLAVE
             },
+            
             tls: {
                 rejectUnauthorized: false
             }
+                
         });
 
         const mailOptions = {

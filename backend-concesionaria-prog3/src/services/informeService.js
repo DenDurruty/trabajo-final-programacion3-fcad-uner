@@ -16,7 +16,7 @@ export default class InformeService {
         let ruta = path.resolve(__dirname, '..');
         ruta = path.join(ruta, '/utiles/reclamos.csv'); 
 
-        // configuro un escrito csv
+        // Configuro un escrito CSV
         const csvWriter = createObjectCsvWriter({
             path: ruta, 
             header: [
@@ -29,7 +29,7 @@ export default class InformeService {
             encoding:'utf-8' 
         });
 
-        // genero csv
+        // Genero CSV
         await csvWriter.writeRecords(datosReporte);
 
         //
@@ -44,16 +44,16 @@ export default class InformeService {
             const template = handlebars.compile(htmlTemplate);
             const htmlFinal = template(datosReporte);
 
-            // lanzo puppeteer, 
+            // Lanzo puppeteer, 
             const browser = await puppeteer.launch();
 
-            // abrir un pagina
+            // Abrir un pagina
             const page = await browser.newPage();
 
-            // cargo la plantilla 
+            // Cargo la plantilla 
             await page.setContent(htmlFinal, {waitUntil: 'load'});
 
-            // genero pdf
+            // Genero pdf
             const pdfBuffer = await page.pdf({
                 format:'A4',
                 printBackground: true,
