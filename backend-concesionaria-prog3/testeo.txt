@@ -1,0 +1,47 @@
+PRUEBAS en SWAGGER - Martes 04 de marzo de 2025:
+
+Estos son los resultados de la última prueba en Swagger, acompañados de las sugerencias para futuros cambios y correcciones.
+
+OK || FALLA
+
+
++ TODOS los USUARIOS pueden: 
+- REGISTER = OK
+- LOGIN = OK
+- VER MI PERFIL = OK (anda OK con un token de login, pero no con un token de registro)
+- ACTUALIZAR MI PERFIL = OK (actualiza correctamente correoElectronico e imagen, pero el idUsuario debería agregarse por req.user)
+
+
++ SOLO los USUARIOS CLIENTES pueden:
+- CREAR RECLAMO = OK (crea reclamo con éxito por ej: idReclamo:74 e idCreador: 76 // Acá el idCreador tendría que ser por defecto el idUsuario por req.user)
+- LISTAR MIS RECLAMOS = FALLA (devuelve "No tienes reclamos realizados" / Pero en POSTMAN sí anda)
+- CANCELAR RECLAMO = FALLA (devuelve "ID reclamo no existe" / Pero en POSTMAN sí anda)
+
+
++ SOLO los USUARIOS EMPLEADOS pueden:
+- ATENDER RECLAMOS = OK (devuelve "Reclamo atendido" y envía la notificación. // Debería verificar el estado del reclamo. Y ¿debería seguir pasando el idReclamoTipo por el body?)
+- FINALIZAR RECLAMO = OK (devuelve "Reclamo finalizado" y envía la notificación. // Debería verificar el estado del reclamo. Y ¿debería seguir pasando el idReclamoTipo por el body?)
+- LISTAR RECLAMOS OFICINA = OK (devuelve los reclamos por oficina correctamente)
+
+
++ SOLO los USUARIOS ADMINISTRADORES pueden:
+- LISTAR USUARIOS = OK (devuelve todos los usuarios)
+- VER USUARIO por ID = OK (devuelve un usuario // Debería también mostrar su correoElectrónico?)
+- CREAR USUARIO ADMINISTRADOR = OK
+- CREAR USUARIO CLIENTE = OK
+- CREAR USUARIO EMPLEADO = OK
+- MODIFICAR USUARIO = OK (modifica el idUsuarioTipo y el idOficina correctamente // Debería verificar que el idUsuarioTipo del usuario es de tipo empleado antes de asignarle una oficina. Si es cliente no le debería poder asignar una oficina)
+- ELIMINAR USUARIO = OK
+- INFORME RECLAMOS FORMATO CSV = OK 
+- INFORME RECLAMOS FORMATO PDF = Estado 200 pero no muestra pdf, en POSTMAN sí muestra pdf. 
+- LISTAR RECLAMOS TIPOS = OK
+- VER RECLAMO TIPO por ID = OK (pero cuando el reclamo no existe debería devolver "Este tipo de reclamo no existe")
+- CREAR RECLAMO TIPO = OK
+- MODIFICAR RECLAMO TIPO = OK
+- ELIMINAR RECLAMO TIPO = OK 
+- LISTAR OFICINA = OK
+- VER OFICINA por ID = OK
+- CREAR OFICINA = OK
+- MODIFICAR OFICINA = OK
+- ELIMINAR OFICINA = OK
+
