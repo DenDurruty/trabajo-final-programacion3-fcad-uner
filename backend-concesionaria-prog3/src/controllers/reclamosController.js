@@ -108,7 +108,8 @@ export default class ReclamosController{
     }
     
     crear = async (req, res) => {
-        const { asunto, idReclamoTipo, idUsuarioCreador } = req.body;
+        const idUsuarioCreador = req.user.idUsuario;
+        const { asunto, idReclamoTipo } = req.body;
         
         if (asunto === undefined || idReclamoTipo === undefined || idUsuarioCreador === undefined) {
             return res.status(400).send({

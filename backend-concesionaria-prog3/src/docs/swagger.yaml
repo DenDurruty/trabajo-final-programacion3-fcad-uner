@@ -837,8 +837,6 @@ paths:
                   example: "Falla motor"
                 idReclamoTipo:
                   example: 1
-                idUsuarioCreador:
-                  example: 76
       responses:
         '201':
           description: Su reclamo ha sido creado con éxito
